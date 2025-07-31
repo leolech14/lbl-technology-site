@@ -213,7 +213,7 @@ section {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
 }
 
@@ -322,6 +322,46 @@ section {
 
 .domain-item p {
     color: var(--text-secondary);
+}
+
+/* Expertise */
+.expertise {
+    background: none;
+    position: relative;
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.expertise-item {
+    background: rgba(10, 22, 40, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.expertise-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.expertise-item h3 {
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.expertise-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
 /* Contact */

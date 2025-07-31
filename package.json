@@ -1,0 +1,21 @@
+{
+  "name": "github-pages-site",
+  "version": "1.0.0",
+  "description": "A sophisticated portfolio website featuring a dark glassmorphic design aesthetic with advanced visual effects.",
+  "main": "builder-setup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leolech14/lbl-technology-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/leolech14/lbl-technology-site/issues"
+  },
+  "homepage": "https://github.com/leolech14/lbl-technology-site#readme"
+}

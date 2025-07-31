@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Builder.io Integration</title>
+    <script async src="https://cdn.builder.io/js/webcomponents"></script>
+</head>
+<body>
+    <!-- Builder.io Component -->
+    <builder-component 
+        model="page" 
+        api-key="e19bb9554845477c84fa4345b2f84479">
+    </builder-component>
+
+    <script>
+        // Builder.io Configuration
+        window.builderApiKey = 'e19bb9554845477c84fa4345b2f84479';
+        
+        console.log('Builder.io API Key configured!');
+        console.log('Next steps:');
+        console.log('1. Go to: https://builder.io/content');
+        console.log('2. Create a new "Page" model');
+        console.log('3. Start building visually!');
+        console.log('4. Your changes will appear here');
+    </script>
+</body>
+</html>

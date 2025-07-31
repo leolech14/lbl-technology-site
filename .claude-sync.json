@@ -1,0 +1,28 @@
+{
+  "platforms": {
+    "plasmic": {
+      "enabled": true,
+      "projectId": "your-project-id",
+      "syncCommand": "plasmic sync --yes",
+      "watchFiles": ["components/**/*.tsx", ".plasmic/**/*"]
+    },
+    "figma": {
+      "enabled": false,
+      "fileId": "your-file-id",
+      "personalAccessToken": "your-token",
+      "webhookUrl": "https://api.figma.com/v2/webhooks"
+    },
+    "builder": {
+      "enabled": true,
+      "apiKey": "e19bb9554845477c84fa4345b2f84479",
+      "contentId": "ac89409dbd434299b6d9e85ae1891c3b",
+      "pollInterval": 10000
+    }
+  },
+  "syncBehavior": {
+    "autoSync": true,
+    "notifyOnChange": true,
+    "optimizeCode": true,
+    "preserveCustomizations": true
+  }
+}

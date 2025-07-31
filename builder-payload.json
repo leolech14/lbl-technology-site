@@ -1,0 +1,32 @@
+{
+  "name": "Premium Dark Portfolio",
+  "data": {
+    "title": "AI-Native Builder Portfolio",
+    "blocks": [
+      {
+        "@type": "@builder.io/sdk:Element",
+        "component": {
+          "name": "Custom Code",
+          "options": {
+            "code": "<div style='background: #0a0a0f; color: white; padding: 40px; text-align: center;'><h1 style='font-size: 3rem; background: linear-gradient(135deg, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>AI-Native Builder</h1><p style='font-size: 1.5rem; color: #60a5fa;'>Making 2025 look like 1995</p></div>",
+            "styles": {
+              "minHeight": "100vh",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center"
+            }
+          }
+        }
+      },
+      {
+        "@type": "@builder.io/sdk:Element", 
+        "component": {
+          "name": "Text",
+          "options": {
+            "text": "Import your full HTML to start visual editing!"
+          }
+        }
+      }
+    ]
+  }
+}

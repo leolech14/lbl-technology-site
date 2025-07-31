@@ -752,6 +752,20 @@
             color: white;
         }
         
+        /* AI Builder Tagline Animation */
+        @keyframes pulse-glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(96, 165, 250, 0.8), 0 0 40px rgba(59, 130, 246, 0.5);
+            }
+        }
+        
+        .ai-tagline {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
         /* Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
@@ -787,6 +801,9 @@
                     Building <span class="gradient-text">Premium Digital Experiences</span> 
                     with AI & Modern Tech
                 </h1>
+                <p class="ai-tagline" style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-md); color: var(--blue-light);">
+                    AI-Native Builder • Making 2025 look like 1995
+                </p>
                 <p>
                     Full-stack architect specializing in TypeScript, React, and AI-powered solutions. 
                     Creating beautiful, performant applications with a focus on glassmorphic design 

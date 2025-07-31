@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalBrain Documentation - Interactive Guide</title>
+    <meta name="description" content="Interactive documentation for LocalBrain - Privacy-first AI command center for macOS">
+    
+    <!-- Preload fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <style>
+        /* CSS Custom Properties - Matching main site theme */
+        :root {
+            /* Deep Blue/Navy Palette */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+            --bg-tertiary: #1a1a2e;
+            
+            /* Signature Blues */
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --blue-dark: #1e40af;
+            --blue-glow: rgba(59, 130, 246, 0.5);
+            
+            /* Orange Accent */
+            --accent-orange: #f97316;
+            --accent-orange-glow: rgba(249, 115, 22, 0.5);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            
+            /* Text Colors */
+            --text-primary: #f0f0f0;
+            --text-secondary: #a8a8b3;
+            --text-muted: #6b7280;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
+            /* Animation */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --hover-transform: translateY(-2px);
+        }
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Beautiful Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--blue-glow) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--accent-orange-glow) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--blue-dark) 0%, transparent 50%);
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Animated Background Orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out;
+            z-index: -1;
+        }
+        
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--blue-primary);
+            top: -300px;
+            left: -300px;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 5s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--space-sm) var(--space-xl);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-md);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .back-button:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-light);
+            transform: translateX(-2px);
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: calc(80px + var(--space-xl)) var(--space-xl) var(--space-xl);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-xl);
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: calc(80px + var(--space-xl));
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: var(--space-lg);
+        }
+        
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .nav-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .nav-link {
+            display: block;
+            padding: var(--space-xs) var(--space-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-link:hover {
+            background: var(--glass-bg);
+            color: var(--blue-light);
+            transform: translateX(4px);
+        }
+        
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--blue-light);
+            font-weight: 500;
+        }
+        
+        /* Content Area */
+        .content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: var(--space-2xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Markdown Styles */
+        .markdown-content {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        .markdown-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .markdown-content h2 {
+            font-size: 2rem;
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: var(--space-sm);
+        }
+        
+        .markdown-content h3 {
+            font-size: 1.5rem;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+            color: var(--blue-light);
+        }
+        
+        .markdown-content p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content ul, .markdown-content ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+        
+        .markdown-content li {
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-tertiary);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: var(--blue-light);
+        }
+        
+        .markdown-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: var(--space-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+            position: relative;
+        }
+        
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Interactive Elements */
+        .interactive-term {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 2px dotted var(--blue-primary);
+            transition: var(--transition);
+        }
+        
+        .interactive-term:hover {
+            color: var(--blue-light);
+            border-bottom-style: solid;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: var(--space-sm) var(--space-md);
+            width: 300px;
+            box-shadow: var(--glass-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--glass-border);
+        }
+        
+        .interactive-term:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        .tooltip-title {
+            font-weight: 600;
+            color: var(--blue-light);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tooltip-content {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Tables */
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--space-lg);
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .markdown-content th {
+            background: var(--bg-tertiary);
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            font-weight: 600;
+            color: var(--blue-light);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .markdown-content td {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .markdown-content tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding-top: calc(60px + var(--space-md));
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: var(--space-lg);
+            }
+            
+            .content {
+                padding: var(--space-xl);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .header {
+                padding: var(--space-sm) var(--space-md);
+            }
+            
+            .content {
+                padding: var(--space-md);
+            }
+            
+            .markdown-content h1 {
+                font-size: 2rem;
+            }
+            
+            .markdown-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .tooltip {
+                width: 250px;
+            }
+        }
+        
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+        }
+        
+        /* Error State */
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            color: #ef4444;
+            text-align: center;
+        }
+        
+        /* Copy Button for Code Blocks */
+        .copy-button {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            padding: 0.25rem 0.75rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .copy-button:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-light);
+        }
+        
+        .copy-button.copied {
+            color: #10b981;
+            border-color: #10b981;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue-primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--blue-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                LocalBrain Documentation
+            </div>
+            <a href="index.html" class="back-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Portfolio
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Overview</div>
+                    <a href="#executive-summary" class="nav-link">Executive Summary</a>
+                    <a href="#core-architecture-decisions" class="nav-link">Architecture</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Features</div>
+                    <a href="#1-voice-interaction-resolved" class="nav-link">Voice Interaction</a>
+                    <a href="#2-terminal-implementation-resolved" class="nav-link">Terminal</a>
+                    <a href="#3-uiux-specification-resolved" class="nav-link">UI/UX</a>
+                    <a href="#4-file-system-security-resolved" class="nav-link">File System</a>
+                    <a href="#5-llm-integration-resolved" class="nav-link">LLM Integration</a>
+                    <a href="#6-plugin-system-simplified" class="nav-link">Plugin System</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Implementation</div>
+                    <a href="#implementation-sequence" class="nav-link">Phases</a>
+                    <a href="#critical-implementation-details" class="nav-link">Code Examples</a>
+                    <a href="#first-run-experience" class="nav-link">First Run</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Deployment</div>
+                    <a href="#build--distribution" class="nav-link">Build & Distribute</a>
+                    <a href="#security--privacy" class="nav-link">Security</a>
+                    <a href="#success-metrics" class="nav-link">Success Metrics</a>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Content Area -->
+        <main class="content">
+            <div id="markdown-content" class="markdown-content">
+                <div class="loading">Loading documentation...</div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Interactive terms dictionary
+        const interactiveTerms = {
+            'Electron': {
+                title: 'Electron Framework',
+                description: 'A framework for building cross-platform desktop apps with JavaScript, HTML, and CSS. It combines Chromium and Node.js into a single runtime.',
+                connects: ['React', 'TypeScript', 'Node.js'],
+                purpose: 'Enables web developers to create native desktop applications'
+            },
+            'pnpm workspaces': {
+                title: 'PNPM Workspaces',
+                description: 'A feature of pnpm that enables managing multiple packages in a single repository (monorepo). Faster and more efficient than npm or yarn.',
+                connects: ['Package Manager', 'Monorepo'],
+                purpose: 'Manages dependencies across multiple packages efficiently'
+            },
+            'React 18': {
+                title: 'React 18',
+                description: 'Latest version of React with concurrent features, automatic batching, and suspense improvements.',
+                connects: ['TypeScript', 'Vite', 'UI Components'],
+                purpose: 'Building interactive user interfaces with modern patterns'
+            },
+            'Vite': {
+                title: 'Vite Build Tool',
+                description: 'Next-generation frontend build tool that provides instant server start and lightning-fast HMR (Hot Module Replacement).',
+                connects: ['React', 'TypeScript', 'Build System'],
+                purpose: 'Extremely fast development server and optimized production builds'
+            },
+            'TypeScript': {
+                title: 'TypeScript Language',
+                description: 'A typed superset of JavaScript that compiles to plain JavaScript. Adds static types and modern features.',
+                connects: ['React', 'Node.js', 'All Code'],
+                purpose: 'Type safety, better IDE support, and fewer runtime errors'
+            },
+            'TailwindCSS': {
+                title: 'Tailwind CSS',
+                description: 'A utility-first CSS framework that provides low-level utility classes to build custom designs without leaving your HTML.',
+                connects: ['React Components', 'UI Design'],
+                purpose: 'Rapid UI development with consistent design system'
+            },
+            'OpenAI Whisper API': {
+                title: 'Whisper Speech-to-Text',
+                description: 'OpenAI\'s automatic speech recognition system, trained on 680,000 hours of multilingual data.',
+                connects: ['Voice Input', 'LLM Integration'],
+                purpose: 'Converts spoken words to text with high accuracy'
+            },
+            'OpenAI TTS API': {
+                title: 'Text-to-Speech API',
+                description: 'OpenAI\'s text-to-speech service that converts text into lifelike spoken audio.',
+                connects: ['Voice Output', 'AI Responses'],
+                purpose: 'Natural-sounding voice responses from the AI'
+            },
+            'OpenAI Chat API': {
+                title: 'OpenAI Chat API',
+                description: 'API for accessing OpenAI\'s language models like GPT-4 for chat completions and complex reasoning.',
+                connects: ['Natural Language Processing', 'Command Execution'],
+                purpose: 'Powers the AI brain of LocalBrain for understanding and executing commands'
+            },
+            'xterm.js': {
+                title: 'Terminal Emulator',
+                description: 'A terminal emulator written in JavaScript that works in the browser and Electron apps.',
+                connects: ['Terminal Pane', 'Command Execution'],
+                purpose: 'Provides a full-featured terminal interface in the app'
+            },
+            'Monaco Editor': {
+                title: 'Monaco Code Editor',
+                description: 'The code editor that powers VS Code, available as a standalone component.',
+                connects: ['File Editing', 'Syntax Highlighting'],
+                purpose: 'Professional code editing experience within LocalBrain'
+            },
+            'electron-store': {
+                title: 'Electron Store',
+                description: 'Simple data persistence for Electron apps - like localStorage for Node.js.',
+                connects: ['Settings', 'Configuration'],
+                purpose: 'Persists user preferences and app settings'
+            },
+            'electron-builder': {
+                title: 'Electron Builder',
+                description: 'A complete solution to package and build ready-for-distribution Electron apps.',
+                connects: ['DMG Creation', 'App Distribution'],
+                purpose: 'Creates installable packages for macOS'
+            },
+            'Web Audio API': {
+                title: 'Web Audio API',
+                description: 'High-level JavaScript API for processing and synthesizing audio in web applications.',
+                connects: ['Voice Capture', 'Audio Processing'],
+                purpose: 'Captures microphone input and processes audio streams'
+            },
+            'child_process': {
+                title: 'Node Child Process',
+                description: 'Node.js module that provides the ability to spawn child processes.',
+                connects: ['Terminal', 'Command Execution'],
+                purpose: 'Executes system commands without complex dependencies'
+            },
+            'Glassmorphism': {
+                title: 'Glassmorphism Design',
+                description: 'A design trend that uses transparency, blur effects, and subtle borders to create a glass-like appearance.',
+                connects: ['UI Design', 'Visual Effects'],
+                purpose: 'Creates modern, premium-looking user interfaces'
+            },
+            'VAD': {
+                title: 'Voice Activity Detection',
+                description: 'Technology that detects when human speech is present in an audio signal.',
+                connects: ['Voice Input', 'Audio Processing'],
+                purpose: 'Automatically detects when the user starts/stops speaking'
+            },
+            'RMS': {
+                title: 'Root Mean Square',
+                description: 'A statistical measure used in audio processing to determine the average power of a signal.',
+                connects: ['VAD', 'Audio Analysis'],
+                purpose: 'Simple method to detect voice activity levels'
+            },
+            'DMG': {
+                title: 'Disk Image (macOS)',
+                description: 'Apple Disk Image format used for distributing macOS applications.',
+                connects: ['App Distribution', 'macOS'],
+                purpose: 'Standard way to distribute macOS apps outside the App Store'
+            },
+            'HMR': {
+                title: 'Hot Module Replacement',
+                description: 'Updates modules in the browser while an application is running, without a full page reload.',
+                connects: ['Vite', 'Development'],
+                purpose: 'Instant feedback during development'
+            },
+            'STT': {
+                title: 'Speech-to-Text',
+                description: 'Technology that converts spoken language into written text.',
+                connects: ['Whisper API', 'Voice Input'],
+                purpose: 'Enables voice commands and dictation'
+            },
+            'TTS': {
+                title: 'Text-to-Speech',
+                description: 'Technology that converts written text into spoken words.',
+                connects: ['OpenAI TTS', 'Voice Output'],
+                purpose: 'Allows the AI to speak responses'
+            },
+            'LLM': {
+                title: 'Large Language Model',
+                description: 'AI models trained on vast amounts of text data that can understand and generate human-like text.',
+                connects: ['OpenAI API', 'Natural Language'],
+                purpose: 'The AI brain that understands and responds to commands'
+            },
+            'PTY': {
+                title: 'Pseudo Terminal',
+                description: 'A pair of virtual character devices that provide a bidirectional communication channel.',
+                connects: ['Terminal', 'Process Management'],
+                purpose: 'Full terminal emulation (avoided in LocalBrain for simplicity)'
+            },
+            'API Key': {
+                title: 'API Key',
+                description: 'A unique identifier used to authenticate requests to an API service.',
+                connects: ['OpenAI', 'Authentication'],
+                purpose: 'Securely connects LocalBrain to OpenAI services'
+            },
+            'Monorepo': {
+                title: 'Monorepo Structure',
+                description: 'A repository that contains multiple projects or packages, managed as a single unit.',
+                connects: ['pnpm workspaces', 'Project Structure'],
+                purpose: 'Organizes code into logical, reusable packages'
+            },
+            'model=\'o3\'': {
+                title: 'O3 Model',
+                description: 'Advanced OpenAI model optimized for complex reasoning and task completion.',
+                connects: ['LLM', 'AI Capabilities'],
+                purpose: 'Provides superior reasoning for complex commands'
+            },
+            'alloy': {
+                title: 'Alloy Voice',
+                description: 'One of OpenAI\'s TTS voices, known for its natural and pleasant sound.',
+                connects: ['TTS', 'Voice Output'],
+                purpose: 'Default voice for AI responses'
+            },
+            'Hey LocalBrain': {
+                title: 'Wake Word',
+                description: 'A phrase that activates the voice assistant, similar to "Hey Siri" or "OK Google".',
+                connects: ['Voice Activation', 'Always Listening'],
+                purpose: 'Hands-free activation of voice commands'
+            }
+        };
+        
+        // Load and process markdown content from embedded string
+        async function loadMarkdown() {
+            try {
+                // Use the embedded markdown content
+                const text = markdownContent;
+                
+                // Parse markdown
+                const html = marked.parse(text);
+                
+                // Add interactive elements
+                const interactiveHtml = addInteractiveElements(html);
+                
+                // Display content
+                document.getElementById('markdown-content').innerHTML = interactiveHtml;
+                
+                // Add copy buttons to code blocks
+                addCopyButtons();
+                
+                // Setup navigation
+                setupNavigation();
+                
+            } catch (error) {
+                document.getElementById('markdown-content').innerHTML = `
+                    <div class="error">
+                        <h2>Error Loading Documentation</h2>
+                        <p>Unable to process the documentation. Please try refreshing the page.</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Add interactive elements to specific terms
+        function addInteractiveElements(html) {
+            let processedHtml = html;
+            
+            // Sort terms by length (longest first) to avoid partial matches
+            const sortedTerms = Object.keys(interactiveTerms).sort((a, b) => b.length - a.length);
+            
+            sortedTerms.forEach(term => {
+                const info = interactiveTerms[term];
+                // Match term in various contexts, but not if already wrapped
+                const regex = new RegExp(`(?<!<[^>]*)\\b(${escapeRegex(term)})\\b(?![^<]*>)`, 'g');
+                
+                processedHtml = processedHtml.replace(regex, (match) => {
+                    return `<span class="interactive-term" data-term="${term}">
+                        ${match}
+                        <div class="tooltip">
+                            <div class="tooltip-title">${info.title}</div>
+                            <div class="tooltip-content">
+                                ${info.description}
+                                ${info.connects ? `<br><br><strong>Connects to:</strong> ${info.connects.join(', ')}` : ''}
+                                ${info.purpose ? `<br><br><strong>Purpose:</strong> ${info.purpose}` : ''}
+                            </div>
+                        </div>
+                    </span>`;
+                });
+            });
+            
+            return processedHtml;
+        }
+        
+        // Escape regex special characters
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+        // Add copy buttons to code blocks
+        function addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre');
+            
+            codeBlocks.forEach(block => {
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                button.addEventListener('click', async () => {
+                    const code = block.querySelector('code').textContent;
+                    try {
+                        await navigator.clipboard.writeText(code);
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                    }
+                });
+                
+                block.appendChild(button);
+            });
+        }
+        
+        // Setup smooth scrolling navigation
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('h2, h3');
+            
+            // Smooth scroll on click
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const target = document.getElementById(targetId);
+                    
+                    if (target) {
+                        const headerHeight = 100;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active link on scroll
+            const observerOptions = {
+                rootMargin: '-100px 0px -70% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
+            });
+        }
+        
+        // Make the file content available for the script
+        const markdownContent = `# 🧠 LocalBrain v0.1 - Unified Build Specification
+
+## Executive Summary
+LocalBrain is a privacy-first, AI-powered local environment command center for macOS that bridges natural language interaction with system control. This unified specification resolves all conflicts from previous prompts and provides a single, coherent implementation path.
+
+## Core Architecture Decisions
+
+### Technology Stack (Final)
+| Component | Technology | Rationale |
+|-----------|------------|-----------|
+| Desktop Framework | **Electron 28** | Latest stable with good macOS support |
+| Package Manager | **pnpm workspaces** | Better monorepo support, faster installs |
+| Frontend | **React 18 + Vite + TypeScript + TailwindCSS** | Modern, fast, type-safe |
+| Voice STT | **OpenAI Whisper API** | Best accuracy, no local models needed |
+| Voice TTS | **OpenAI TTS API** | Consistent quality, "alloy" voice default |
+| LLM | **OpenAI Chat API (model='o3')** | Excel at complex reasoning tasks |
+| Terminal | **xterm.js + custom PTY wrapper** | Avoids node-pty compilation issues |
+| File System | **Node fs with allowed roots** | Security through restriction |
+| State | **electron-store** | Simple, reliable persistence |
+| Editor | **Monaco Editor (read-only default)** | VSCode's editor, feature-rich |
+| Build | **electron-builder → unsigned DMG** | Standard for Electron apps |
+
+### Project Structure (Final)
+\`\`\`
+localbrain/
+├── package.json                 # Root workspace config
+├── pnpm-workspace.yaml         # Workspace definitions
+├── .env.example                # Environment template
+├── scripts/
+│   └── make-icons.js          # Icon generation utility
+├── apps/
+│   └── desktop/               # Electron application
+│       ├── package.json
+│       ├── electron-builder.yml
+│       ├── build/             # Build resources (icons, etc)
+│       └── src/
+│           ├── main/          # Main process
+│           ├── preload/       # Preload scripts
+│           └── renderer/      # React application
+│               ├── components/
+│               │   ├── ChatPane.tsx
+│               │   ├── TerminalPane.tsx
+│               │   ├── PreviewPane.tsx
+│               │   ├── FileExplorerPane.tsx
+│               │   └── FirstRunWizard.tsx
+│               ├── hooks/
+│               ├── utils/
+│               └── App.tsx
+├── packages/
+│   ├── core/                  # Core business logic
+│   │   └── src/
+│   │       ├── agent.ts       # LLM orchestrator
+│   │       ├── audio.ts       # Voice services
+│   │       ├── terminal.ts    # Terminal management
+│   │       └── filesystem.ts  # File operations
+│   ├── ui/                    # Shared UI components
+│   │   └── src/
+│   │       ├── Button.tsx
+│   │       ├── Input.tsx
+│   │       └── Modal.tsx
+│   └── types/                 # Shared TypeScript types
+└── plugins/                   # Plugin system
+    └── example-plugin/
+        ├── manifest.json
+        └── index.js
+\`\`\`
+
+## Unified Feature Specifications
+
+### 1. Voice Interaction (Resolved)
+- **Wake Word**: "Hey LocalBrain" (case-insensitive)
+- **Sleep Command**: "Go to sleep" or "Goodbye"
+- **Implementation**: Web Audio API in renderer process
+- **Modes**:
+  - **Chain Mode**: Record → Process → Respond
+  - **Realtime Mode**: Streaming transcription (future)
+- **Voice Activity Detection**: Client-side RMS threshold
+- **Default TTS Voice**: "alloy" (most natural sounding)
+
+### 2. Terminal Implementation (Resolved)
+- **Frontend**: xterm.js for rendering
+- **Backend**: Custom PTY wrapper using Node.js child_process
+- **Features**:
+  - Multiple tabs
+  - Command queue with visual status
+  - Output streaming to LLM for context
+  - Claude CLI integration via command injection
+- **No node-pty**: Avoids compilation issues
+
+### 3. UI/UX Specification (Resolved)
+\`\`\`
+┌─────────────────────────┬──────────────────────┐
+│ ❶ Chat/Voice           │ ❸ Preview/Editor     │
+│ • Messages with MD      │ • Monaco (readonly)  │
+│ • Voice indicator       │ • Image viewer       │
+│ • File attachments      │ • HTML preview       │
+│ • Status badges         │ • Markdown render    │
+├─────────────────────────┼──────────────────────┤
+│ ❷ Terminal             │ ❹ File Explorer      │
+│ • Multi-tab            │ • Tree view          │
+│ • Command queue        │ • Allowed roots only │
+│ • Status indicators    │ • Drag & drop        │
+└─────────────────────────┴──────────────────────┘
+
+Top Bar: Logo | Mode: [Chain|Realtime] | Model: [gpt-4o-mini] | 🎙 Awake
+\`\`\`
+
+### 4. File System Security (Resolved)
+- **Allowed Roots**: User must explicitly grant folder access
+- **Default**: ~/Documents/LocalBrain (created on first run)
+- **Storage**: ~/.localbrain/config.json
+- **Restrictions**: No access outside allowed roots
+- **File Operations**: Read, write (with diff preview), watch
+
+### 5. LLM Integration (Resolved)
+\`\`\`typescript
+interface AgentCapabilities {
+  // Core functions exposed to LLM
+  runCommand(cmd: string, cwd?: string): Promise<string>;
+  readFile(path: string): Promise<string>;
+  writeFile(path: string, content: string): Promise<void>;
+  listFiles(dir: string): Promise<FileInfo[]>;
+  speak(text: string): Promise<void>;
+}
+\`\`\`
+
+### 6. Plugin System (Simplified)
+\`\`\`javascript
+// manifest.json
+{
+  "id": "example-plugin",
+  "name": "Example Plugin",
+  "version": "1.0.0",
+  "main": "index.js"
+}
+
+// index.js
+module.exports = {
+  activate(context) {
+    // Register commands, UI elements, etc
+    context.registerCommand('example:hello', () => {
+      context.showMessage('Hello from plugin!');
+    });
+  },
+  deactivate() {
+    // Cleanup
+  }
+};
+\`\`\`
+
+## Implementation Sequence
+
+### Phase 1: Foundation (Day 1-2)
+1. Set up pnpm workspace structure
+2. Create Electron shell with TypeScript
+3. Implement basic 4-pane layout with react-split
+4. Dark theme with TailwindCSS
+
+### Phase 2: Core Features (Day 3-4)
+1. Terminal implementation with xterm.js
+2. File explorer with electron's dialog API
+3. Monaco editor integration
+4. Basic chat interface
+
+### Phase 3: AI Integration (Day 5-6)
+1. OpenAI client setup
+2. Voice capture with Web Audio API
+3. STT/TTS implementation
+4. Command execution pipeline
+
+### Phase 4: Polish & Package (Day 7)
+1. First-run wizard
+2. Settings persistence
+3. Icon generation
+4. DMG packaging
+
+## Critical Implementation Details
+
+### Terminal Without node-pty
+\`\`\`typescript
+import { spawn } from 'child_process';
+
+class Terminal {
+  private process: ChildProcess;
+  
+  constructor() {
+    this.process = spawn(process.env.SHELL || '/bin/zsh', [], {
+      env: process.env,
+      cwd: process.cwd()
+    });
+  }
+  
+  write(data: string) {
+    this.process.stdin.write(data);
+  }
+  
+  onData(callback: (data: string) => void) {
+    this.process.stdout.on('data', callback);
+    this.process.stderr.on('data', callback);
+  }
+}
+\`\`\`
+
+### Voice Capture
+\`\`\`typescript
+class VoiceCapture {
+  private mediaRecorder: MediaRecorder;
+  private audioContext: AudioContext;
+  
+  async startListening() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    this.audioContext = new AudioContext();
+    const source = this.audioContext.createMediaStreamSource(stream);
+    
+    // Simple VAD with RMS
+    const analyser = this.audioContext.createAnalyser();
+    source.connect(analyser);
+    
+    this.mediaRecorder = new MediaRecorder(stream);
+    this.mediaRecorder.start();
+  }
+}
+\`\`\`
+
+### Settings Storage
+\`\`\`typescript
+// Using electron-store for all settings
+const store = new Store({
+  schema: {
+    openaiApiKey: { type: 'string' },
+    allowedRoots: { type: 'array', items: { type: 'string' } },
+    voice: {
+      type: 'object',
+      properties: {
+        enabled: { type: 'boolean', default: true },
+        wakeWord: { type: 'string', default: 'hey localbrain' },
+        ttsVoice: { type: 'string', default: 'alloy' }
+      }
+    }
+  }
+});
+\`\`\`
+
+## First Run Experience
+
+1. **Welcome Screen**
+   - Brief explanation of LocalBrain
+   - Privacy assurance (local-first)
+
+2. **API Key Setup**
+   - OpenAI API key input
+   - Test connection button
+
+3. **Folder Access**
+   - Select allowed folders
+   - Default to ~/Documents/LocalBrain
+
+4. **Voice Setup** (Optional)
+   - Test microphone
+   - Practice wake word
+
+## Security & Privacy
+
+- **No Telemetry**: Zero tracking or analytics
+- **Local Storage**: All data stays on device
+- **Network**: Only OpenAI API calls
+- **File Access**: Explicit user permission required
+- **Command Safety**: Confirmation for destructive operations
+
+## Build & Distribution
+
+### Development
+\`\`\`bash
+# Install dependencies
+pnpm install
+
+# Start development
+pnpm dev
+
+# Run tests
+pnpm test
+\`\`\`
+
+### Production Build
+\`\`\`bash
+# Build all packages
+pnpm build
+
+# Generate icons (requires 1024x1024 PNG)
+pnpm icons
+
+# Create DMG
+pnpm dist:mac
+\`\`\`
+
+### Distribution Requirements
+- Unsigned DMG (users right-click → Open)
+- Future: Apple Developer ID for signing
+- Size target: < 150MB
+
+## Success Metrics
+
+The application is complete when:
+- ✅ Wake word activates voice listening
+- ✅ Natural language commands execute in terminal
+- ✅ Files can be read/edited through chat
+- ✅ All 4 panes are functional and resizable
+- ✅ Settings persist between sessions
+- ✅ DMG installs cleanly on macOS 12+
+
+## Known Limitations & Future Work
+
+### Current Limitations
+- Terminal is basic (no full PTY features)
+- Voice is English-only
+- No multi-user support
+- No cloud sync
+
+### Future Enhancements
+- Real-time voice mode
+- Multiple LLM providers
+- Plugin marketplace
+- Windows/Linux support
+- Local LLM option
+
+---
+
+**This is the definitive specification for LocalBrain v0.1. All implementation decisions are final and tested for compatibility.**
+
+## 📚 Technology Deep Dive
+
+### Electron 28
+
+**What is Electron?**
+Electron is a framework that lets you build cross-platform desktop applications using web technologies (HTML, CSS, JavaScript). Think of it as a specialized web browser that runs your app.
+
+**Architecture:**
+\`\`\`
+┌─────────────────────────────────────────┐
+│          Electron Application           │
+├─────────────────┬───────────────────────┤
+│   Main Process  │   Renderer Process    │
+│  (Node.js env)  │  (Chromium browser)   │
+│                 │                       │
+│ • App lifecycle │ • UI rendering        │
+│ • Native APIs   │ • React components    │
+│ • File system   │ • User interaction    │
+│ • IPC handler   │ • Web APIs            │
+└─────────────────┴───────────────────────┘
+\`\`\`
+
+**Why Electron for LocalBrain?**
+- **Native APIs**: Access file system, terminal, system notifications
+- **Web Tech**: Use familiar React/TypeScript stack
+- **Cross-platform**: Same codebase for macOS, Windows, Linux
+- **Rich ecosystem**: Tons of plugins and tools
+
+**Alternatives considered:**
+- **Tauri**: Smaller bundles but less mature ecosystem
+- **Native development**: Too time-consuming for rapid iteration
+- **Flutter Desktop**: Less suited for developer tools
+
+**Example usage in LocalBrain:**
+\`\`\`javascript
+// main/index.ts - Main process
+import { app, BrowserWindow, ipcMain } from 'electron';
+
+// Create the application window
+const createWindow = () => {
+  const mainWindow = new BrowserWindow({
+    width: 1400,
+    height: 900,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+  
+  mainWindow.loadFile('index.html');
+};
+
+app.whenReady().then(createWindow);
+\`\`\`
+
+### pnpm (vs npm)
+
+**What is pnpm?**
+pnpm is a fast, disk space-efficient package manager for JavaScript. It's an alternative to npm and yarn.
+
+**How it works differently:**
+\`\`\`
+Traditional npm:
+project1/node_modules/react (10MB)
+project2/node_modules/react (10MB) ← Duplicate!
+project3/node_modules/react (10MB) ← Duplicate!
+
+pnpm with content-addressable storage:
+~/.pnpm-store/
+  └── react@18.0.0 (10MB) ← Single copy!
+  
+project1/node_modules/react → symlink
+project2/node_modules/react → symlink  
+project3/node_modules/react → symlink
+\`\`\`
+
+**Benefits for LocalBrain:**
+- **Monorepo support**: Perfect for our multi-package structure
+- **Faster installs**: Up to 2x faster than npm
+- **Disk efficiency**: Saves gigabytes with many projects
+- **Strict by default**: Prevents phantom dependencies
+
+**pnpm workspace example:**
+\`\`\`yaml
+# pnpm-workspace.yaml
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  - 'plugins/*'
+\`\`\`
+
+### React 18
+
+**What's new in React 18?**
+- **Concurrent features**: Better performance for complex UIs
+- **Automatic batching**: Groups state updates intelligently
+- **Suspense improvements**: Better async data handling
+- **New hooks**: useId, useSyncExternalStore, etc.
+
+**How LocalBrain uses React 18:**
+\`\`\`tsx
+// Concurrent rendering for smooth voice feedback
+function ChatPane() {
+  const [messages, setMessages] = useState([]);
+  const [isListening, setIsListening] = useState(false);
+  
+  // Automatic batching groups these updates
+  const handleVoiceCommand = () => {
+    setIsListening(true);
+    setMessages(prev => [...prev, { type: 'user', text: '...' }]);
+    // Both state updates happen in one render!
+  };
+  
+  return (
+    <div className="chat-pane">
+      <TransitionGroup>
+        {messages.map(msg => (
+          <CSSTransition key={msg.id} timeout={300}>
+            <Message {...msg} />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    </div>
+  );
+}
+\`\`\`
+
+### Vite
+
+**What is Vite?**
+Vite (French for "quick") is a build tool that provides lightning-fast development experience.
+
+**Traditional bundlers vs Vite:**
+\`\`\`
+Webpack/Traditional:
+1. Bundle EVERYTHING on start
+2. Rebuild entire bundle on change
+3. Slow initial start (10-30s)
+
+Vite:
+1. Serve native ES modules
+2. Transform only what's requested  
+3. Instant server start (<300ms)
+\`\`\`
+
+**Vite config for LocalBrain:**
+\`\`\`typescript
+// vite.config.ts
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000
+  },
+  build: {
+    // Optimize for Electron
+    target: 'esnext',
+    minify: 'esbuild'
+  }
+});
+\`\`\`
+
+### TypeScript
+
+**Why TypeScript?**
+\`\`\`typescript
+// Without TypeScript - Runtime errors!
+function processCommand(cmd) {
+  return cmd.toLowercase(); // 🐛 Bug! It's toLowerCase()
+}
+
+// With TypeScript - Caught at compile time
+function processCommand(cmd: string): string {
+  return cmd.toLowerCase(); // ✅ IDE shows the correct method
+}
+\`\`\`
+
+**LocalBrain type examples:**
+\`\`\`typescript
+interface VoiceCommand {
+  id: string;
+  timestamp: Date;
+  rawAudio: ArrayBuffer;
+  transcription?: string;
+  confidence?: number;
+}
+
+interface LLMResponse {
+  command?: SystemCommand;
+  explanation: string;
+  requiresConfirmation: boolean;
+}
+
+type SystemCommand = 
+  | { type: 'terminal'; cmd: string; cwd?: string }
+  | { type: 'file'; action: 'read' | 'write'; path: string }
+  | { type: 'speak'; text: string; voice?: string };
+\`\`\`
+
+### TailwindCSS
+
+**What is Tailwind?**
+Utility-first CSS framework - instead of writing custom CSS, you compose designs using utility classes.
+
+**Traditional CSS vs Tailwind:**
+\`\`\`css
+/* Traditional CSS */
+.chat-message {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Tailwind - Same styling */
+<div className="p-4 mb-2 bg-blue-500/10 rounded-lg border border-blue-500/30">
+\`\`\`
+
+**LocalBrain's dark theme with Tailwind:**
+\`\`\`tsx
+// Glassmorphism effect
+<div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+  <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
+    LocalBrain
+  </h2>
+</div>
+\`\`\`
+
+### xterm.js
+
+**What is xterm.js?**
+A terminal emulator written in JavaScript that works in the browser.
+
+**Architecture:**
+\`\`\`
+┌─────────────────────┐
+│   xterm.js (UI)    │ ← Handles display, colors, cursor
+├─────────────────────┤
+│   PTY Process      │ ← Manages shell process
+├─────────────────────┤  
+│   Shell (zsh/bash) │ ← Actual command execution
+└─────────────────────┘
+\`\`\`
+
+**LocalBrain terminal setup:**
+\`\`\`typescript
+import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+
+const term = new Terminal({
+  theme: {
+    background: '#0a0a0f',
+    foreground: '#f0f0f0',
+    cursor: '#3b82f6'
+  },
+  fontFamily: 'JetBrains Mono',
+  fontSize: 14
+});
+
+term.open(document.getElementById('terminal'));
+\`\`\`
+
+### PTY Wrappers
+
+**What is PTY?**
+Pseudo Terminal - creates a virtual terminal that programs think is real.
+
+**Why LocalBrain avoids node-pty:**
+\`\`\`javascript
+// node-pty (requires compilation)
+import { spawn } from 'node-pty';
+const pty = spawn('bash', [], { 
+  cols: 80, 
+  rows: 30 
+});
+
+// LocalBrain's approach (no compilation)
+import { spawn } from 'child_process';
+const proc = spawn('bash', [], {
+  env: process.env,
+  stdio: ['pipe', 'pipe', 'pipe']
+});
+\`\`\`
+
+**Trade-offs:**
+- ✅ No native compilation needed
+- ✅ Works immediately after npm install
+- ❌ No terminal resize support
+- ❌ Some programs may not work correctly
+
+### Node fs
+
+**File system operations in LocalBrain:**
+\`\`\`typescript
+import { promises as fs } from 'fs';
+import path from 'path';
+
+// Secure file access
+class SecureFileSystem {
+  constructor(private allowedRoots: string[]) {}
+  
+  async readFile(filePath: string): Promise<string> {
+    const resolved = path.resolve(filePath);
+    
+    // Security check
+    if (!this.isInAllowedRoot(resolved)) {
+      throw new Error('Access denied: Outside allowed directories');
+    }
+    
+    return fs.readFile(resolved, 'utf-8');
+  }
+  
+  private isInAllowedRoot(filePath: string): boolean {
+    return this.allowedRoots.some(root => 
+      filePath.startsWith(path.resolve(root))
+    );
+  }
+}
+\`\`\`
+
+### electron-store
+
+**What is electron-store?**
+Simple data persistence for Electron apps - like localStorage but for Node.js.
+
+**Where data is stored:**
+\`\`\`
+macOS: ~/Library/Application Support/LocalBrain/config.json
+Windows: %APPDATA%/LocalBrain/config.json
+Linux: ~/.config/LocalBrain/config.json
+\`\`\`
+
+**Usage example:**
+\`\`\`typescript
+import Store from 'electron-store';
+
+const store = new Store({
+  schema: {
+    apiKey: { type: 'string' },
+    theme: { type: 'string', default: 'dark' }
+  }
+});
+
+// Save
+store.set('apiKey', 'sk-...');
+
+// Load
+const key = store.get('apiKey');
+\`\`\`
+
+### Monaco Editor
+
+**What is Monaco?**
+The code editor that powers VS Code, available as a standalone component.
+
+**Read-only by default - why?**
+- **Safety**: Prevents accidental edits during viewing
+- **Clarity**: Users explicitly choose when to edit
+- **LLM-friendly**: AI can read without modifying
+
+**Monaco in LocalBrain:**
+\`\`\`typescript
+import * as monaco from 'monaco-editor';
+
+const editor = monaco.editor.create(container, {
+  value: fileContent,
+  language: 'typescript',
+  theme: 'vs-dark',
+  readOnly: true, // Default read-only
+  minimap: { enabled: false },
+  scrollBeyondLastLine: false
+});
+
+// Enable editing when user clicks "Edit"
+function enableEditing() {
+  editor.updateOptions({ readOnly: false });
+}
+\`\`\`
+
+### electron-builder
+
+**What does it do?**
+Packages your Electron app into distributables (DMG, EXE, AppImage).
+
+**Build configuration:**
+\`\`\`yaml
+# electron-builder.yml
+appId: com.localbrain.app
+productName: LocalBrain
+directories:
+  output: dist
+mac:
+  category: public.app-category.developer-tools
+  icon: build/icon.icns
+  hardenedRuntime: true
+  gatekeeperAssess: false
+dmg:
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+\`\`\`
+
+## 🤔 Your Questions Answered
+
+### 1. What are package.json files for?
+
+**package.json** is the heart of any Node.js project. It defines:
+- **Dependencies**: What libraries your project needs
+- **Scripts**: Commands to run your project
+- **Metadata**: Name, version, author, license
+
+**LocalBrain has multiple package.json files:**
+\`\`\`
+Root package.json → Workspace configuration
+├── apps/desktop/package.json → Electron app specifics
+├── packages/core/package.json → Core logic package
+├── packages/ui/package.json → Shared UI components
+└── packages/types/package.json → Shared TypeScript types
+\`\`\`
+
+### 2. Why .env.example rather than .env?
+
+**Security & Collaboration:**
+\`\`\`bash
+# .env (NEVER commit this!)
+OPENAI_API_KEY=sk-real-secret-key-here
+DATABASE_PASSWORD=actual-password
+
+# .env.example (Safe to commit)
+OPENAI_API_KEY=sk-your-api-key-here
+DATABASE_PASSWORD=your-password-here
+\`\`\`
+
+**.gitignore always includes:**
+\`\`\`
+.env
+.env.local
+.env.*.local
+\`\`\`
+
+### 3. Why do we have to generate icons?
+
+**Platform requirements:**
+- macOS needs: 16x16, 32x32, 64x64, 128x128, 256x256, 512x512, 1024x1024
+- Windows needs: ICO format with multiple sizes
+- Linux needs: PNG in various sizes
+
+**Icon generation script:**
+\`\`\`javascript
+// scripts/make-icons.js
+const sharp = require('sharp');
+const sizes = [16, 32, 64, 128, 256, 512, 1024];
+
+sizes.forEach(size => {
+  sharp('icon-source.png')
+    .resize(size, size)
+    .toFile(\`icons/icon-\${size}.png\`);
+});
+\`\`\`
+
+### 4. If we had a mobile version, would it have apps/mobile/??
+
+**Yes! The monorepo structure scales:**
+\`\`\`
+localbrain/
+├── apps/
+│   ├── desktop/     # Electron app
+│   ├── mobile/      # React Native app
+│   └── web/         # Next.js web app
+├── packages/
+│   ├── core/        # Shared business logic
+│   ├── ui-desktop/  # Desktop-specific UI
+│   ├── ui-mobile/   # Mobile-specific UI
+│   └── ui-shared/   # Shared components
+\`\`\`
+
+### 5. What happens in main/?
+
+**Main process responsibilities:**
+\`\`\`typescript
+// main/index.ts
+
+// 1. App lifecycle
+app.on('ready', createWindow);
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
+
+// 2. Native APIs
+ipcMain.handle('read-file', async (event, path) => {
+  return fs.readFile(path, 'utf-8');
+});
+
+// 3. Window management
+function createWindow() {
+  mainWindow = new BrowserWindow({...});
+}
+
+// 4. Security
+app.on('web-contents-created', (event, contents) => {
+  contents.on('new-window', (event) => {
+    event.preventDefault(); // Prevent popup windows
+  });
+});
+\`\`\`
+
+### 6. What are the App.tsx functions?
+
+**App.tsx is the root React component:**
+\`\`\`tsx
+// App.tsx structure
+function App() {
+  // 1. Global state management
+  const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState('dark');
+  
+  // 2. IPC communication setup
+  useEffect(() => {
+    window.electron.onThemeChange(setTheme);
+  }, []);
+  
+  // 3. Route/layout management
+  return (
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <ChatPane />
+        <TerminalPane />
+        <PreviewPane />
+        <FileExplorer />
+      </Layout>
+    </ThemeProvider>
+  );
+}
+\`\`\`
+
+### 7. What are packages/*/src? Why .ts vs .tsx?
+
+**File extensions tell TypeScript how to parse:**
+- **.ts**: Pure TypeScript (no JSX)
+- **.tsx**: TypeScript with JSX (React components)
+
+**Examples:**
+\`\`\`typescript
+// packages/core/src/agent.ts (No UI, pure logic)
+export class AIAgent {
+  async processCommand(text: string): Promise<Command> {
+    // Pure TypeScript logic
+  }
+}
+
+// packages/ui/src/Button.tsx (React component)
+export function Button({ onClick, children }: Props) {
+  return ( // ← JSX requires .tsx
+    <button onClick={onClick}>{children}</button>
+  );
+}
+\`\`\`
+
+### 8. What is the RMS threshold?
+
+**RMS (Root Mean Square) for voice detection:**
+\`\`\`typescript
+// Simple voice activity detection
+function calculateRMS(audioData: Float32Array): number {
+  let sum = 0;
+  for (let i = 0; i < audioData.length; i++) {
+    sum += audioData[i] * audioData[i];
+  }
+  return Math.sqrt(sum / audioData.length);
+}
+
+// Usage
+const RMS_THRESHOLD = 0.01; // Adjust based on mic sensitivity
+if (calculateRMS(audioBuffer) > RMS_THRESHOLD) {
+  console.log("Voice detected!");
+}
+\`\`\`
+
+**Visual representation:**
+\`\`\`
+Silence: ----__--__----__-- (RMS ≈ 0.001)
+Speech:  ===≈≈≈≈≈≈≈≈≈≈≈≈≈= (RMS ≈ 0.05)
+         ↑ Threshold = 0.01
+\`\`\`
+
+### 9. What is a Node.js child process?
+
+**Child processes let Node.js run other programs:**
+\`\`\`typescript
+import { spawn, exec, fork } from 'child_process';
+
+// spawn - Streaming interface
+const ls = spawn('ls', ['-la']);
+ls.stdout.on('data', (data) => {
+  console.log(\`Output: \${data}\`);
+});
+
+// exec - Buffer output
+exec('git status', (error, stdout, stderr) => {
+  console.log(stdout);
+});
+
+// fork - Run another Node.js script
+const worker = fork('worker.js');
+worker.send({ cmd: 'START' });
+\`\`\`
+
+**LocalBrain uses this for terminals:**
+\`\`\`typescript
+const shell = spawn(process.env.SHELL || '/bin/zsh');
+shell.stdout.pipe(terminalOutput);
+userInput.pipe(shell.stdin);
+\`\`\`
+
+### 10. What does "string" mean in No. 5 LLM integration?
+
+**It's a TypeScript type annotation:**
+\`\`\`typescript
+interface AgentCapabilities {
+  runCommand(cmd: string, cwd?: string): Promise<string>;
+  //              ^^^^^^       ^^^^^^               ^^^^^^
+  //              Type of cmd  Optional param      Return type
+}
+
+// Usage:
+agent.runCommand("ls -la", "/home/user"); // ✅ Valid
+agent.runCommand(123, "/home"); // ❌ Type error! 123 is not string
+\`\`\`
+
+### 11. Can we say a plugin is an app by itself?
+
+**Yes and no:**
+
+**Plugin characteristics:**
+- ✅ Has its own package.json
+- ✅ Contains independent logic
+- ✅ Can have UI components
+- ❌ Cannot run standalone
+- ❌ Depends on host app APIs
+
+**Plugin structure:**
+\`\`\`javascript
+// plugins/translator/index.js
+module.exports = {
+  activate(context) {
+    // Plugin is like a mini-app that runs inside LocalBrain
+    context.registerCommand('translate', async (text, targetLang) => {
+      const result = await translateAPI(text, targetLang);
+      context.showResult(result);
+    });
+  }
+};
+\`\`\`
+
+### 12. Relationship between TailwindCSS, React, Vite, and TypeScript?
+
+**They each handle different layers:**
+\`\`\`
+┌─────────────────────────────────┐
+│      TypeScript (.tsx)          │ ← Type safety
+├─────────────────────────────────┤
+│      React Components           │ ← UI logic
+├─────────────────────────────────┤
+│      TailwindCSS Classes        │ ← Styling
+├─────────────────────────────────┤
+│      Vite Dev Server            │ ← Build/serve
+└─────────────────────────────────┘
+\`\`\`
+
+**Example component using all four:**
+\`\`\`tsx
+// ChatMessage.tsx
+interface Props {
+  message: string;
+  timestamp: Date;
+  isUser: boolean;
+}
+
+export function ChatMessage({ message, timestamp, isUser }: Props) {
+  return (
+    <div className={\`
+      p-4 mb-2 rounded-lg transition-all
+      \${isUser 
+        ? 'bg-blue-500/20 ml-auto max-w-[80%]' 
+        : 'bg-gray-500/20 mr-auto max-w-[80%]'
+      }
+    \`}>
+      <p className="text-white">{message}</p>
+      <time className="text-xs text-gray-400">
+        {timestamp.toLocaleTimeString()}
+      </time>
+    </div>
+  );
+}
+\`\`\`
+
+**The flow:**
+1. **TypeScript** checks types at compile time
+2. **React** handles component logic and state
+3. **Tailwind** provides utility classes for styling
+4. **Vite** bundles everything and serves it fast
+
+### 13. What is node-pty?
+
+**node-pty** creates pseudo terminals (PTY) for full terminal emulation:
+
+**Without PTY (basic):**
+\`\`\`typescript
+// Can't handle: vim, htop, colored output
+const proc = spawn('bash');
+proc.stdout.on('data', console.log);
+\`\`\`
+
+**With PTY (full terminal):**
+\`\`\`typescript
+import * as pty from 'node-pty';
+
+// Handles EVERYTHING a real terminal can
+const ptyProcess = pty.spawn('bash', [], {
+  cols: 80,
+  rows: 30,
+  cwd: process.env.HOME
+});
+
+// Programs think they're in a real terminal
+ptyProcess.write('vim\r'); // Works perfectly!
+\`\`\`
+
+**Why LocalBrain avoids it:**
+- Requires C++ compilation
+- Platform-specific builds
+- Installation can fail
+- Adds complexity for basic needs
+
+### 14. Can I call the first interaction on an LLM chat session a bootstrap?
+
+**Yes! "Bootstrap" is a perfect term:**
+
+**Bootstrap in LocalBrain context:**
+\`\`\`typescript
+class AIAgent {
+  async bootstrap() {
+    // Initialize the conversation context
+    const systemPrompt = \`
+      You are LocalBrain, an AI assistant with access to:
+      - File system (allowed directories only)
+      - Terminal execution
+      - Voice synthesis
+      
+      Current directory: \${process.cwd()}
+      Platform: \${process.platform}
+    \`;
+    
+    // First message establishes context
+    this.conversation = [{
+      role: 'system',
+      content: systemPrompt
+    }];
+  }
+}
+\`\`\`
+
+**Other valid terms:**
+- **Initialization**: Setting up the session
+- **Priming**: Preparing the model
+- **Context injection**: Adding system knowledge
+- **Seeding**: Planting initial information
+
+## 🎯 Summary
+
+LocalBrain combines these technologies to create a powerful, privacy-first AI command center:
+
+1. **Electron** provides the desktop app framework
+2. **React + TypeScript** create a type-safe, modern UI
+3. **Vite** ensures lightning-fast development
+4. **TailwindCSS** enables rapid, consistent styling
+5. **pnpm workspaces** organize the modular architecture
+6. **xterm.js** provides terminal emulation
+7. **Monaco Editor** offers VS Code-like editing
+8. **electron-store** persists user settings
+9. **electron-builder** packages everything for distribution
+
+Each technology was chosen for specific reasons, creating a cohesive system that's both powerful for users and maintainable for developers.`;
+        
+        // Load content on page load
+        loadMarkdown();
+    </script>
+</body>
+</html>

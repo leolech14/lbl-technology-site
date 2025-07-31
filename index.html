@@ -3,163 +3,1147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LBL Technology - Advanced Data Systems & Intelligent Automation</title>
-    <meta name="description" content="Engineering advanced data systems and intelligent automation at scale. AI-powered media processing, enterprise data visualization, and scalable API architecture.">
+    <title>Lech - Digital Architect & Innovation Engineer</title>
+    <meta name="description" content="Building premium digital experiences with AI, advanced data systems, and beautiful interfaces">
     
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600&display=swap" as="style">
-    
-    <link rel="stylesheet" href="styles.css">
+    <!-- Preload fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Custom Properties - Your Signature Dark Theme */
+        :root {
+            /* Deep Blue/Navy Palette */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+            --bg-tertiary: #1a1a2e;
+            
+            /* Your Signature Blues */
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --blue-dark: #1e40af;
+            --blue-glow: rgba(59, 130, 246, 0.5);
+            
+            /* Orange Accent */
+            --accent-orange: #f97316;
+            --accent-orange-glow: rgba(249, 115, 22, 0.5);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            
+            /* Text Colors */
+            --text-primary: #f0f0f0;
+            --text-secondary: #a8a8b3;
+            --text-muted: #6b7280;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
+            /* Animation */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --hover-transform: translateY(-2px);
+        }
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Beautiful Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--blue-glow) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--accent-orange-glow) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--blue-dark) 0%, transparent 50%);
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Animated Background Orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out;
+            z-index: -1;
+        }
+        
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--blue-primary);
+            top: -300px;
+            left: -300px;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 5s;
+        }
+        
+        .orb-3 {
+            width: 500px;
+            height: 500px;
+            background: var(--blue-dark);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+        
+        /* Glassmorphic Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--space-sm) var(--space-xl);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--blue-light);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section with Glassmorphism */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 50%, var(--accent-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.8;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        /* Glass Buttons */
+        .button-group {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+        
+        .button {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            border: 1px solid transparent;
+        }
+        
+        .button-primary {
+            background: var(--blue-primary);
+            color: white;
+            box-shadow: 0 4px 14px 0 var(--blue-glow);
+        }
+        
+        .button-primary:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 6px 20px 0 var(--blue-glow);
+            background: var(--blue-light);
+        }
+        
+        .button-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+        
+        .button-glass:hover {
+            transform: var(--hover-transform);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--blue-primary);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        /* Hero Visual - Glass Card */
+        .hero-visual {
+            position: relative;
+        }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            padding: var(--space-xl);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .code-preview {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        
+        .code-line {
+            margin: 0.25rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .code-line::before {
+            content: attr(data-line);
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+        
+        .code-keyword { color: var(--blue-light); }
+        .code-string { color: var(--accent-orange); }
+        .code-function { color: #a78bfa; }
+        .code-comment { color: var(--text-muted); font-style: italic; }
+        
+        /* Features Section */
+        .features {
+            padding: var(--space-2xl) var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: var(--hover-transform);
+            border-color: var(--blue-primary);
+            box-shadow: 0 10px 40px 0 rgba(59, 130, 246, 0.15);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Projects Showcase */
+        .projects {
+            padding: var(--space-2xl) var(--space-xl);
+            background: var(--bg-secondary);
+        }
+        
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            overflow-x: auto;
+            padding-bottom: var(--space-sm);
+        }
+        
+        .tab {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            background: var(--blue-primary);
+            color: white;
+            border-color: var(--blue-primary);
+        }
+        
+        .tab:hover:not(.active) {
+            border-color: var(--blue-primary);
+            color: var(--blue-light);
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .project-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: var(--hover-transform) scale(1.02);
+            border-color: var(--blue-primary);
+            box-shadow: 0 20px 40px 0 rgba(59, 130, 246, 0.2);
+        }
+        
+        .project-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Unique gradient backgrounds for each project */
+        .project-card:nth-child(1) .project-image {
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a2e 0%, #0f1117 100%);
+        }
+        
+        .project-card:nth-child(2) .project-image {
+            background: 
+                radial-gradient(circle at 60% 40%, rgba(249, 115, 22, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(217, 119, 6, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #1e1e2e 0%, #0a0a0f 100%);
+        }
+        
+        .project-card:nth-child(3) .project-image {
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #0f172a 0%, #020617 100%);
+        }
+        
+        .project-card:nth-child(4) .project-image {
+            background: 
+                radial-gradient(circle at 25% 75%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #0a1628 0%, #030712 100%);
+        }
+        
+        .project-card:nth-child(5) .project-image {
+            background: 
+                radial-gradient(circle at 40% 30%, rgba(249, 115, 22, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 60% 70%, rgba(251, 146, 60, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+        }
+        
+        .project-card:nth-child(6) .project-image {
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #1e1e3f 0%, #0a0a1f 100%);
+        }
+        
+        /* Project icons/graphics */
+        .project-graphic {
+            font-size: 3rem;
+            color: var(--blue-light);
+            opacity: 0.3;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animated patterns */
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.02) 10px,
+                rgba(255,255,255,0.02) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+        }
+        
+        .project-content {
+            padding: var(--space-lg);
+        }
+        
+        .project-tech {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .tech-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--blue-light);
+            border-radius: 999px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .project-content p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: var(--space-2xl);
+            position: relative;
+        }
+        
+        .contact-content::before,
+        .contact-content::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.5;
+        }
+        
+        .contact-content::before {
+            background: var(--blue-primary);
+            top: -50px;
+            left: -50px;
+        }
+        
+        .contact-content::after {
+            background: var(--accent-orange);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            margin-top: var(--space-lg);
+        }
+        
+        .social-link {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            transform: var(--hover-transform);
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+            box-shadow: 0 8px 24px 0 var(--blue-glow);
+        }
+        
+        /* Footer */
+        footer {
+            padding: var(--space-lg) var(--space-xl);
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .button-group {
+                justify-content: center;
+            }
+            
+            .feature-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Selection Style */
+        ::selection {
+            background: var(--blue-primary);
+            color: white;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue-primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--blue-light);
+        }
+    </style>
 </head>
 <body>
-    <!-- Skip to Content Link for Accessibility -->
-    <a href="#main" class="skip-link">Skip to main content</a>
+    <!-- Animated Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
     
-    <header role="banner">
-        <nav class="navbar" role="navigation" aria-label="Main navigation">
-            <div class="container">
-                <div class="nav-brand">
-                    <h1>LBL Technology</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#domains">Domains</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <main id="main" role="main">
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Welcome to LBL Technology</h1>
-                    <p class="hero-subtitle">Engineering advanced data systems and intelligent automation at scale</p>
-                    
-                    <!-- Trust Signals -->
-                    <div class="trust-signals">
-                        <span class="trust-badge">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 0l2.5 5.5L16 6l-4 4.5 1 5.5L8 13l-5 3 1-5.5L0 6l5.5-0.5L8 0z"/>
-                            </svg>
-                            Trusted by 1000+ Companies
-                        </span>
-                        <span class="trust-badge">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M0 4v8c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1zm1 0h14v8H1V4zm1 1v2h2V5H2zm3 0v2h2V5H5zm3 0v2h2V5H8z"/>
-                            </svg>
-                            SSL Secured
-                        </span>
+    <!-- Navigation removed for cleaner design -->
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Building <span class="gradient-text">Premium Digital Experiences</span> 
+                    with AI & Modern Tech
+                </h1>
+                <p>
+                    Full-stack architect specializing in TypeScript, React, and AI-powered solutions. 
+                    Creating beautiful, performant applications with a focus on glassmorphic design 
+                    and exceptional user experiences.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projects Delivered</span>
                     </div>
-                    <div class="cta-buttons">
-                        <a href="#services" class="btn btn-primary" aria-label="Explore our services">Explore Services</a>
-                        <a href="#contact" class="btn btn-secondary" aria-label="Get in touch with us">Get in Touch</a>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">TypeScript</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">AI</span>
+                        <span class="stat-label">Enhanced</span>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="services" class="services">
-            <div class="container">
-                <h2 class="section-title">Our Services</h2>
-                <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
-                        <h3>AI-Powered Media Processing</h3>
-                        <p>Transform raw content into structured knowledge using advanced ML pipelines, semantic analysis, and intelligent data extraction</p>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <h3>Enterprise Data Visualization</h3>
-                        <p>Interactive dashboards and complex data representations with D3.js, real-time updates, and self-contained portable solutions</p>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <h3>Scalable API Architecture</h3>
-                        <p>High-performance microservices with FastAPI and Express.js, WebSocket real-time features, and enterprise-grade security</p>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <h3>Business Process Automation</h3>
-                        <p>End-to-end workflow automation with quality validation, multi-dimensional scoring, and intelligent decision systems</p>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <h3>Full-Stack Development</h3>
-                        <p>Modern web applications with Python/Node.js backends, TypeScript frontends, and cloud-native deployment strategies</p>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <h3>Developer Tools & DevOps</h3>
-                        <p>Custom tooling for enhanced productivity, automated testing frameworks, and continuous integration pipelines</p>
-                    </div>
+                
+                <div class="button-group">
+                    <a href="#projects" class="button button-primary">
+                        View Projects
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="button button-glass">
+                        Get in Touch
+                    </a>
                 </div>
             </div>
-        </section>
-
-        <section id="domains" class="domains">
-            <div class="container">
-                <h2 class="section-title">Our Technology Stack</h2>
-                <div class="domain-list">
-                    <div class="domain-item">
-                        <h3>Data & AI Processing</h3>
-                        <p>Python • FastAPI • TensorFlow • Google Cloud AI • Knowledge Graphs • Semantic Analysis</p>
-                    </div>
-                    <div class="domain-item">
-                        <h3>Real-Time Systems</h3>
-                        <p>Node.js • Express • WebSockets • D3.js • Interactive Dashboards • Live Data Streams</p>
-                    </div>
-                    <div class="domain-item">
-                        <h3>Enterprise Architecture</h3>
-                        <p>Microservices • Docker • API Gateway • Quality Automation • CI/CD • Cloud-Native</p>
+            
+            <div class="hero-visual">
+                <div class="glass-card">
+                    <div class="code-preview">
+                        <div class="code-line" data-line="1">
+                            <span class="code-keyword">import</span> { <span class="code-function">createApp</span> } <span class="code-keyword">from</span> <span class="code-string">'@lech/magic'</span>
+                        </div>
+                        <div class="code-line" data-line="2">
+                            <span class="code-keyword">import</span> { <span class="code-function">glassmorphism</span> } <span class="code-keyword">from</span> <span class="code-string">'./styles'</span>
+                        </div>
+                        <div class="code-line" data-line="3">&nbsp;</div>
+                        <div class="code-line" data-line="4">
+                            <span class="code-keyword">const</span> app = <span class="code-function">createApp</span>({
+                        </div>
+                        <div class="code-line" data-line="5">
+                            &nbsp;&nbsp;theme: <span class="code-string">'dark-premium'</span>,
+                        </div>
+                        <div class="code-line" data-line="6">
+                            &nbsp;&nbsp;style: <span class="code-function">glassmorphism</span>,
+                        </div>
+                        <div class="code-line" data-line="7">
+                            &nbsp;&nbsp;ai: <span class="code-keyword">true</span>,
+                        </div>
+                        <div class="code-line" data-line="8">
+                            &nbsp;&nbsp;performance: <span class="code-string">'optimized'</span>
+                        </div>
+                        <div class="code-line" data-line="9">})</div>
+                        <div class="code-line" data-line="10">&nbsp;</div>
+                        <div class="code-line" data-line="11">
+                            <span class="code-comment">// Building the future, one component at a time</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="expertise" class="expertise">
-            <div class="container">
-                <h2 class="section-title">Why Choose LBL Technology</h2>
-                <div class="expertise-grid">
-                    <div class="expertise-item">
-                        <h3>🚀 Proven Scale</h3>
-                        <p>Consolidated architecture serving multiple enterprise applications with unified, efficient solutions</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h3>🧠 AI-First Approach</h3>
-                        <p>Leveraging cutting-edge ML models for content understanding, quality scoring, and intelligent automation</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h3>⚡ Performance Optimized</h3>
-                        <p>Strategic use of Python for processing and Node.js for real-time features ensures optimal performance</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h3>🔒 Security Built-In</h3>
-                        <p>Enterprise-grade security monitoring, automated vulnerability scanning, and secure-by-design architecture</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title">Let's Build Something Extraordinary</h2>
-                <div class="contact-content">
-                    <p>From concept to deployment, we engineer solutions that scale with your ambitions.</p>
-                    <p>Whether you need advanced data processing, intelligent automation, or custom enterprise systems, we deliver excellence.</p>
-                    <a href="mailto:contact@lbl.technology" class="btn btn-primary">Start Your Project</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 LBL Technology. All rights reserved.</p>
-            <p>lbl.technology | lbl-integra.systems | lbldomain.pro</p>
         </div>
+    </section>
+    
+    <!-- Features/Expertise Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Core <span class="gradient-text">Expertise</span></h2>
+            <p>Specialized in building scalable, beautiful applications with modern technologies</p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Full-Stack Development</h3>
+                <p>Expert in React 18, TypeScript, Node.js, and PostgreSQL. Building performant applications with Vite, TailwindCSS, and modern tooling.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Integration</h3>
+                <p>Leveraging AI for enhanced development workflows, content generation, and intelligent features. Expert in Agent OS and MCP servers.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3>Premium UI/UX</h3>
+                <p>Signature glassmorphic designs with smooth animations, dark themes, and exceptional user experiences. Mobile-first responsive approach.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Data Visualization</h3>
+                <p>Creating beautiful, interactive data visualizations and dashboards. Expert in D3.js, Chart.js, and custom visualization solutions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Performance Optimization</h3>
+                <p>Obsessed with speed and efficiency. Implementing lazy loading, code splitting, and advanced caching strategies for lightning-fast apps.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Security & Architecture</h3>
+                <p>Building secure, scalable architectures with proper authentication, authorization, and data protection. TypeScript-first development.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-container">
+            <div class="section-header">
+                <h2>Featured <span class="gradient-text">Projects</span></h2>
+                <p>A selection of recent work showcasing various technologies and industries</p>
+            </div>
+            
+            <div class="project-tabs">
+                <div class="tab active">All</div>
+                <div class="tab">AI & Automation</div>
+                <div class="tab">E-Commerce</div>
+                <div class="tab">Data Visualization</div>
+                <div class="tab">Developer Tools</div>
+            </div>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">🤖</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">AI</span>
+                            <span class="tech-tag">Supabase</span>
+                        </div>
+                        <h3>AI Content Creation Platform</h3>
+                        <p>Advanced media generation platform with AI-powered video and content creation capabilities. Features real-time collaboration and cloud rendering.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">💎</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">TailwindCSS</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <h3>Premium E-Commerce Platform</h3>
+                        <p>Luxury minerals marketplace with glassmorphic design, advanced filtering, and seamless checkout experience. Mobile-optimized with PWA features.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">📊</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">WebGL</span>
+                        </div>
+                        <h3>Interactive Data Visualization</h3>
+                        <p>Complex system visualization tool with real-time updates, 3D rendering, and advanced analytics. Built for enterprise-scale data processing.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">⚡</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Agent OS</span>
+                        </div>
+                        <h3>Developer Productivity Suite</h3>
+                        <p>AI-enhanced development tools including code generation, automated testing, and intelligent project management. Integrated with VS Code.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">👨‍👩‍👧‍👦</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Maps API</span>
+                        </div>
+                        <h3>Family Management App</h3>
+                        <p>Comprehensive family organization platform with loyalty program integration, location tracking, and real-time notifications. Cross-platform mobile app.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <span class="project-graphic">🎮</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech">
+                            <span class="tech-tag">Vite</span>
+                            <span class="tech-tag">Three.js</span>
+                            <span class="tech-tag">GSAP</span>
+                        </div>
+                        <h3>3D Product Showcase</h3>
+                        <p>Interactive 3D product visualization with WebGL, featuring smooth animations, dynamic lighting, and mobile-optimized performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2>Let's Build Something <span class="gradient-text">Amazing</span></h2>
+            <p>Whether you need a full-stack application, AI integration, or just want to discuss ideas, I'm here to help bring your vision to life.</p>
+            
+            <div class="button-group" style="justify-content: center; margin-top: 2rem;">
+                <a href="mailto:contact@lech.dev" class="button button-primary">
+                    Start a Project
+                </a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Lech.dev - Building the future with code and creativity</p>
     </footer>
-    <script src="script.js" defer></script>
+    
+    <script>
+        // Navbar removed - no scroll effect needed
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Project tab filtering
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Add filtering logic here
+            });
+        });
+        
+        // Add intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all feature and project cards
+        document.querySelectorAll('.feature-card, .project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+        
+        // Add ripple effect to buttons
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+        
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .button {
+                position: relative;
+                overflow: hidden;
+            }
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                transform: scale(0);
+                animation: ripple-animation 0.6s ease-out;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>

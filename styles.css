@@ -38,10 +38,25 @@ body::before {
     right: 0;
     bottom: 0;
     background: linear-gradient(180deg, 
-        rgba(10, 22, 40, 0.8) 0%, 
-        rgba(10, 22, 40, 0.9) 50%, 
-        rgba(10, 22, 40, 0.95) 100%);
+        rgba(10, 22, 40, 0.7) 0%, 
+        rgba(10, 22, 40, 0.85) 50%, 
+        rgba(10, 22, 40, 0.92) 100%);
     z-index: -1;
+}
+
+/* Fallback gradient if image doesn't load */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at top, var(--petroleum-light) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, var(--petroleum-medium) 0%, transparent 50%),
+        var(--petroleum-dark);
+    z-index: -2;
 }
 
 .container {
@@ -52,10 +67,10 @@ body::before {
 
 /* Navigation */
 .navbar {
-    background: rgba(10, 22, 40, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(10, 22, 40, 0.6);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -116,19 +131,24 @@ body::before {
 .hero {
     background: none;
     color: var(--text-primary);
-    padding: 6rem 0;
+    padding: 8rem 0 6rem 0;
     text-align: center;
     position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
 }
 
 .hero .container {
-    background: rgba(10, 22, 40, 0.5);
+    background: rgba(10, 22, 40, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     padding: 3rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    width: 90%;
 }
 
 .hero-content h1 {

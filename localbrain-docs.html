@@ -286,14 +286,21 @@
             background: var(--bg-tertiary);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
-            padding: 0.75rem;
-            max-width: 300px;
+            padding: 1rem;
+            max-width: 450px;
             font-size: 0.75rem;
+            line-height: 1.5;
             color: var(--text-primary);
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.2s ease;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tooltip b {
+            color: var(--primary-dark);
+            font-weight: 600;
+            display: inline-block;
         }
         
         .tooltip.visible {
@@ -2429,80 +2436,637 @@ Each technology was chosen for specific reasons, creating a cohesive system that
         function getTooltipForCode(type, text) {
             const tooltips = {
                 keyword: {
-                    'const': 'Declares a constant variable that cannot be reassigned',
-                    'let': 'Declares a block-scoped variable that can be reassigned',
-                    'var': 'Declares a function-scoped variable (avoid in modern code)',
-                    'function': 'Declares a function',
-                    'async': 'Marks a function as asynchronous, allowing use of await',
-                    'await': 'Pauses async function execution until promise resolves',
-                    'class': 'Declares a class for object-oriented programming',
-                    'interface': 'TypeScript: Defines a type contract',
-                    'import': 'Imports modules, functions, or variables',
-                    'export': 'Exports modules, functions, or variables',
-                    'return': 'Exits function and optionally returns a value',
-                    'if': 'Conditional statement',
-                    'else': 'Alternative branch for if statement',
-                    'for': 'Loop statement',
-                    'while': 'Loop that continues while condition is true',
-                    'try': 'Begins error handling block',
-                    'catch': 'Handles errors from try block',
-                    'throw': 'Throws an error or exception',
-                    'new': 'Creates instance of a class or constructor',
-                    'this': 'References current object context',
-                    'super': 'References parent class',
-                    'extends': 'Class inheritance keyword',
-                    'implements': 'TypeScript: Class implements interface',
-                    'typeof': 'Returns type of variable as string',
-                    'instanceof': 'Checks if object is instance of class',
-                    'true': 'Boolean true value',
-                    'false': 'Boolean false value',
-                    'null': 'Intentional absence of value',
-                    'undefined': 'Variable declared but not assigned',
-                    'void': 'TypeScript: Function returns nothing'
+                    'const': `<b>const</b> - Constant Declaration Keyword<br><br>
+                        <b>Purpose:</b> Creates an immutable binding to a value<br>
+                        <b>Scope:</b> Block-scoped (within { } brackets)<br>
+                        <b>Reassignment:</b> Cannot be reassigned after initialization<br>
+                        <b>Hoisting:</b> Hoisted but in Temporal Dead Zone until declared<br>
+                        <b>Best Practice:</b> Use by default for all variables<br>
+                        <b>Example:</b> const PI = 3.14159;<br>
+                        <b>Common Error:</b> "Assignment to constant variable" when trying to reassign`,
+                    
+                    'let': `<b>let</b> - Block-Scoped Variable Declaration<br><br>
+                        <b>Purpose:</b> Declares a reassignable, block-scoped variable<br>
+                        <b>Scope:</b> Limited to enclosing block { }<br>
+                        <b>Reassignment:</b> Can be changed after declaration<br>
+                        <b>Hoisting:</b> Hoisted but not accessible before declaration<br>
+                        <b>Use Case:</b> Loop counters, values that change<br>
+                        <b>Example:</b> let count = 0; count++;<br>
+                        <b>Replaces:</b> var in modern JavaScript`,
+                    
+                    'var': `<b>var</b> - Function-Scoped Variable (Legacy)<br><br>
+                        <b>⚠️ Status:</b> Deprecated - avoid in modern code<br>
+                        <b>Scope:</b> Function-scoped or globally-scoped<br>
+                        <b>Hoisting:</b> Hoisted and initialized as undefined<br>
+                        <b>Problems:</b> Scope leaking, redeclaration allowed<br>
+                        <b>Example:</b> var x = 1; // Don't use this<br>
+                        <b>Replace With:</b> const or let<br>
+                        <b>Why Avoid:</b> Causes bugs due to unexpected scoping`,
+                    
+                    'function': `<b>function</b> - Function Declaration Keyword<br><br>
+                        <b>Purpose:</b> Declares a named, reusable block of code<br>
+                        <b>Syntax:</b> function name(parameters) { body }<br>
+                        <b>Hoisting:</b> Fully hoisted - can call before declaration<br>
+                        <b>Returns:</b> undefined by default, or specified value<br>
+                        <b>Creates:</b> New execution context and scope<br>
+                        <b>Example:</b> function add(a, b) { return a + b; }<br>
+                        <b>Alternative:</b> Arrow functions () => {}`,
+                    
+                    'async': `<b>async</b> - Asynchronous Function Modifier<br><br>
+                        <b>Purpose:</b> Declares function that returns a Promise<br>
+                        <b>Enables:</b> Use of await keyword inside function<br>
+                        <b>Returns:</b> Always returns a Promise<br>
+                        <b>Syntax:</b> async function fetchData() { ... }<br>
+                        <b>Error Handling:</b> Use try/catch for errors<br>
+                        <b>Example:</b> async () => await fetch('/api/data')<br>
+                        <b>Benefit:</b> Makes async code look synchronous`,
+                    
+                    'await': `<b>await</b> - Promise Resolution Operator<br><br>
+                        <b>Purpose:</b> Pauses async function until Promise resolves<br>
+                        <b>Context:</b> Only works inside async functions<br>
+                        <b>Returns:</b> Resolved value or throws rejection<br>
+                        <b>Syntax:</b> const result = await promise;<br>
+                        <b>Blocks:</b> Execution continues after resolution<br>
+                        <b>Example:</b> const data = await fetch(url);<br>
+                        <b>Error:</b> "await is only valid in async function"`,
+                    
+                    'class': `<b>class</b> - Class Declaration (ES6+)<br><br>
+                        <b>Purpose:</b> Template for creating objects (OOP)<br>
+                        <b>Contains:</b> Constructor, methods, properties<br>
+                        <b>Syntax:</b> class Name { constructor() {} }<br>
+                        <b>Instantiation:</b> Use 'new' keyword<br>
+                        <b>Inheritance:</b> Use 'extends' for subclasses<br>
+                        <b>Example:</b> class User { constructor(name) {} }<br>
+                        <b>Under Hood:</b> Syntactic sugar over prototypes`,
+                    
+                    'interface': `<b>interface</b> - TypeScript Type Contract<br><br>
+                        <b>Purpose:</b> Defines shape of objects/classes<br>
+                        <b>Language:</b> TypeScript only (not JavaScript)<br>
+                        <b>Runtime:</b> Removed during compilation<br>
+                        <b>Syntax:</b> interface Name { prop: type; }<br>
+                        <b>Implements:</b> Classes can implement interfaces<br>
+                        <b>Example:</b> interface User { name: string; }<br>
+                        <b>vs Type:</b> Interfaces can be extended/merged`,
+                    
+                    'import': `<b>import</b> - ES6 Module Import Statement<br><br>
+                        <b>Purpose:</b> Loads exported values from modules<br>
+                        <b>Types:</b> Named, default, namespace, side-effect<br>
+                        <b>Named:</b> import { func } from './module';<br>
+                        <b>Default:</b> import MyClass from './module';<br>
+                        <b>All:</b> import * as Utils from './utils';<br>
+                        <b>Dynamic:</b> import('./module').then(...)<br>
+                        <b>Must Be:</b> At top of file (except dynamic)`,
+                    
+                    'export': `<b>export</b> - ES6 Module Export Statement<br><br>
+                        <b>Purpose:</b> Makes values available to other modules<br>
+                        <b>Types:</b> Named exports, default export<br>
+                        <b>Named:</b> export const myFunc = () => {};<br>
+                        <b>Default:</b> export default class MyClass {}<br>
+                        <b>Re-export:</b> export { x } from './other';<br>
+                        <b>Limit:</b> One default export per module<br>
+                        <b>Access:</b> Via import in other files`,
+                    
+                    'return': `<b>return</b> - Function Exit & Value Statement<br><br>
+                        <b>Purpose:</b> Exits function and optionally returns value<br>
+                        <b>Behavior:</b> Immediately stops function execution<br>
+                        <b>Default:</b> Functions return undefined if no return<br>
+                        <b>Multiple:</b> Only first return executes<br>
+                        <b>Example:</b> return x * 2;<br>
+                        <b>In Async:</b> Wrapped in Promise automatically<br>
+                        <b>Void:</b> Use return; to exit without value`,
+                    
+                    'if': `<b>if</b> - Conditional Execution Statement<br><br>
+                        <b>Purpose:</b> Executes code block if condition is truthy<br>
+                        <b>Syntax:</b> if (condition) { code }<br>
+                        <b>Truthy:</b> true, 1, "text", [], {}, etc.<br>
+                        <b>Falsy:</b> false, 0, "", null, undefined, NaN<br>
+                        <b>Chain:</b> else if for multiple conditions<br>
+                        <b>Example:</b> if (x > 0) { positive(); }<br>
+                        <b>Ternary:</b> condition ? true : false`,
+                    
+                    'else': `<b>else</b> - Alternative Conditional Branch<br><br>
+                        <b>Purpose:</b> Executes when if condition is falsy<br>
+                        <b>Syntax:</b> if (cond) {} else { alternate }<br>
+                        <b>Chain:</b> else if (cond2) for multiple paths<br>
+                        <b>Must Follow:</b> Immediately after if block<br>
+                        <b>Example:</b> if (age >= 18) {} else { minor() }<br>
+                        <b>Optional:</b> Not required after if<br>
+                        <b>Scope:</b> Creates new block scope`,
+                    
+                    'for': `<b>for</b> - Iteration Loop Statement<br><br>
+                        <b>Purpose:</b> Repeats code block specific times<br>
+                        <b>Classic:</b> for (let i=0; i<10; i++) {}<br>
+                        <b>For...in:</b> Iterates object keys<br>
+                        <b>For...of:</b> Iterates iterable values<br>
+                        <b>Parts:</b> (initialization; condition; update)<br>
+                        <b>Break:</b> Exit loop early<br>
+                        <b>Continue:</b> Skip to next iteration`,
+                    
+                    'while': `<b>while</b> - Conditional Loop Statement<br><br>
+                        <b>Purpose:</b> Repeats while condition is truthy<br>
+                        <b>Syntax:</b> while (condition) { code }<br>
+                        <b>Check:</b> Condition tested before each iteration<br>
+                        <b>Infinite:</b> while(true) needs break to exit<br>
+                        <b>Example:</b> while (i < array.length) { i++ }<br>
+                        <b>vs Do-While:</b> May never execute if false<br>
+                        <b>Use Case:</b> Unknown iteration count`,
+                    
+                    'try': `<b>try</b> - Error Handling Block Start<br><br>
+                        <b>Purpose:</b> Wraps code that might throw errors<br>
+                        <b>Syntax:</b> try { riskyCode() } catch(e) {}<br>
+                        <b>Continues:</b> Execution continues after catch<br>
+                        <b>Scope:</b> Creates new block scope<br>
+                        <b>Must Have:</b> catch or finally block<br>
+                        <b>Example:</b> try { JSON.parse(data) }<br>
+                        <b>Best Practice:</b> Keep try blocks small`,
+                    
+                    'catch': `<b>catch</b> - Error Handling Block<br><br>
+                        <b>Purpose:</b> Handles errors thrown in try block<br>
+                        <b>Syntax:</b> catch (error) { handleError() }<br>
+                        <b>Parameter:</b> Receives thrown error object<br>
+                        <b>Executes:</b> Only if try block throws<br>
+                        <b>Can:</b> Re-throw errors with throw<br>
+                        <b>Example:</b> catch (e) { console.error(e) }<br>
+                        <b>Optional:</b> Parameter can be omitted`,
+                    
+                    'throw': `<b>throw</b> - Error Throwing Statement<br><br>
+                        <b>Purpose:</b> Manually triggers an exception<br>
+                        <b>Syntax:</b> throw new Error('message');<br>
+                        <b>Can Throw:</b> Any value, not just Error<br>
+                        <b>Stops:</b> Execution immediately<br>
+                        <b>Bubbles:</b> Up to nearest catch block<br>
+                        <b>Example:</b> throw new TypeError('Invalid');<br>
+                        <b>Custom:</b> Can throw custom error classes`,
+                    
+                    'new': `<b>new</b> - Instance Creation Operator<br><br>
+                        <b>Purpose:</b> Creates instance of class/constructor<br>
+                        <b>Process:</b> 1) Create object 2) Set prototype 3) Call constructor 4) Return object<br>
+                        <b>Syntax:</b> new ClassName(arguments)<br>
+                        <b>Example:</b> new Date(), new Array(5)<br>
+                        <b>Required For:</b> Classes, constructors<br>
+                        <b>Returns:</b> New object instance<br>
+                        <b>Without new:</b> May cause errors or unexpected behavior`,
+                    
+                    'this': `<b>this</b> - Context Reference Keyword<br><br>
+                        <b>Purpose:</b> References current execution context<br>
+                        <b>In Object:</b> The object itself<br>
+                        <b>In Class:</b> The instance<br>
+                        <b>In Function:</b> Depends on how called<br>
+                        <b>Arrow =>:</b> Inherits from enclosing scope<br>
+                        <b>Bind:</b> Can be explicitly set with .bind()<br>
+                        <b>Gotcha:</b> Changes based on invocation`,
+                    
+                    'super': `<b>super</b> - Parent Class Reference<br><br>
+                        <b>Purpose:</b> Access parent class methods/constructor<br>
+                        <b>In Constructor:</b> super() calls parent constructor<br>
+                        <b>Must:</b> Call super() before using 'this'<br>
+                        <b>Methods:</b> super.methodName() calls parent<br>
+                        <b>Example:</b> class Dog extends Animal { super() }<br>
+                        <b>Only In:</b> Classes that extend another<br>
+                        <b>Static:</b> Works in static methods too`,
+                    
+                    'extends': `<b>extends</b> - Class Inheritance Keyword<br><br>
+                        <b>Purpose:</b> Creates class based on another class<br>
+                        <b>Syntax:</b> class Child extends Parent {}<br>
+                        <b>Inherits:</b> All methods and properties<br>
+                        <b>Override:</b> Can redefine parent methods<br>
+                        <b>Super:</b> Access parent with super keyword<br>
+                        <b>Example:</b> class Dog extends Animal {}<br>
+                        <b>Prototype:</b> Sets up prototype chain`,
+                    
+                    'implements': `<b>implements</b> - TypeScript Interface Contract<br><br>
+                        <b>Purpose:</b> Class must satisfy interface shape<br>
+                        <b>Language:</b> TypeScript only<br>
+                        <b>Syntax:</b> class X implements Interface {}<br>
+                        <b>Multiple:</b> Can implement many interfaces<br>
+                        <b>Must:</b> Include all interface properties<br>
+                        <b>Example:</b> class User implements IUser {}<br>
+                        <b>Compile:</b> Checked at compile time only`,
+                    
+                    'typeof': `<b>typeof</b> - Type Checking Operator<br><br>
+                        <b>Purpose:</b> Returns string of operand's type<br>
+                        <b>Returns:</b> "string", "number", "boolean", "object", "function", "undefined", "symbol", "bigint"<br>
+                        <b>Gotcha:</b> typeof null === "object" (bug)<br>
+                        <b>Arrays:</b> Returns "object" for arrays<br>
+                        <b>Example:</b> typeof 42 === "number"<br>
+                        <b>Use:</b> Type checking before operations<br>
+                        <b>Note:</b> Different from TypeScript's typeof`,
+                    
+                    'instanceof': `<b>instanceof</b> - Instance Checking Operator<br><br>
+                        <b>Purpose:</b> Tests if object is instance of class<br>
+                        <b>Syntax:</b> object instanceof Constructor<br>
+                        <b>Returns:</b> true or false<br>
+                        <b>Checks:</b> Entire prototype chain<br>
+                        <b>Example:</b> [] instanceof Array // true<br>
+                        <b>Works With:</b> Classes and constructors<br>
+                        <b>Not For:</b> Primitives (use typeof)`,
+                    
+                    'true': `<b>true</b> - Boolean Literal True<br><br>
+                        <b>Type:</b> Primitive boolean value<br>
+                        <b>Truthy:</b> Always evaluates as truthy<br>
+                        <b>Number:</b> Converts to 1<br>
+                        <b>String:</b> Converts to "true"<br>
+                        <b>Logic:</b> true && x returns x<br>
+                        <b>Opposite:</b> !true === false<br>
+                        <b>Case:</b> Lowercase only (True is variable)`,
+                    
+                    'false': `<b>false</b> - Boolean Literal False<br><br>
+                        <b>Type:</b> Primitive boolean value<br>
+                        <b>Falsy:</b> One of 6 falsy values in JS<br>
+                        <b>Number:</b> Converts to 0<br>
+                        <b>String:</b> Converts to "false"<br>
+                        <b>Logic:</b> false && x returns false<br>
+                        <b>Opposite:</b> !false === true<br>
+                        <b>Others:</b> 0, "", null, undefined, NaN`,
+                    
+                    'null': `<b>null</b> - Intentional Absence Value<br><br>
+                        <b>Purpose:</b> Represents intentional emptiness<br>
+                        <b>Type:</b> typeof null === "object" (bug)<br>
+                        <b>vs undefined:</b> Explicitly set vs not set<br>
+                        <b>Falsy:</b> Evaluates to false in conditions<br>
+                        <b>Check:</b> value === null (strict equality)<br>
+                        <b>JSON:</b> Valid in JSON (undefined isn't)<br>
+                        <b>Use:</b> Reset variables, missing objects`,
+                    
+                    'undefined': `<b>undefined</b> - Uninitialized Value<br><br>
+                        <b>Purpose:</b> Variable declared but not assigned<br>
+                        <b>Type:</b> typeof undefined === "undefined"<br>
+                        <b>Default:</b> Function params, missing returns<br>
+                        <b>Falsy:</b> Evaluates to false<br>
+                        <b>Check:</b> typeof x === "undefined"<br>
+                        <b>void:</b> void 0 always returns undefined<br>
+                        <b>Avoid:</b> Don't assign undefined explicitly`,
+                    
+                    'void': `<b>void</b> - TypeScript No Return Type<br><br>
+                        <b>Purpose:</b> Function returns nothing (TS)<br>
+                        <b>JavaScript:</b> void expr returns undefined<br>
+                        <b>TypeScript:</b> function fn(): void {}<br>
+                        <b>Different:</b> From undefined return type<br>
+                        <b>Example:</b> onClick: () => void<br>
+                        <b>IIFE:</b> void function() {}() executes<br>
+                        <b>Use:</b> Side effects without return value`
                 },
                 operator: {
-                    '=>': 'Arrow function syntax',
-                    '===': 'Strict equality (type and value)',
-                    '!==': 'Strict inequality',
-                    '==': 'Loose equality (avoid)',
-                    '!=': 'Loose inequality (avoid)',
-                    '&&': 'Logical AND',
-                    '||': 'Logical OR',
-                    '!': 'Logical NOT',
-                    '++': 'Increment by 1',
-                    '--': 'Decrement by 1',
-                    '...': 'Spread/rest operator',
-                    '?.': 'Optional chaining',
-                    '??': 'Nullish coalescing'
+                    '=>': `<b>=></b> - Arrow Function Operator<br><br>
+                        <b>Purpose:</b> Concise function syntax (ES6+)<br>
+                        <b>Syntax:</b> (params) => expression or => { block }<br>
+                        <b>This Binding:</b> Inherits 'this' from parent scope<br>
+                        <b>No Arguments:</b> No arguments object<br>
+                        <b>Implicit Return:</b> Without { } returns expression<br>
+                        <b>Example:</b> const double = x => x * 2;<br>
+                        <b>Best For:</b> Callbacks, array methods, short functions`,
+                    
+                    '===': `<b>===</b> - Strict Equality Operator<br><br>
+                        <b>Purpose:</b> Compares value AND type<br>
+                        <b>No Coercion:</b> No type conversion performed<br>
+                        <b>Examples:</b> 5 === 5 (true), 5 === "5" (false)<br>
+                        <b>NaN:</b> NaN === NaN is false (use Number.isNaN)<br>
+                        <b>Objects:</b> Compares references, not contents<br>
+                        <b>Best Practice:</b> Always use over ==<br>
+                        <b>Performance:</b> Faster than == (no conversion)`,
+                    
+                    '!==': `<b>!==</b> - Strict Inequality Operator<br><br>
+                        <b>Purpose:</b> Opposite of === (not equal in type OR value)<br>
+                        <b>No Coercion:</b> No type conversion<br>
+                        <b>Examples:</b> 5 !== "5" (true), 5 !== 5 (false)<br>
+                        <b>Preferred:</b> Over != for predictability<br>
+                        <b>Objects:</b> Different references are not equal<br>
+                        <b>Null Check:</b> value !== null && value !== undefined<br>
+                        <b>Logic:</b> !(a === b) equivalent`,
+                    
+                    '==': `<b>==</b> - Loose Equality (Type Coercion) ⚠️<br><br>
+                        <b>Warning:</b> Performs type conversion - avoid!<br>
+                        <b>Coercion:</b> Converts types before comparing<br>
+                        <b>Weird:</b> 0 == false (true), "" == false (true)<br>
+                        <b>null/undefined:</b> null == undefined (true)<br>
+                        <b>Arrays:</b> [] == false (true) - confusing!<br>
+                        <b>Replace:</b> Use === for predictable code<br>
+                        <b>ESLint:</b> eqeqeq rule disallows this`,
+                    
+                    '!=': `<b>!=</b> - Loose Inequality (Type Coercion) ⚠️<br><br>
+                        <b>Warning:</b> Performs type conversion - avoid!<br>
+                        <b>Opposite:</b> Of == with same coercion rules<br>
+                        <b>Confusing:</b> 5 != "5" (false) due to coercion<br>
+                        <b>Replace:</b> Always use !== instead<br>
+                        <b>Example:</b> 0 != false (false) - unexpected!<br>
+                        <b>Logic:</b> !(a == b) equivalent<br>
+                        <b>Linting:</b> Most style guides forbid this`,
+                    
+                    '&&': `<b>&&</b> - Logical AND Operator<br><br>
+                        <b>Purpose:</b> Returns first falsy or last truthy value<br>
+                        <b>Short Circuit:</b> Stops at first falsy value<br>
+                        <b>Returns:</b> Not always boolean!<br>
+                        <b>Guard:</b> obj && obj.property (null safety)<br>
+                        <b>Conditional:</b> isReady && doAction()<br>
+                        <b>Falsy:</b> false, 0, "", null, undefined, NaN<br>
+                        <b>Example:</b> name && "Hello " + name`,
+                    
+                    '||': `<b>||</b> - Logical OR Operator<br><br>
+                        <b>Purpose:</b> Returns first truthy or last falsy value<br>
+                        <b>Short Circuit:</b> Stops at first truthy value<br>
+                        <b>Default Values:</b> name || "Anonymous"<br>
+                        <b>Fallback:</b> Common pattern before ??<br>
+                        <b>Problem:</b> 0 || 10 returns 10 (0 is falsy)<br>
+                        <b>Chain:</b> a || b || c || defaultValue<br>
+                        <b>Not Always Boolean:</b> Returns actual value`,
+                    
+                    '!': `<b>!</b> - Logical NOT Operator<br><br>
+                        <b>Purpose:</b> Inverts truthiness of value<br>
+                        <b>Returns:</b> Always boolean (true/false)<br>
+                        <b>Double:</b> !! converts to boolean<br>
+                        <b>Examples:</b> !true = false, !"" = true<br>
+                        <b>Precedence:</b> Higher than &&, ||<br>
+                        <b>Common:</b> if (!isValid) { ... }<br>
+                        <b>Boolean Cast:</b> !!value same as Boolean(value)`,
+                    
+                    '++': `<b>++</b> - Increment Operator<br><br>
+                        <b>Purpose:</b> Adds 1 to numeric value<br>
+                        <b>Prefix:</b> ++x increments then returns new value<br>
+                        <b>Postfix:</b> x++ returns then increments<br>
+                        <b>Example:</b> let i=0; console.log(i++) // 0<br>
+                        <b>Example:</b> let i=0; console.log(++i) // 1<br>
+                        <b>Mutates:</b> Changes original variable<br>
+                        <b>Common:</b> for loops, counters`,
+                    
+                    '--': `<b>--</b> - Decrement Operator<br><br>
+                        <b>Purpose:</b> Subtracts 1 from numeric value<br>
+                        <b>Prefix:</b> --x decrements then returns new value<br>
+                        <b>Postfix:</b> x-- returns then decrements<br>
+                        <b>Example:</b> let i=5; console.log(i--) // 5<br>
+                        <b>Example:</b> let i=5; console.log(--i) // 4<br>
+                        <b>Mutates:</b> Changes original variable<br>
+                        <b>Use:</b> Countdown loops, array traversal`,
+                    
+                    '...': `<b>...</b> - Spread/Rest Operator (ES6)<br><br>
+                        <b>Spread:</b> Expands iterables into elements<br>
+                        <b>Arrays:</b> [...arr1, ...arr2] concatenates<br>
+                        <b>Objects:</b> {...obj1, ...obj2} merges<br>
+                        <b>Rest:</b> Collects remaining arguments<br>
+                        <b>Function:</b> (...args) => all parameters<br>
+                        <b>Clone:</b> [...array] or {...object}<br>
+                        <b>Max:</b> Math.max(...numbers)`,
+                    
+                    '?.': `<b>?.</b> - Optional Chaining (ES2020)<br><br>
+                        <b>Purpose:</b> Safe property access on null/undefined<br>
+                        <b>Returns:</b> undefined if chain breaks<br>
+                        <b>Property:</b> obj?.prop<br>
+                        <b>Method:</b> obj?.method?.(args)<br>
+                        <b>Array:</b> arr?.[index]<br>
+                        <b>Replaces:</b> obj && obj.prop && obj.prop.sub<br>
+                        <b>Example:</b> user?.address?.street`,
+                    
+                    '??': `<b>??</b> - Nullish Coalescing (ES2020)<br><br>
+                        <b>Purpose:</b> Default for null/undefined only<br>
+                        <b>vs ||:</b> Doesn't treat 0, "", false as nullish<br>
+                        <b>Use:</b> count ?? 0 (keeps 0 if present)<br>
+                        <b>Only Nullish:</b> null and undefined<br>
+                        <b>Example:</b> name ?? "Anonymous"<br>
+                        <b>Chain:</b> a ?? b ?? c ?? default<br>
+                        <b>With ?.</b> obj?.prop ?? defaultValue`
                 },
                 function: {
-                    'console': 'Browser/Node debugging object',
-                    'log': 'Outputs to console',
-                    'error': 'Outputs error to console',
-                    'spawn': 'Creates new child process',
-                    'exec': 'Executes shell command',
-                    'require': 'CommonJS module import',
-                    'process': 'Node.js global object',
-                    'document': 'DOM document object',
-                    'window': 'Browser window object',
-                    'setTimeout': 'Delays function execution',
-                    'setInterval': 'Repeats function execution',
-                    'fetch': 'Makes HTTP requests',
-                    'push': 'Adds element to array end',
-                    'pop': 'Removes last array element',
-                    'map': 'Transforms array elements',
-                    'filter': 'Filters array elements',
-                    'reduce': 'Reduces array to single value',
-                    'forEach': 'Iterates over array',
-                    'find': 'Finds first matching element',
-                    'includes': 'Checks if array contains value',
-                    'join': 'Joins array into string',
-                    'split': 'Splits string into array',
-                    'slice': 'Extracts array/string portion',
-                    'substring': 'Extracts string portion',
-                    'replace': 'Replaces string content',
-                    'match': 'Matches regex pattern',
-                    'test': 'Tests regex pattern'
+                    'console': `<b>console</b> - Debug Output Object<br><br>
+                        <b>Purpose:</b> Debugging and logging interface<br>
+                        <b>Methods:</b> log, error, warn, info, debug, table, time<br>
+                        <b>Environments:</b> Browser DevTools, Node.js terminal<br>
+                        <b>Not For:</b> Production user messages<br>
+                        <b>Styling:</b> %c for CSS in browser<br>
+                        <b>Objects:</b> Shows expandable tree view<br>
+                        <b>Example:</b> console.log('%cStyled', 'color: red')`,
+                    
+                    'log': `<b>log()</b> - Console Output Method<br><br>
+                        <b>Purpose:</b> Prints values to console<br>
+                        <b>Syntax:</b> console.log(value1, value2, ...)<br>
+                        <b>Multiple:</b> Comma-separated values<br>
+                        <b>Templates:</b> console.log(\`Value: \${x}\`)<br>
+                        <b>Objects:</b> Shows properties expandable<br>
+                        <b>Returns:</b> undefined<br>
+                        <b>Production:</b> Remove or use proper logging`,
+                    
+                    'error': `<b>error()</b> - Console Error Method<br><br>
+                        <b>Purpose:</b> Logs errors with stack trace<br>
+                        <b>Visual:</b> Red text/icon in console<br>
+                        <b>Stack:</b> Shows call stack in browsers<br>
+                        <b>Syntax:</b> console.error('Failed:', error)<br>
+                        <b>vs log:</b> Semantic difference, filtering<br>
+                        <b>Node:</b> Writes to stderr stream<br>
+                        <b>Use:</b> Catch blocks, error handling`,
+                    
+                    'spawn': `<b>spawn()</b> - Child Process Creator<br><br>
+                        <b>Module:</b> child_process (Node.js)<br>
+                        <b>Purpose:</b> Launches new process with streaming<br>
+                        <b>Syntax:</b> spawn(command, [args], options)<br>
+                        <b>Streams:</b> stdin, stdout, stderr pipes<br>
+                        <b>Events:</b> data, error, close, exit<br>
+                        <b>Example:</b> spawn('ls', ['-la', '/tmp'])<br>
+                        <b>vs exec:</b> Better for large outputs, real-time`,
+                    
+                    'exec': `<b>exec()</b> - Shell Command Executor<br><br>
+                        <b>Module:</b> child_process (Node.js)<br>
+                        <b>Purpose:</b> Runs shell command, buffers output<br>
+                        <b>Syntax:</b> exec(command, callback)<br>
+                        <b>Shell:</b> Uses system shell (bash/cmd)<br>
+                        <b>Buffer:</b> Collects all output in memory<br>
+                        <b>Callback:</b> (error, stdout, stderr) => {}<br>
+                        <b>Limit:</b> Default 1MB buffer (configurable)`,
+                    
+                    'require': `<b>require()</b> - CommonJS Import<br><br>
+                        <b>Purpose:</b> Synchronously loads modules<br>
+                        <b>Syntax:</b> const mod = require('./file')<br>
+                        <b>Cache:</b> Modules cached after first load<br>
+                        <b>Resolves:</b> .js, .json, node_modules<br>
+                        <b>Dynamic:</b> Can use variables in path<br>
+                        <b>vs import:</b> Runtime vs compile time<br>
+                        <b>Returns:</b> module.exports value`,
+                    
+                    'process': `<b>process</b> - Node.js Global Object<br><br>
+                        <b>Purpose:</b> Info about current Node process<br>
+                        <b>Properties:</b> env, argv, cwd(), pid, platform<br>
+                        <b>Methods:</b> exit(), nextTick(), on()<br>
+                        <b>Events:</b> uncaughtException, exit, SIGINT<br>
+                        <b>Env Vars:</b> process.env.NODE_ENV<br>
+                        <b>Args:</b> process.argv array<br>
+                        <b>Global:</b> Available without require`,
+                    
+                    'document': `<b>document</b> - DOM Interface Object<br><br>
+                        <b>Purpose:</b> Represents HTML/XML document<br>
+                        <b>Methods:</b> getElementById, querySelector<br>
+                        <b>Creates:</b> createElement, createTextNode<br>
+                        <b>Properties:</b> body, head, title, cookie<br>
+                        <b>Events:</b> addEventListener, removeEventListener<br>
+                        <b>Example:</b> document.querySelector('.class')<br>
+                        <b>Scope:</b> Browser only, not Node.js`,
+                    
+                    'window': `<b>window</b> - Browser Global Object<br><br>
+                        <b>Purpose:</b> Browser window/tab interface<br>
+                        <b>Contains:</b> document, location, history, navigator<br>
+                        <b>Methods:</b> alert, confirm, open, close<br>
+                        <b>Timers:</b> setTimeout, setInterval<br>
+                        <b>Storage:</b> localStorage, sessionStorage<br>
+                        <b>Sizing:</b> innerWidth, innerHeight<br>
+                        <b>Global:</b> All globals are window properties`,
+                    
+                    'setTimeout': `<b>setTimeout()</b> - Delayed Execution<br><br>
+                        <b>Purpose:</b> Executes function after delay<br>
+                        <b>Syntax:</b> setTimeout(fn, delay, ...args)<br>
+                        <b>Returns:</b> Timer ID for cancellation<br>
+                        <b>Cancel:</b> clearTimeout(timerId)<br>
+                        <b>Minimum:</b> ~4ms in browsers<br>
+                        <b>This:</b> Use arrow functions or .bind()<br>
+                        <b>Example:</b> setTimeout(() => {}, 1000)`,
+                    
+                    'setInterval': `<b>setInterval()</b> - Repeated Execution<br><br>
+                        <b>Purpose:</b> Repeats function at intervals<br>
+                        <b>Syntax:</b> setInterval(fn, delay, ...args)<br>
+                        <b>Returns:</b> Interval ID for cancellation<br>
+                        <b>Cancel:</b> clearInterval(intervalId)<br>
+                        <b>Drift:</b> Can accumulate timing errors<br>
+                        <b>Alternative:</b> Recursive setTimeout<br>
+                        <b>Example:</b> setInterval(tick, 1000)`,
+                    
+                    'fetch': `<b>fetch()</b> - HTTP Request API<br><br>
+                        <b>Purpose:</b> Modern promise-based HTTP client<br>
+                        <b>Syntax:</b> fetch(url, options)<br>
+                        <b>Returns:</b> Promise<Response><br>
+                        <b>Methods:</b> GET, POST, PUT, DELETE<br>
+                        <b>Body:</b> .json(), .text(), .blob()<br>
+                        <b>Example:</b> fetch('/api').then(r => r.json())<br>
+                        <b>Async:</b> const data = await fetch(url)`,
+                    
+                    'push': `<b>push()</b> - Array End Addition<br><br>
+                        <b>Purpose:</b> Adds elements to array end<br>
+                        <b>Syntax:</b> array.push(item1, item2, ...)<br>
+                        <b>Returns:</b> New array length<br>
+                        <b>Mutates:</b> Changes original array<br>
+                        <b>Multiple:</b> Can push many at once<br>
+                        <b>Performance:</b> O(1) operation<br>
+                        <b>Example:</b> arr.push(1, 2, 3)`,
+                    
+                    'pop': `<b>pop()</b> - Array End Removal<br><br>
+                        <b>Purpose:</b> Removes last array element<br>
+                        <b>Syntax:</b> const last = array.pop()<br>
+                        <b>Returns:</b> Removed element (or undefined)<br>
+                        <b>Mutates:</b> Changes original array<br>
+                        <b>Empty:</b> Returns undefined on empty<br>
+                        <b>Stack:</b> With push() makes LIFO stack<br>
+                        <b>Performance:</b> O(1) operation`,
+                    
+                    'map': `<b>map()</b> - Array Transformation<br><br>
+                        <b>Purpose:</b> Creates new array by transforming each element<br>
+                        <b>Syntax:</b> array.map((item, index, array) => newItem)<br>
+                        <b>Returns:</b> New array (doesn't mutate)<br>
+                        <b>Length:</b> Same as original<br>
+                        <b>Skip:</b> Skips empty slots<br>
+                        <b>Example:</b> [1,2,3].map(x => x * 2)<br>
+                        <b>Chain:</b> .map().filter().reduce()`,
+                    
+                    'filter': `<b>filter()</b> - Array Filtering<br><br>
+                        <b>Purpose:</b> Creates array with passing elements<br>
+                        <b>Syntax:</b> array.filter((item, index) => boolean)<br>
+                        <b>Returns:</b> New filtered array<br>
+                        <b>Predicate:</b> Function returns true to keep<br>
+                        <b>Immutable:</b> Doesn't change original<br>
+                        <b>Example:</b> nums.filter(x => x > 0)<br>
+                        <b>Empty:</b> Returns [] if none pass`,
+                    
+                    'reduce': `<b>reduce()</b> - Array Aggregation<br><br>
+                        <b>Purpose:</b> Reduces array to single value<br>
+                        <b>Syntax:</b> array.reduce((acc, cur, idx) => {}, init)<br>
+                        <b>Accumulator:</b> Carries value between calls<br>
+                        <b>Initial:</b> Starting value (important!)<br>
+                        <b>Example:</b> [1,2,3].reduce((sum, n) => sum + n, 0)<br>
+                        <b>Use:</b> Sum, flatten, group, unique<br>
+                        <b>Power:</b> Can implement map/filter`,
+                    
+                    'forEach': `<b>forEach()</b> - Array Iteration<br><br>
+                        <b>Purpose:</b> Executes function for each element<br>
+                        <b>Syntax:</b> array.forEach((item, index, array) => {})<br>
+                        <b>Returns:</b> undefined (always)<br>
+                        <b>Break:</b> Cannot break/continue<br>
+                        <b>Async:</b> Doesn't wait for promises<br>
+                        <b>vs for:</b> More functional style<br>
+                        <b>Side Effects:</b> For mutations, DOM, logs`,
+                    
+                    'find': `<b>find()</b> - Element Search<br><br>
+                        <b>Purpose:</b> Returns first matching element<br>
+                        <b>Syntax:</b> array.find((item) => condition)<br>
+                        <b>Returns:</b> Element or undefined<br>
+                        <b>Stops:</b> After first match<br>
+                        <b>vs filter:</b> Single item vs array<br>
+                        <b>Example:</b> users.find(u => u.id === 5)<br>
+                        <b>Index:</b> Use findIndex() for position`,
+                    
+                    'includes': `<b>includes()</b> - Membership Test<br><br>
+                        <b>Purpose:</b> Checks if array contains value<br>
+                        <b>Syntax:</b> array.includes(searchElement, fromIndex)<br>
+                        <b>Returns:</b> true or false<br>
+                        <b>Equality:</b> Uses === comparison<br>
+                        <b>NaN:</b> Correctly finds NaN<br>
+                        <b>Example:</b> [1,2,3].includes(2) // true<br>
+                        <b>Strings:</b> Also works on strings`,
+                    
+                    'join': `<b>join()</b> - Array to String<br><br>
+                        <b>Purpose:</b> Concatenates array into string<br>
+                        <b>Syntax:</b> array.join(separator)<br>
+                        <b>Default:</b> Comma separator<br>
+                        <b>Empty:</b> join('') for no separator<br>
+                        <b>Example:</b> ['a','b','c'].join('-') // "a-b-c"<br>
+                        <b>Opposite:</b> string.split(separator)<br>
+                        <b>null/undefined:</b> Become empty strings`,
+                    
+                    'split': `<b>split()</b> - String to Array<br><br>
+                        <b>Purpose:</b> Divides string into array<br>
+                        <b>Syntax:</b> string.split(separator, limit)<br>
+                        <b>Separator:</b> String or regex<br>
+                        <b>Empty:</b> split('') for characters<br>
+                        <b>Limit:</b> Max array length<br>
+                        <b>Example:</b> 'a-b-c'.split('-') // ['a','b','c']<br>
+                        <b>Regex:</b> 'a1b2c'.split(/\\d/) // ['a','b','c']`,
+                    
+                    'slice': `<b>slice()</b> - Extract Portion<br><br>
+                        <b>Purpose:</b> Returns shallow copy of portion<br>
+                        <b>Syntax:</b> array.slice(start, end)<br>
+                        <b>Indexes:</b> start included, end excluded<br>
+                        <b>Negative:</b> Count from end<br>
+                        <b>Copy:</b> slice() copies entire array<br>
+                        <b>Strings:</b> Also works on strings<br>
+                        <b>Example:</b> [1,2,3,4].slice(1,3) // [2,3]`,
+                    
+                    'substring': `<b>substring()</b> - String Extraction<br><br>
+                        <b>Purpose:</b> Extracts characters between indexes<br>
+                        <b>Syntax:</b> string.substring(start, end)<br>
+                        <b>vs slice:</b> No negative indexes<br>
+                        <b>Swaps:</b> If start > end, swaps them<br>
+                        <b>Negative:</b> Treated as 0<br>
+                        <b>Example:</b> 'hello'.substring(1,4) // "ell"<br>
+                        <b>Prefer:</b> slice() is more predictable`,
+                    
+                    'replace': `<b>replace()</b> - String Substitution<br><br>
+                        <b>Purpose:</b> Replaces pattern in string<br>
+                        <b>Syntax:</b> string.replace(search, replacement)<br>
+                        <b>First Only:</b> Replaces first match<br>
+                        <b>Global:</b> Use /g flag for all<br>
+                        <b>Function:</b> Replacement can be function<br>
+                        <b>Example:</b> 'aaa'.replace('a', 'b') // "baa"<br>
+                        <b>All:</b> 'aaa'.replace(/a/g, 'b') // "bbb"`,
+                    
+                    'match': `<b>match()</b> - Pattern Matching<br><br>
+                        <b>Purpose:</b> Finds regex matches in string<br>
+                        <b>Syntax:</b> string.match(regexp)<br>
+                        <b>Returns:</b> Array of matches or null<br>
+                        <b>Global:</b> /g returns all matches<br>
+                        <b>Groups:</b> Captures in result array<br>
+                        <b>Example:</b> '123'.match(/\\d+/) // ['123']<br>
+                        <b>No Match:</b> Returns null (check!)`,
+                    
+                    'test': `<b>test()</b> - Regex Test Method<br><br>
+                        <b>Purpose:</b> Tests if pattern matches string<br>
+                        <b>Syntax:</b> regex.test(string)<br>
+                        <b>Returns:</b> true or false only<br>
+                        <b>Faster:</b> Than match() for boolean<br>
+                        <b>State:</b> Updates regex lastIndex<br>
+                        <b>Example:</b> /\\d+/.test('abc123') // true<br>
+                        <b>Note:</b> Method of RegExp, not string`
                 }
             };
             
@@ -2516,29 +3080,136 @@ Each technology was chosen for specific reasons, creating a cohesive system that
                 return tooltips.function[text];
             }
             if (type === 'string') {
-                return 'String literal value';
+                return `<b>String Literal</b> - Text Data Type<br><br>
+                    <b>Quotes:</b> Single ' ', double " ", or backtick \` \`<br>
+                    <b>Escaping:</b> Use backslash \\ for special chars<br>
+                    <b>Template:</b> Backticks allow \${expression} interpolation<br>
+                    <b>Multiline:</b> Only with backticks<br>
+                    <b>Immutable:</b> Cannot change individual characters<br>
+                    <b>Methods:</b> .length, .charAt(), .slice(), .split()<br>
+                    <b>Unicode:</b> Full UTF-16 support`;
             }
             if (type === 'number') {
-                return 'Numeric value';
+                return `<b>Numeric Literal</b> - Number Data Type<br><br>
+                    <b>Types:</b> Integer, decimal, scientific notation<br>
+                    <b>Range:</b> ±1.7976931348623157e+308<br>
+                    <b>Precision:</b> 64-bit floating point (IEEE 754)<br>
+                    <b>Special:</b> Infinity, -Infinity, NaN<br>
+                    <b>Binary:</b> 0b1010, Octal: 0o12, Hex: 0xA<br>
+                    <b>BigInt:</b> Append n for arbitrary precision<br>
+                    <b>Safe:</b> Number.MAX_SAFE_INTEGER`;
             }
             if (type === 'comment') {
-                return 'Code comment (not executed)';
+                return `<b>Code Comment</b> - Documentation<br><br>
+                    <b>Purpose:</b> Human-readable notes, ignored by interpreter<br>
+                    <b>Single Line:</b> // comment text<br>
+                    <b>Multi Line:</b> /* comment block */<br>
+                    <b>JSDoc:</b> /** @param {type} name */<br>
+                    <b>Best Practice:</b> Explain why, not what<br>
+                    <b>Avoid:</b> Obvious comments, commented-out code<br>
+                    <b>Use For:</b> Complex logic, TODOs, warnings`;
             }
             if (type === 'property') {
-                return 'Object property or method';
+                return `<b>Property/Method Access</b> - Object Member<br><br>
+                    <b>Dot Notation:</b> object.property<br>
+                    <b>Bracket:</b> object['property'] for dynamic<br>
+                    <b>Method:</b> If property is function<br>
+                    <b>Chain:</b> object.prop1.prop2.method()<br>
+                    <b>Optional:</b> object?.property (safe access)<br>
+                    <b>This:</b> In methods, refers to object<br>
+                    <b>Inherited:</b> May come from prototype chain`;
             }
             if (type === 'punctuation') {
                 const punctuationTooltips = {
-                    '{': 'Opens code block or object',
-                    '}': 'Closes code block or object',
-                    '(': 'Opens function parameters or expression',
-                    ')': 'Closes function parameters or expression',
-                    '[': 'Opens array or property accessor',
-                    ']': 'Closes array or property accessor',
-                    ';': 'Statement terminator',
-                    ',': 'Separates items in list',
-                    '.': 'Property accessor',
-                    ':': 'Object property separator or ternary operator'
+                    '{': `<b>{</b> - Opening Brace<br><br>
+                        <b>Block:</b> Starts code block for functions, loops, conditions<br>
+                        <b>Object:</b> Begins object literal definition<br>
+                        <b>Destructuring:</b> {a, b} = object<br>
+                        <b>Import:</b> import {named} from 'module'<br>
+                        <b>Scope:</b> Creates new block scope<br>
+                        <b>JSX:</b> {expression} in React<br>
+                        <b>Template:</b> \${expr} in template literals`,
+                    
+                    '}': `<b>}</b> - Closing Brace<br><br>
+                        <b>Block End:</b> Closes code blocks<br>
+                        <b>Object End:</b> Completes object literal<br>
+                        <b>Scope End:</b> Variables go out of scope<br>
+                        <b>Pairs With:</b> Opening brace {<br>
+                        <b>Style:</b> Same line or new line debates<br>
+                        <b>Error:</b> "Unexpected token }" if mismatched<br>
+                        <b>Trailing:</b> Comma before } is allowed`,
+                    
+                    '(': `<b>(</b> - Opening Parenthesis<br><br>
+                        <b>Function:</b> Starts parameter list or call<br>
+                        <b>Expression:</b> Groups operations (a + b) * c<br>
+                        <b>Condition:</b> if (condition), while (test)<br>
+                        <b>IIFE:</b> (function() {})() pattern<br>
+                        <b>Arrow:</b> (x, y) => x + y<br>
+                        <b>Precedence:</b> Overrides operator order<br>
+                        <b>Destructure:</b> ({a, b}) in parameters`,
+                    
+                    ')': `<b>)</b> - Closing Parenthesis<br><br>
+                        <b>Function End:</b> Completes parameters/calls<br>
+                        <b>Expression End:</b> Closes grouped operations<br>
+                        <b>Balance:</b> Must match opening (<br>
+                        <b>Empty:</b> () for no parameters<br>
+                        <b>Invoke:</b> fn() executes function<br>
+                        <b>Error:</b> Common source of syntax errors<br>
+                        <b>Chain:</b> method1().method2()`,
+                    
+                    '[': `<b>[</b> - Opening Bracket<br><br>
+                        <b>Array:</b> Starts array literal [1, 2, 3]<br>
+                        <b>Index:</b> Access array[0] or object['key']<br>
+                        <b>Destructure:</b> [a, b] = array<br>
+                        <b>Computed:</b> {[key]: value} properties<br>
+                        <b>Spread:</b> [...array] expansion<br>
+                        <b>Optional:</b> obj?.[expr] chaining<br>
+                        <b>Regex:</b> Character class [a-z]`,
+                    
+                    ']': `<b>]</b> - Closing Bracket<br><br>
+                        <b>Array End:</b> Completes array literal<br>
+                        <b>Index End:</b> Closes property/index access<br>
+                        <b>Empty:</b> [] creates empty array<br>
+                        <b>Nested:</b> array[0][1] for 2D arrays<br>
+                        <b>Length:</b> array[array.length - 1]<br>
+                        <b>Slice:</b> array[start:end] in Python<br>
+                        <b>Type:</b> TypeScript number[] syntax`,
+                    
+                    ';': `<b>;</b> - Semicolon Statement Terminator<br><br>
+                        <b>Purpose:</b> Explicitly ends statements<br>
+                        <b>ASI:</b> Automatic Semicolon Insertion<br>
+                        <b>Required:</b> for(;;) loops, same-line statements<br>
+                        <b>Style:</b> Optional but recommended<br>
+                        <b>Gotcha:</b> return\\n value returns undefined<br>
+                        <b>IIFE:</b> ;(function(){})() defensive<br>
+                        <b>Minification:</b> Required for safe minification`,
+                    
+                    ',': `<b>,</b> - Comma Separator<br><br>
+                        <b>Lists:</b> Separates array/object items<br>
+                        <b>Parameters:</b> function(a, b, c)<br>
+                        <b>Destructuring:</b> {a, b} or [x, y]<br>
+                        <b>Multiple:</b> let a = 1, b = 2;<br>
+                        <b>Trailing:</b> [1, 2,] allowed in ES5+<br>
+                        <b>Operator:</b> (a, b) evaluates both, returns b<br>
+                        <b>Skip:</b> [a, , c] skips middle element`,
+                    
+                    '.': `<b>.</b> - Dot Property Accessor<br><br>
+                        <b>Access:</b> object.property notation<br>
+                        <b>Chain:</b> obj.prop1.prop2.method()<br>
+                        <b>Number:</b> 3.14 decimal point<br>
+                        <b>Spread:</b> ...array or ...object<br>
+                        <b>Optional:</b> obj?.prop safe access<br>
+                        <b>Static:</b> Class.staticMethod()<br>
+                        <b>Precedence:</b> Very high (left-to-right)`,
+                    
+                    ':': `<b>:</b> - Colon Multiple Uses<br><br>
+                        <b>Object:</b> {key: value} property separator<br>
+                        <b>Ternary:</b> condition ? true : false<br>
+                        <b>Label:</b> labelName: statement<br>
+                        <b>Switch:</b> case value: statements<br>
+                        <b>Type:</b> TypeScript let x: number<br>
+                        <b>Destructure:</b> {a: newName} rename<br>
+                        <b>Time:</b> "12:30:45" in strings`
                 };
                 return punctuationTooltips[text] || null;
             }

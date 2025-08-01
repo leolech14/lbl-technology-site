@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Video Loop Generator</title>
+    <style>
+        :root {
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --accent-orange: #f97316;
+            --bg-primary: #0a0a0f;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary);
+            font-family: system-ui;
+            color: white;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .video-container {
+            text-align: center;
+        }
+
+        .video-frame {
+            width: 256px;
+            height: 256px;
+            background: var(--bg-primary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+        }
+
+        /* Animated glassmorphic backgrounds for each icon */
+        
+        /* Full-Stack - Rocket Launch Effect */
+        .full-stack-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 100%, var(--blue-primary) 0%, transparent 70%);
+            opacity: 0.3;
+        }
+
+        .full-stack-bg::before,
+        .full-stack-bg::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(to top, var(--blue-light), transparent);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: rocketTrail 2s ease-in-out infinite;
+        }
+
+        .full-stack-bg::after {
+            animation-delay: 1s;
+            opacity: 0.5;
+        }
+
+        @keyframes rocketTrail {
+            0% {
+                height: 0;
+                opacity: 0;
+                bottom: 50%;
+            }
+            50% {
+                height: 100px;
+                opacity: 1;
+            }
+            100% {
+                height: 0;
+                opacity: 0;
+                bottom: 100%;
+            }
+        }
+
+        /* AI Integration - Neural Network Pulse */
+        .ai-integration-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .neural-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--blue-light);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--blue-light);
+        }
+
+        .neural-node:nth-child(1) { top: 30%; left: 30%; animation: pulse 3s ease-in-out infinite; }
+        .neural-node:nth-child(2) { top: 30%; right: 30%; animation: pulse 3s ease-in-out infinite 0.5s; }
+        .neural-node:nth-child(3) { bottom: 30%; left: 30%; animation: pulse 3s ease-in-out infinite 1s; }
+        .neural-node:nth-child(4) { bottom: 30%; right: 30%; animation: pulse 3s ease-in-out infinite 1.5s; }
+        .neural-node:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse 3s ease-in-out infinite 2s; }
+
+        .neural-connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+            animation: connectionFlow 3s linear infinite;
+        }
+
+        .neural-connection:nth-child(6) { top: 30%; left: 30%; right: 30%; }
+        .neural-connection:nth-child(7) { bottom: 30%; left: 30%; right: 30%; }
+        .neural-connection:nth-child(8) { top: 30%; bottom: 30%; left: 30%; width: 1px; height: auto; }
+        .neural-connection:nth-child(9) { top: 30%; bottom: 30%; right: 30%; width: 1px; height: auto; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        @keyframes connectionFlow {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Premium UI - Diamond Sparkle */
+        .premium-ui-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--blue-primary) 0%, transparent 50%);
+            opacity: 0.2;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            animation: sparkle 3s linear infinite;
+        }
+
+        .sparkle:nth-child(2) { top: 20%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(3) { top: 30%; right: 25%; animation-delay: 0.5s; }
+        .sparkle:nth-child(4) { bottom: 35%; left: 15%; animation-delay: 1s; }
+        .sparkle:nth-child(5) { bottom: 20%; right: 20%; animation-delay: 1.5s; }
+        .sparkle:nth-child(6) { top: 50%; left: 50%; animation-delay: 2s; }
+
+        @keyframes sparkle {
+            0%, 100% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+                box-shadow: 0 0 10px white;
+            }
+        }
+
+        /* Data Viz - Flowing Bars */
+        .data-viz-bg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            padding: 50px;
+        }
+
+        .data-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--blue-light), transparent);
+            animation: dataFlow 2s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .data-bar:nth-child(1) { animation-delay: 0s; }
+        .data-bar:nth-child(2) { animation-delay: 0.2s; }
+        .data-bar:nth-child(3) { animation-delay: 0.4s; }
+        .data-bar:nth-child(4) { animation-delay: 0.6s; }
+        .data-bar:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes dataFlow {
+            0%, 100% { height: 20%; }
+            50% { height: 80%; }
+        }
+
+        /* Performance - Lightning Strike */
+        .performance-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .lightning {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--accent-orange), transparent);
+            transform: translateX(-50%);
+            animation: lightning 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .lightning::before,
+        .lightning::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: var(--accent-orange);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .lightning::before { top: 40%; transform: translateX(-50%) rotate(25deg); }
+        .lightning::after { top: 60%; transform: translateX(-50%) rotate(-25deg); }
+
+        @keyframes lightning {
+            0%, 100% { opacity: 0; }
+            45%, 55% { opacity: 1; }
+            50% { opacity: 1; filter: brightness(2); box-shadow: 0 0 20px var(--accent-orange); }
+        }
+
+        /* Security - Shield Scan */
+        .security-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+            animation: scan 3s linear infinite;
+            box-shadow: 0 0 10px var(--blue-primary);
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .shield-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--blue-primary) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: shieldPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+        }
+
+        /* Panorama Background */
+        .panorama-frame {
+            width: 100%;
+            height: 400px;
+            margin: 2rem 0;
+            background: var(--bg-primary);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panorama-bg {
+            position: absolute;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(180deg, 
+                #0d1117 0%, 
+                #1b2230 25%, 
+                #2d3561 50%, 
+                #1b2230 75%, 
+                #0d1117 100%);
+            animation: panoramaScroll 10s linear infinite;
+        }
+
+        .light-stream {
+            position: absolute;
+            width: 200%;
+            height: 2px;
+            opacity: 0.5;
+            animation: streamFlow 5s linear infinite;
+        }
+
+        .light-stream:nth-child(2) { 
+            background: var(--blue-primary); 
+            top: 20%; 
+            animation-duration: 7s; 
+            transform: rotate(-15deg);
+        }
+        .light-stream:nth-child(3) { 
+            background: #c084fc; 
+            top: 40%; 
+            animation-duration: 6s; 
+            transform: rotate(10deg);
+        }
+        .light-stream:nth-child(4) { 
+            background: #00e388; 
+            top: 60%; 
+            animation-duration: 8s; 
+            transform: rotate(-20deg);
+        }
+        .light-stream:nth-child(5) { 
+            background: #fbbf24; 
+            top: 80%; 
+            animation-duration: 5s; 
+            transform: rotate(15deg);
+        }
+
+        @keyframes panoramaScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes streamFlow {
+            0% { transform: translateX(-100%) rotate(inherit); }
+            100% { transform: translateX(0%) rotate(inherit); }
+        }
+
+        /* Instructions */
+        .instructions {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .instructions h2 {
+            margin-top: 0;
+            color: var(--blue-light);
+        }
+
+        .instructions code {
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h2>CSS Video Loop Effects</h2>
+        <p>These CSS animations simulate video loops for each feature. They're lightweight, performant, and match your color palette perfectly.</p>
+        <p>To record these as actual videos:</p>
+        <ol>
+            <li>Use a screen recording tool to capture each animation</li>
+            <li>Or use a headless browser with puppeteer to programmatically record</li>
+            <li>Export as WebM with transparency for best results</li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="full-stack-bg"></div>
+            </div>
+            <h3>Full-Stack Development</h3>
+            <p>Rocket launch trails</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="ai-integration-bg">
+                    <div class="neural-node"></div>
+                    <div class="neural-node"></div>
+                    <div class="neural-node"></div>
+                    <div class="neural-node"></div>
+                    <div class="neural-node"></div>
+                    <div class="neural-connection"></div>
+                    <div class="neural-connection"></div>
+                    <div class="neural-connection"></div>
+                    <div class="neural-connection"></div>
+                </div>
+            </div>
+            <h3>AI Integration</h3>
+            <p>Neural network pulses</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="premium-ui-bg">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                </div>
+            </div>
+            <h3>Premium UI/UX</h3>
+            <p>Diamond sparkles</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="data-viz-bg">
+                    <div class="data-bar"></div>
+                    <div class="data-bar"></div>
+                    <div class="data-bar"></div>
+                    <div class="data-bar"></div>
+                    <div class="data-bar"></div>
+                </div>
+            </div>
+            <h3>Data Visualization</h3>
+            <p>Flowing data bars</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="performance-bg">
+                    <div class="lightning"></div>
+                </div>
+            </div>
+            <h3>Performance</h3>
+            <p>Lightning strikes</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-frame">
+                <div class="security-bg">
+                    <div class="scan-line"></div>
+                    <div class="shield-glow"></div>
+                </div>
+            </div>
+            <h3>Security</h3>
+            <p>Shield scanning</p>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; margin-top: 3rem;">Panorama Background</h2>
+    <div class="panorama-frame">
+        <div class="panorama-bg">
+            <div class="light-stream"></div>
+            <div class="light-stream"></div>
+            <div class="light-stream"></div>
+            <div class="light-stream"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -436,6 +436,156 @@
         
         /* CSS Icons matching website palette */
         
+        /* Animated backgrounds for feature cards */
+        .feature-card {
+            position: relative;
+        }
+        
+        .feature-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .feature-card:hover .feature-bg {
+            opacity: 0.5;
+        }
+        
+        /* Full-Stack - Rocket Launch Effect */
+        .full-stack-bg::before,
+        .full-stack-bg::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to top, var(--blue-light), transparent);
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: rocketTrail 3s ease-in-out infinite;
+        }
+        
+        .full-stack-bg::after {
+            animation-delay: 1.5s;
+            opacity: 0.5;
+        }
+        
+        @keyframes rocketTrail {
+            0% {
+                height: 0;
+                opacity: 0;
+                bottom: 20%;
+            }
+            50% {
+                height: 60px;
+                opacity: 1;
+            }
+            100% {
+                height: 0;
+                opacity: 0;
+                bottom: 80%;
+            }
+        }
+        
+        /* AI Integration - Neural Pulse */
+        .ai-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--blue-light) 0%, transparent 70%);
+            animation: neuralPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes neuralPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
+        }
+        
+        /* Premium UI - Diamond Sparkle */
+        .premium-bg::before {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: var(--blue-primary);
+            animation: sparkleRotate 6s linear infinite;
+        }
+        
+        @keyframes sparkleRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+        
+        /* Data Viz - Flowing Data */
+        .data-bg::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--blue-light) 20%, 
+                transparent 40%, 
+                var(--blue-light) 60%, 
+                transparent 80%, 
+                var(--blue-light) 100%);
+            animation: dataFlow 5s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Performance - Energy Wave */
+        .performance-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, var(--accent-orange) 0%, transparent 50%);
+            animation: energyWave 3s ease-in-out infinite;
+        }
+        
+        @keyframes energyWave {
+            0%, 100% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1); opacity: 0.5; }
+        }
+        
+        /* Security - Shield Scan */
+        .security-bg::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+            animation: securityScan 4s linear infinite;
+            box-shadow: 0 0 10px var(--blue-primary);
+        }
+        
+        @keyframes securityScan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
         /* Rocket Icon */
         .icon-rocket {
             width: 24px;
@@ -550,17 +700,46 @@
         .feature-card h3 {
             font-size: 1.25rem;
             margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
         }
         
         .feature-card p {
             color: var(--text-secondary);
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
         
         /* Projects Showcase */
         .projects {
             padding: var(--space-2xl) var(--space-xl);
             background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated Panorama Background */
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                transparent 0%, 
+                rgba(59, 130, 246, 0.05) 25%, 
+                transparent 50%, 
+                rgba(249, 115, 22, 0.05) 75%, 
+                transparent 100%);
+            animation: panoramaShift 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes panoramaShift {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
         }
         
         .projects-container {
@@ -821,6 +1000,30 @@
             text-align: center;
             color: var(--text-muted);
             border-top: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Footer Animation */
+        footer::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--blue-primary), 
+                var(--blue-light), 
+                var(--accent-orange), 
+                transparent);
+            animation: footerGlow 10s linear infinite;
+        }
+        
+        @keyframes footerGlow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
         }
         
         /* Responsive Design */
@@ -1106,7 +1309,7 @@
         
         <div class="feature-grid">
             <div class="feature-card">
-                
+                <div class="feature-bg full-stack-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-rocket"></div>
                 </div>
@@ -1115,7 +1318,7 @@
             </div>
             
             <div class="feature-card">
-                
+                <div class="feature-bg ai-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-ai"></div>
                 </div>
@@ -1124,7 +1327,7 @@
             </div>
             
             <div class="feature-card">
-                
+                <div class="feature-bg premium-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-diamond"></div>
                 </div>
@@ -1133,7 +1336,7 @@
             </div>
             
             <div class="feature-card">
-                
+                <div class="feature-bg data-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-chart">
                         <span></span>
@@ -1147,7 +1350,7 @@
             </div>
             
             <div class="feature-card">
-                
+                <div class="feature-bg performance-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-lightning"></div>
                 </div>
@@ -1156,7 +1359,7 @@
             </div>
             
             <div class="feature-card">
-                
+                <div class="feature-bg security-bg"></div>
                 <div class="feature-icon">
                     <div class="icon-shield"></div>
                 </div>

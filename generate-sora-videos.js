@@ -11,6 +11,8 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import dotenv from 'dotenv';
 
+// Load from .env.local first, then .env
+dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const execAsync = promisify(exec);

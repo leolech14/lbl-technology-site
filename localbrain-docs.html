@@ -805,6 +805,141 @@
     </div>
     
     <script>
+        // ========================================
+        // PROJECT CONFIGURATION - UPDATE HERE WHEN PROJECT CHANGES
+        // ========================================
+        
+        const PROJECT_CONFIG = {
+            // Basic project information
+            name: "LocalBrain",
+            tagline: "AI-Powered Local Environment Command Center",
+            version: "1.0.0",
+            logo: "🧠",
+            
+            // Update this when project description changes
+            description: `LocalBrain is a privacy-first macOS desktop application that serves as an intelligent bridge between you and your computer. It combines voice/text interaction, terminal control, file management, and AI orchestration in a sleek, dark-themed interface.`,
+            
+            // Key features - add/remove/modify as needed
+            features: [
+                {
+                    title: "Voice-First Interaction",
+                    description: "Always-listening wake word ('Hey LocalBrain') with OpenAI Whisper STT and TTS",
+                    icon: "🎤",
+                    details: "Natural conversation flow with chain and real-time modes"
+                },
+                {
+                    title: "AI Orchestration", 
+                    description: "GPT-4o powered brain that understands context and executes complex tasks",
+                    icon: "🤖",
+                    details: "Intelligent task planning and execution with context awareness"
+                },
+                {
+                    title: "Terminal Integration",
+                    description: "Built-in multi-tab terminal with Claude Code CLI integration",
+                    icon: "💻",
+                    details: "Full terminal emulation with xterm.js"
+                },
+                {
+                    title: "File Management",
+                    description: "Explorer with preview/edit capabilities",
+                    icon: "📁",
+                    details: "Monaco editor integration for code editing"
+                },
+                {
+                    title: "Modular Architecture",
+                    description: "Plugin system for extensibility",
+                    icon: "🔌",
+                    details: "Hot-reload capable plugin architecture"
+                }
+            ],
+            
+            // Technology stack - update when technologies change
+            techStack: {
+                core: {
+                    "Electron 28+": "Desktop application framework",
+                    "TypeScript": "Type-safe development",
+                    "Node.js": "JavaScript runtime"
+                },
+                frontend: {
+                    "React 18": "UI library with concurrent features",
+                    "Vite": "Lightning-fast build tool",
+                    "TailwindCSS": "Utility-first CSS framework",
+                    "xterm.js": "Terminal emulator in the browser"
+                },
+                backend: {
+                    "Express": "Web application framework",
+                    "node-pty": "Pseudo terminal support",
+                    "electron-store": "Persistent storage"
+                },
+                ai: {
+                    "OpenAI API": "GPT-4o and Whisper integration",
+                    "Claude Code CLI": "AI coding assistant",
+                    "TTS": "Text-to-speech with Maple voice"
+                },
+                build: {
+                    "pnpm": "Fast, efficient package manager",
+                    "electron-builder": "App packaging and distribution",
+                    "ESLint": "Code linting",
+                    "Prettier": "Code formatting"
+                }
+            },
+            
+            // Project structure - update paths as needed
+            structure: {
+                "apps/desktop/": "Main Electron application",
+                "packages/agent/": "LLM orchestrator",
+                "packages/audio/": "Voice services", 
+                "packages/terminal/": "Terminal management",
+                "packages/fs/": "File system operations",
+                "packages/ui/": "Shared React components",
+                "plugins/": "Extension modules",
+                "scripts/": "Build utilities"
+            },
+            
+            // Commands - update when commands change
+            commands: {
+                install: "pnpm install",
+                dev: "pnpm --filter apps/desktop dev",
+                build: "pnpm -C apps/desktop build",
+                dist: "pnpm -C apps/desktop dist:mac",
+                test: "pnpm test:unit && pnpm test:e2e",
+                lint: "pnpm lint",
+                format: "pnpm format"
+            },
+            
+            // Configuration for easy content updates
+            contentSections: {
+                quickStart: `# Quick Start
+
+1. **Clone the repository**
+   \`\`\`bash
+   git clone https://github.com/yourusername/localbrain.git
+   cd localbrain
+   \`\`\`
+
+2. **Install dependencies**
+   \`\`\`bash
+   pnpm install
+   \`\`\`
+
+3. **Run in development**
+   \`\`\`bash
+   pnpm --filter apps/desktop dev
+   \`\`\``,
+                
+                architecture: `# Architecture Overview
+
+LocalBrain uses a modular monorepo structure:
+
+- **Main Process**: Handles system integration and IPC
+- **Renderer Process**: React-based UI
+- **Packages**: Shared functionality
+- **Plugins**: Extensible modules`,
+                
+                // Add more sections as needed
+            }
+        };
+        
         // Interactive terms dictionary
         const interactiveTerms = {
             'Electron': {
@@ -3598,8 +3733,142 @@ Each technology was chosen for specific reasons, creating a cohesive system that
             }
         });
         
+        // Function to generate dynamic content from configuration
+        function generateContentFromConfig() {
+            // Update page title and header
+            document.title = `${PROJECT_CONFIG.name} - ${PROJECT_CONFIG.tagline}`;
+            
+            const headerTitle = document.querySelector('.header-title');
+            if (headerTitle) {
+                headerTitle.innerHTML = `
+                    <span>${PROJECT_CONFIG.logo}</span>
+                    <h1>${PROJECT_CONFIG.name} <span style="font-size: 0.5em; opacity: 0.7;">v${PROJECT_CONFIG.version}</span></h1>
+                `;
+            }
+            
+            const headerSubtitle = document.querySelector('.header-subtitle');
+            if (headerSubtitle) {
+                headerSubtitle.textContent = PROJECT_CONFIG.tagline;
+            }
+            
+            // Generate features grid
+            const featuresHTML = PROJECT_CONFIG.features.map(feature => `
+                <div class="feature-card">
+                    <div class="feature-icon">${feature.icon}</div>
+                    <h3>${feature.title}</h3>
+                    <p>${feature.description}</p>
+                    <small style="opacity: 0.7;">${feature.details}</small>
+                </div>
+            `).join('');
+            
+            // Generate tech stack sections
+            const techStackHTML = Object.entries(PROJECT_CONFIG.techStack).map(([category, techs]) => `
+                <div class="tech-category">
+                    <h4 style="text-transform: capitalize; color: var(--primary-light);">${category}</h4>
+                    <ul>
+                        ${Object.entries(techs).map(([tech, desc]) => 
+                            `<li><strong>${tech}:</strong> ${desc}</li>`
+                        ).join('')}
+                    </ul>
+                </div>
+            `).join('');
+            
+            // Generate commands section
+            const commandsHTML = Object.entries(PROJECT_CONFIG.commands).map(([name, cmd]) => `
+                <div class="command-item">
+                    <span class="command-name">${name}:</span>
+                    <code>${cmd}</code>
+                </div>
+            `).join('');
+            
+            return {
+                features: featuresHTML,
+                techStack: techStackHTML,
+                commands: commandsHTML
+            };
+        }
+        
+        // Function to load content from external source (optional)
+        async function loadExternalContent(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to load external content');
+                
+                const data = await response.json();
+                // Merge with existing config
+                Object.assign(PROJECT_CONFIG, data);
+                
+                // Regenerate content
+                const content = generateContentFromConfig();
+                // Update the page...
+                
+                return true;
+            } catch (error) {
+                console.error('Error loading external content:', error);
+                return false;
+            }
+        }
+        
+        // Function to export current configuration
+        function exportConfig() {
+            const configJSON = JSON.stringify(PROJECT_CONFIG, null, 2);
+            const blob = new Blob([configJSON], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'localbrain-config.json';
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // Add configuration update UI (optional)
+        function addConfigUI() {
+            const configButton = document.createElement('button');
+            configButton.textContent = '⚙️ Update Config';
+            configButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                background: var(--bg-secondary);
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                color: var(--text-primary);
+                cursor: pointer;
+                z-index: 1000;
+            `;
+            
+            configButton.onclick = () => {
+                const url = prompt('Enter URL to configuration JSON:');
+                if (url) {
+                    loadExternalContent(url).then(success => {
+                        if (success) {
+                            alert('Configuration updated! Refreshing page...');
+                            location.reload();
+                        }
+                    });
+                }
+            };
+            
+            document.body.appendChild(configButton);
+        }
+        
+        // Initialize dynamic content
+        document.addEventListener('DOMContentLoaded', () => {
+            const dynamicContent = generateContentFromConfig();
+            
+            // You can inject this content into specific sections
+            // For now, it's available for use when needed
+            console.log('Dynamic content ready:', dynamicContent);
+        });
+        
         // Load content on page load
         loadMarkdown();
+        
+        // Optional: Enable config UI for easy updates
+        // addConfigUI();
     </script>
 </body>
 </html>

@@ -1,0 +1,48 @@
+{
+  "name": "LocalBrain",
+  "tagline": "AI-Powered Local Environment Command Center",
+  "version": "2.0.0",
+  "logo": "🧠",
+  "description": "LocalBrain is a privacy-first macOS desktop application that serves as an intelligent bridge between you and your computer.",
+  
+  "features": [
+    {
+      "title": "Voice-First Interaction",
+      "description": "Always-listening wake word with advanced STT/TTS",
+      "icon": "🎤",
+      "details": "Natural conversation with multiple interaction modes"
+    },
+    {
+      "title": "AI Orchestration",
+      "description": "Multi-model AI brain for complex task execution",
+      "icon": "🤖",
+      "details": "GPT-4, Claude, and local models support"
+    },
+    {
+      "title": "Terminal Integration",
+      "description": "Advanced terminal with AI assistance",
+      "icon": "💻",
+      "details": "Full terminal emulation with smart completions"
+    }
+  ],
+  
+  "techStack": {
+    "core": {
+      "Electron 30": "Latest desktop framework",
+      "TypeScript 5": "Modern type system",
+      "Node.js 20": "LTS runtime"
+    },
+    "frontend": {
+      "React 19": "Next-gen UI library",
+      "Vite 5": "Ultra-fast bundler",
+      "TailwindCSS 4": "Next-gen styling"
+    }
+  },
+  
+  "commands": {
+    "install": "pnpm install",
+    "dev": "pnpm dev",
+    "build": "pnpm build",
+    "test": "pnpm test"
+  }
+}

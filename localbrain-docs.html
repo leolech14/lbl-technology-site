@@ -283,28 +283,165 @@
         .tooltip {
             position: fixed;
             z-index: 999999;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            padding: 1rem;
+            background: linear-gradient(135deg, rgba(30, 35, 55, 0.98) 0%, rgba(25, 30, 45, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
             max-width: 450px;
-            font-size: 0.75rem;
-            line-height: 1.5;
+            font-size: 0.8rem;
+            line-height: 1.6;
             color: var(--text-primary);
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.2s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .tooltip b {
-            color: var(--primary-dark);
-            font-weight: 600;
-            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                0 2px 10px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transform: translateY(5px) scale(0.98);
         }
         
         .tooltip.visible {
             opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: var(--arrow-bottom, -6px);
+            top: var(--arrow-top, auto);
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            border-left: none;
+            transform: translateX(-50%) rotate(var(--arrow-rotate, 45deg));
+            z-index: -1;
+        }
+        
+        .tooltip b {
+            color: #64b5f6;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tooltip b:first-child {
+            display: block;
+            font-size: 1rem;
+            color: #81c784;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Color-coded tooltips based on element type */
+        .tooltip[data-type="keyword"] b:first-child {
+            color: #ce93d8;
+        }
+        
+        .tooltip[data-type="function"] b:first-child {
+            color: #64b5f6;
+        }
+        
+        .tooltip[data-type="operator"] b:first-child {
+            color: #ffb74d;
+        }
+        
+        .tooltip[data-type="string"] b:first-child {
+            color: #81c784;
+        }
+        
+        .tooltip[data-type="number"] b:first-child {
+            color: #ff8a65;
+        }
+        
+        .tooltip[data-type="punctuation"] b:first-child {
+            color: #e0e0e0;
+        }
+        
+        .tooltip[data-type="comment"] b:first-child {
+            color: #90a4ae;
+        }
+        
+        .tooltip[data-type="property"] b:first-child {
+            color: #4fc3f7;
+        }
+        
+        /* Tooltip content sections */
+        .tooltip-section {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip br + b {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+        }
+        
+        /* Code examples in tooltips */
+        .tooltip code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.75rem;
+            color: #81c784;
+            border: 1px solid rgba(129, 199, 132, 0.2);
+        }
+        
+        /* Visual indicators for different tooltip content */
+        .tooltip[data-type="keyword"]::after {
+            content: 'KEYWORD';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.6rem;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
+        }
+        
+        .tooltip[data-type="function"]::after {
+            content: 'FUNCTION';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.6rem;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
+        }
+        
+        .tooltip[data-type="operator"]::after {
+            content: 'OPERATOR';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.6rem;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Subtle animation for tooltip content */
+        .tooltip.visible > * {
+            animation: tooltipContentFade 0.3s ease-out;
+        }
+        
+        @keyframes tooltipContentFade {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .tooltip-title {
@@ -424,11 +561,40 @@
             display: inline-block;
             border-bottom: 2px dotted var(--blue-primary);
             transition: var(--transition);
+            cursor: help;
         }
         
         .interactive-term:hover {
             color: var(--blue-light);
             border-bottom-style: solid;
+            background: rgba(100, 181, 246, 0.05);
+            padding: 0 4px;
+            margin: 0 -4px;
+            border-radius: 4px;
+        }
+        
+        /* Special styling for interactive terms in tooltips */
+        .tooltip[data-type="term"] {
+            border-color: rgba(100, 181, 246, 0.3);
+            background: linear-gradient(135deg, rgba(25, 40, 65, 0.98) 0%, rgba(20, 30, 50, 0.98) 100%);
+        }
+        
+        .tooltip[data-type="term"] b:first-child {
+            color: #64b5f6;
+            background: linear-gradient(90deg, #64b5f6, #42a5f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tooltip[data-type="term"]::after {
+            content: 'TECHNOLOGY';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.6rem;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
         }
         
         
@@ -3283,7 +3449,12 @@ Each technology was chosen for specific reasons, creating a cohesive system that
                 // Add highlighted match with tooltip
                 const tooltipText = getTooltipForCode(match.type, match.text);
                 if (tooltipText) {
-                    result += `<span class="code-${match.type}" data-tooltip="${tooltipText}">${escapeHtml(match.text)}</span>`;
+                    // Format tooltip text for better visual presentation
+                    const formattedTooltip = tooltipText
+                        .replace(/`([^`]+)`/g, '<code>$1</code>')
+                        .replace(/\n\s+/g, '<br>')
+                        .trim();
+                    result += `<span class="code-${match.type}" data-tooltip="${escapeHtmlAttribute(formattedTooltip)}">${escapeHtml(match.text)}</span>`;
                 } else {
                     result += `<span class="code-${match.type}">${escapeHtml(match.text)}</span>`;
                 }
@@ -3327,42 +3498,73 @@ Each technology was chosen for specific reasons, creating a cohesive system that
             const tooltipText = e.target.getAttribute('data-tooltip');
             if (!tooltipText) return;
             
+            // Get element type for context-aware styling
+            const elementClass = e.target.className;
+            let elementType = 'default';
+            
+            if (elementClass.includes('code-keyword')) elementType = 'keyword';
+            else if (elementClass.includes('code-function')) elementType = 'function';
+            else if (elementClass.includes('code-operator')) elementType = 'operator';
+            else if (elementClass.includes('code-string')) elementType = 'string';
+            else if (elementClass.includes('code-number')) elementType = 'number';
+            else if (elementClass.includes('code-comment')) elementType = 'comment';
+            else if (elementClass.includes('code-property')) elementType = 'property';
+            else if (elementClass.includes('code-punctuation')) elementType = 'punctuation';
+            else if (elementClass.includes('interactive-term')) elementType = 'term';
+            
+            tooltip.setAttribute('data-type', elementType);
             tooltip.innerHTML = tooltipText;
-            tooltip.style.opacity = '1';
+            tooltip.classList.add('visible');
             
             // Position tooltip above cursor
             const x = e.clientX;
             const y = e.clientY;
             
-            // Get tooltip dimensions
+            // Get tooltip dimensions after content is set
             const rect = tooltip.getBoundingClientRect();
             
             // Center tooltip horizontally on cursor
-            tooltip.style.left = `${x - rect.width / 2}px`;
-            
-            // Position above cursor
-            tooltip.style.top = `${y - rect.height - 10}px`;
+            let left = x - rect.width / 2;
+            let top = y - rect.height - 20; // More space for arrow
             
             // Keep tooltip within viewport
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
+            const margin = 10;
             
             // Adjust horizontal position if needed
-            if (rect.left < 0) {
-                tooltip.style.left = '10px';
-            } else if (rect.right > viewportWidth) {
-                tooltip.style.left = `${viewportWidth - rect.width - 10}px`;
+            if (left < margin) {
+                left = margin;
+            } else if (left + rect.width > viewportWidth - margin) {
+                left = viewportWidth - rect.width - margin;
             }
             
             // Flip to below cursor if too close to top
-            if (y - rect.height - 10 < 0) {
-                tooltip.style.top = `${y + 10}px`;
+            if (top < margin) {
+                top = y + 20;
+                // Move arrow to top
+                tooltip.style.setProperty('--arrow-bottom', 'auto');
+                tooltip.style.setProperty('--arrow-top', '-6px');
+                tooltip.style.setProperty('--arrow-rotate', '225deg');
+            } else {
+                // Reset arrow to bottom
+                tooltip.style.setProperty('--arrow-bottom', '-6px');
+                tooltip.style.setProperty('--arrow-top', 'auto');
+                tooltip.style.setProperty('--arrow-rotate', '45deg');
             }
+            
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
         }
         
         function hideTooltip() {
             if (tooltip) {
-                tooltip.style.opacity = '0';
+                tooltip.classList.remove('visible');
+                setTimeout(() => {
+                    if (tooltip && !tooltip.classList.contains('visible')) {
+                        tooltip.removeAttribute('data-type');
+                    }
+                }, 300);
             }
         }
         

@@ -800,6 +800,19 @@
             box-shadow: 0 20px 40px 0 rgba(59, 130, 246, 0.2);
         }
         
+        /* Speed up animations on hover */
+        .project-card:hover .project-graphic {
+            animation-duration: 1s;
+        }
+        
+        .project-card:hover .particle {
+            animation-duration: 3s;
+        }
+        
+        .project-card:hover .project-image::before {
+            animation-duration: 5s;
+        }
+        
         .project-image {
             height: 200px;
             position: relative;
@@ -860,6 +873,185 @@
             opacity: 0.3;
             position: relative;
             z-index: 1;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px currentColor);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-graphic {
+            opacity: 0.8;
+            filter: drop-shadow(0 0 30px currentColor);
+        }
+        
+        /* Individual project animations */
+        
+        /* AI Content Platform - Floating particles */
+        .project-card:nth-child(1) .project-graphic {
+            animation: aiPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes aiPulse {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                opacity: 0.3;
+            }
+            50% { 
+                transform: scale(1.2) rotate(10deg); 
+                opacity: 0.6;
+                text-shadow: 0 0 30px var(--blue-light);
+            }
+        }
+        
+        .project-card:nth-child(1) .project-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,0,0,0.4) 100%);
+            animation: aiGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes aiGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* E-Commerce - Diamond shine */
+        .project-card:nth-child(2) .project-graphic {
+            animation: diamondShine 5s linear infinite;
+        }
+        
+        @keyframes diamondShine {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+            25% { 
+                transform: scale(1.1) rotate(90deg);
+                filter: brightness(1.5);
+            }
+            50% { 
+                transform: scale(1) rotate(180deg);
+                filter: brightness(1.2);
+            }
+            75% { 
+                transform: scale(1.1) rotate(270deg);
+                filter: brightness(1.5);
+            }
+        }
+        
+        /* Data Visualization - Data flow */
+        .project-card:nth-child(3) .project-graphic {
+            animation: dataFlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes dataFlow {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-10px) scale(1.1);
+                opacity: 0.7;
+                color: var(--accent-orange);
+            }
+        }
+        
+        /* Developer Tools - Lightning effect */
+        .project-card:nth-child(4) .project-graphic {
+            animation: devTools 3s ease-in-out infinite;
+        }
+        
+        @keyframes devTools {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.2);
+                filter: brightness(2) drop-shadow(0 0 20px var(--accent-orange));
+            }
+        }
+        
+        /* Family App - Heartbeat */
+        .project-card:nth-child(5) .project-graphic {
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.15); }
+            80% { transform: scale(1); }
+        }
+        
+        /* 3D Showcase - 3D rotation */
+        .project-card:nth-child(6) .project-graphic {
+            animation: rotate3D 6s linear infinite;
+        }
+        
+        @keyframes rotate3D {
+            0% { 
+                transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+            }
+            50% { 
+                transform: perspective(1000px) rotateY(180deg) rotateX(10deg);
+            }
+            100% { 
+                transform: perspective(1000px) rotateY(360deg) rotateX(0deg);
+            }
+        }
+        
+        /* Add floating particles to project cards */
+        .project-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--blue-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 10s linear infinite;
+        }
+        
+        /* Custom particle colors per project */
+        .project-card:nth-child(1) .particle { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
+        .project-card:nth-child(2) .particle { background: var(--accent-orange); box-shadow: 0 0 6px var(--accent-orange); }
+        .project-card:nth-child(3) .particle { background: var(--blue-light); box-shadow: 0 0 6px var(--blue-light); }
+        .project-card:nth-child(4) .particle { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+        .project-card:nth-child(5) .particle { background: #fb7185; box-shadow: 0 0 6px #fb7185; }
+        .project-card:nth-child(6) .particle { background: #9333ea; box-shadow: 0 0 6px #9333ea; }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 8s; }
+        
+        @keyframes particleFloat {
+            0% {
+                bottom: 0;
+                opacity: 0;
+                transform: translateX(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100%;
+                opacity: 0;
+                transform: translateX(20px);
+            }
         }
         
         /* Animated patterns */
@@ -885,7 +1077,8 @@
             100% { transform: translate(50px, 50px); }
         }
         
-        .project-image::after {
+        /* Vignette effect for all project images */
+        .project-card:not(:nth-child(1)) .project-image::after {
             content: '';
             position: absolute;
             top: 0;
@@ -1389,6 +1582,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">🤖</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">
@@ -1405,6 +1605,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">💎</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">
@@ -1420,6 +1627,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">📊</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">
@@ -1435,6 +1649,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">⚡</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">
@@ -1450,6 +1671,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">👨‍👩‍👧‍👦</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">
@@ -1465,6 +1693,13 @@
                 <div class="project-card">
                     <div class="project-image">
                         <span class="project-graphic">🎮</span>
+                        <div class="project-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
                     </div>
                     <div class="project-content">
                         <div class="project-tech">

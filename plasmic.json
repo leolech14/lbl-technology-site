@@ -18,9 +18,62 @@
   },
   "srcDir": "components",
   "defaultPlasmicDir": "./plasmic",
-  "projects": [],
+  "projects": [
+    {
+      "projectId": "xfLZfGGmVxgqZrJoXmd1sY",
+      "projectApiToken": "PYy6hoybRCJx1ysP4SxRKgR68Qkokc8B0Iz7i1UtPDQJ8wXgQiLtzLi7XlrXA3le19Ikd8LEFwqNIyPtA",
+      "projectName": "Website starter",
+      "version": "latest",
+      "cssFilePath": "plasmic/website_starter/plasmic.module.css",
+      "components": [
+        {
+          "id": "igsxWILZbzOs",
+          "name": "Homepage",
+          "type": "managed",
+          "projectId": "xfLZfGGmVxgqZrJoXmd1sY",
+          "renderModuleFilePath": "plasmic/website_starter/PlasmicHomepage.jsx",
+          "importSpec": {
+            "modulePath": "Homepage.jsx"
+          },
+          "cssFilePath": "plasmic/website_starter/PlasmicHomepage.module.css",
+          "scheme": "blackbox",
+          "componentType": "page",
+          "path": "/"
+        }
+      ],
+      "icons": [],
+      "images": [],
+      "indirect": false,
+      "globalContextsFilePath": "",
+      "splitsProviderFilePath": "",
+      "codeComponents": [
+        {
+          "id": "4io9-qO883vm",
+          "name": "PlasmicHead",
+          "displayName": "hostless-plasmic-head",
+          "componentImportPath": "@plasmicapp/react-web"
+        },
+        {
+          "id": "fMxmBtJPAAqo",
+          "name": "Fetcher",
+          "displayName": "plasmic-data-source-fetcher",
+          "componentImportPath": "@plasmicapp/react-web/lib/data-sources"
+        }
+      ],
+      "customFunctions": []
+    }
+  ],
   "globalVariants": {
-    "variantGroups": []
+    "variantGroups": [
+      {
+        "id": "fWga4dQ562FF",
+        "name": "Screen",
+        "projectId": "xfLZfGGmVxgqZrJoXmd1sY",
+        "contextFilePath": "plasmic/website_starter/PlasmicGlobalVariant__Screen.jsx"
+      }
+    ]
   },
-  "cliVersion": "0.1.331"
+  "wrapPagesWithGlobalContexts": true,
+  "cliVersion": "0.1.340",
+  "$schema": "https://unpkg.com/@plasmicapp/cli@0.1.340/dist/plasmic.schema.json"
 }

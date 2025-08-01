@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphic Video Assets Implementation</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --accent-orange: #f97316;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards with Video Background */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--blue-primary);
+            box-shadow: 0 10px 40px 0 rgba(59, 130, 246, 0.15);
+        }
+
+        /* Video Icon Container */
+        .video-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .video-icon video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fallback for missing videos */
+        .video-icon.fallback {
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        /* Projects Section with Shared Panorama */
+        .projects-section {
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .panorama-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .panorama-video {
+            position: absolute;
+            width: 100%;
+            height: 200%;
+            object-fit: cover;
+            animation: panoramaScroll 30s linear infinite;
+        }
+
+        @keyframes panoramaScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-window {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Mask to reveal panorama */
+        .project-window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 60%, var(--bg-primary) 100%);
+            z-index: 2;
+        }
+
+        /* Footer Animation */
+        .footer-hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            margin-top: 4rem;
+            border-radius: 24px;
+        }
+
+        .footer-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Code Examples */
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            color: #a8a8b3;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .implementation-steps {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--blue-light);
+            margin: 2rem 0 1rem;
+        }
+
+        .step {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--blue-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Glassmorphic Video Assets Implementation Guide</h1>
+
+        <div class="implementation-steps">
+            <h2>🎬 Step 1: Generate Video Assets</h2>
+            
+            <h3>Option A: Using Leonardo AI (For Static Icons)</h3>
+            <div class="step" data-step="1">
+                Sign up for Leonardo AI (free tier available)
+            </div>
+            <div class="step" data-step="2">
+                Use these modified prompts with "transparent background" keyword:
+            </div>
+            
+            <div class="code-block">
+                <pre>
+"Isometric translucent glass rocket with glowing cyan circuit board traces, 
+transparent background, glassmorphic style, dark mode compatible, 
+high contrast, centered composition"</pre>
+            </div>
+
+            <h3>Option B: Using Midjourney + Background Removal</h3>
+            <div class="step" data-step="1">
+                Generate with solid color background:
+            </div>
+            
+            <div class="code-block">
+                <pre>
+"Holographic robot bust made of light-blue volumetric lines on pure black background, 
+glassmorphic style, minimal, high contrast --v 6 --style raw"</pre>
+            </div>
+            
+            <div class="step" data-step="2">
+                Remove background using remove.bg or Aiarty Image Matting
+            </div>
+
+            <h3>Option C: Using Sora/Runway for Animated Loops</h3>
+            <div class="step" data-step="1">
+                Generate 1-second loops with green screen:
+            </div>
+            
+            <div class="code-block">
+                <pre>
+"1-second seamless loop, green screen background, isometric glass rocket 
+with animated cyan traces, 30fps, 1024x1024px, locked camera"</pre>
+            </div>
+        </div>
+
+        <h2>🚀 Step 2: Implement in Your Website</h2>
+
+        <h3>Feature Cards with Video Icons</h3>
+        <div class="code-block">
+            <pre>
+&lt;!-- HTML Structure --&gt;
+&lt;div class="feature-grid"&gt;
+    &lt;div class="feature-card"&gt;
+        &lt;div class="video-icon"&gt;
+            &lt;video autoplay loop muted playsinline&gt;
+                &lt;source src="assets/videos/full-stack-icon.webm" type="video/webm"&gt;
+                &lt;source src="assets/videos/full-stack-icon.mp4" type="video/mp4"&gt;
+            &lt;/video&gt;
+        &lt;/div&gt;
+        &lt;h3&gt;Full-Stack Development&lt;/h3&gt;
+        &lt;p&gt;Expert in React 18, TypeScript, Node.js...&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- CSS for Glass Effect --&gt;
+&lt;style&gt;
+.video-icon {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.video-icon video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen; /* For glow effect */
+}
+&lt;/style&gt;</pre>
+        </div>
+
+        <h3>Shared Panorama for Projects</h3>
+        <div class="code-block">
+            <pre>
+&lt;!-- Fixed Background Video --&gt;
+&lt;div class="panorama-container"&gt;
+    &lt;video class="panorama-video" autoplay loop muted&gt;
+        &lt;source src="assets/videos/nebula-cityscape.webm" type="video/webm"&gt;
+    &lt;/video&gt;
+&lt;/div&gt;
+
+&lt;!-- Project Cards with Mask Windows --&gt;
+&lt;div class="project-grid"&gt;
+    &lt;div class="project-card"&gt;
+        &lt;div class="project-window"&gt;
+            &lt;!-- Panorama shows through here --&gt;
+        &lt;/div&gt;
+        &lt;div class="project-content"&gt;
+            &lt;h3&gt;AI Content Platform&lt;/h3&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.project-window {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+}
+&lt;/style&gt;</pre>
+        </div>
+
+        <h3>Performance Optimization</h3>
+        <div class="code-block">
+            <pre>
+// Lazy load videos on intersection
+const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const video = entry.target.querySelector('video');
+            video.play();
+        } else {
+            const video = entry.target.querySelector('video');
+            video.pause();
+        }
+    });
+});
+
+document.querySelectorAll('.video-icon').forEach(icon => {
+    videoObserver.observe(icon);
+});
+
+// Preload critical videos
+&lt;link rel="preload" as="video" href="assets/videos/hero-loop.webm"&gt;</pre>
+        </div>
+
+        <h2>📦 Step 3: Asset Pipeline</h2>
+        
+        <div class="implementation-steps">
+            <h3>Video Compression Settings</h3>
+            <div class="code-block">
+                <pre>
+# Convert to WebM with transparency (VP9)
+ffmpeg -i input.mov -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 30 output.webm
+
+# Convert to MP4 with H.265
+ffmpeg -i input.mov -c:v libx265 -crf 28 -preset fast -tag:v hvc1 output.mp4
+
+# Generate poster frame
+ffmpeg -i video.webm -ss 00:00:00 -vframes 1 poster.jpg</pre>
+            </div>
+
+            <h3>File Structure</h3>
+            <div class="code-block">
+                <pre>
+github-pages-site/
+├── assets/
+│   ├── videos/
+│   │   ├── icons/
+│   │   │   ├── full-stack-icon.webm
+│   │   │   ├── ai-integration-icon.webm
+│   │   │   └── ... (all 6 capability icons)
+│   │   ├── panorama/
+│   │   │   └── nebula-cityscape.webm
+│   │   └── footer/
+│   │       └── digital-horizon.webm
+│   └── images/
+│       └── fallbacks/
+│           └── ... (static PNG fallbacks)</pre>
+            </div>
+        </div>
+
+        <h2>🎨 Live Demo</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="video-icon fallback">🚀</div>
+                <h3>Full-Stack Development</h3>
+                <p>Simulated video icon with glassmorphic effect</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="video-icon fallback">🤖</div>
+                <h3>AI Integration</h3>
+                <p>Hover to see the glass border glow effect</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="video-icon fallback">💎</div>
+                <h3>Premium UI/UX</h3>
+                <p>Videos will replace these emoji placeholders</p>
+            </div>
+        </div>
+
+        <div class="implementation-steps">
+            <h2>🔧 Next Steps</h2>
+            <div class="step" data-step="1">
+                Choose your generation tool (Leonardo AI for statics, Sora for loops)
+            </div>
+            <div class="step" data-step="2">
+                Generate assets using the provided prompts
+            </div>
+            <div class="step" data-step="3">
+                Compress videos using ffmpeg commands
+            </div>
+            <div class="step" data-step="4">
+                Implement in your index.html using the code examples
+            </div>
+            <div class="step" data-step="5">
+                Test performance and add lazy loading
+            </div>
+        </div>
+    </div>
+</body>
+</html>

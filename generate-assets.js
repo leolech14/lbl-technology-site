@@ -53,37 +53,37 @@ const CAPABILITY_ICONS = [
   {
     id: 'full-stack',
     name: 'Full-Stack Development',
-    prompt: 'Isometric translucent glass rocket with glowing cyan circuit board traces flowing through the body, transparent background, glassmorphic style, dark mode compatible, high contrast, centered composition, subtle rim lighting in #17e0ff, no harsh reflections',
+    prompt: 'Simple minimalist rocket icon, transparent background, single blue color #3b82f6, flat design, no gradients, clean lines, geometric shape',
     emoji: '🚀',
   },
   {
     id: 'ai-integration',
     name: 'AI Integration',
-    prompt: 'Holographic robot bust made of light-blue volumetric lines, transparent background, streams of green code characters scrolling upward inside the bust, glassmorphic style, glow color #37c0ff, minimal scanlines effect',
+    prompt: 'Simple minimalist brain circuit icon, transparent background, single blue color #60a5fa, flat design, no gradients, clean lines, geometric shape',
     emoji: '🤖',
   },
   {
     id: 'premium-ui',
     name: 'Premium UI/UX',
-    prompt: 'Superbly faceted prism diamond slowly rotating, transparent background, high-fidelity UI wireframe reflections in each face, rose-gold edge glints #f9a8ff, glassmorphic style, low-intensity bloom',
+    prompt: 'Simple minimalist diamond icon, transparent background, single blue color #3b82f6, flat design, no gradients, clean lines, geometric shape',
     emoji: '💎',
   },
   {
     id: 'data-viz',
     name: 'Data Visualization',
-    prompt: 'Clear glass globe with orbiting 3D bar chart columns and glowing polyline around equator, transparent background, cool teal rim light #00d8ff, glassmorphic style, faint grid reflections',
+    prompt: 'Simple minimalist bar chart icon, transparent background, single blue color #60a5fa, flat design, no gradients, clean lines, geometric shape',
     emoji: '📊',
   },
   {
     id: 'performance',
     name: 'Performance Optimization',
-    prompt: 'Translucent electric thunderbolt made of folded glass plates, transparent background, splits into three shards with motion blur, lime-green glow #b4ff4e, glassmorphic style, subtle chromatic aberration',
+    prompt: 'Simple minimalist lightning bolt icon, transparent background, single orange color #f97316, flat design, no gradients, clean lines, geometric shape',
     emoji: '⚡',
   },
   {
     id: 'security',
     name: 'Security & Architecture',
-    prompt: 'Futuristic titanium vault door circular design with three concentric translucent rings, transparent background, TypeScript and security icons engraved, warm gold central lock glow #ffdd55, glassmorphic style',
+    prompt: 'Simple minimalist shield icon, transparent background, single blue color #3b82f6, flat design, no gradients, clean lines, geometric shape',
     emoji: '🔐',
   },
 ];

@@ -1,0 +1,253 @@
+PASTE THIS INTO PLASMIC STUDIO:
+
+1. In Plasmic Studio (https://studio.plasmic.app/projects/xfLZfGGmVxgqZrJoXmd1sY)
+2. Click on "Homepage" to edit
+3. Select all (Cmd+A) and delete
+4. Click the "+" button
+5. Under "Basic" → Click "Embed HTML"
+6. Paste this entire code:
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a0a0f;
+    --blue-primary: #3b82f6;
+    --blue-light: #60a5fa;
+    --accent-orange: #f97316;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f0f0f0;
+    --text-secondary: #a8a8b3;
+}
+
+.dark-portfolio-container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ai-tagline {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #60a5fa;
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
+    50% { text-shadow: 0 0 30px rgba(96, 165, 250, 0.8), 0 0 40px rgba(59, 130, 246, 0.5); }
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.stats-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue-primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.expertise-section {
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.expertise-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.expertise-card h3 {
+    color: var(--blue-light);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.expertise-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.expertise-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.3);
+}
+</style>
+
+<div class="dark-portfolio-container">
+    <div class="bg-gradient"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Building <span class="gradient-text">Premium Digital Experiences</span>
+                <br>with AI & Modern Tech
+            </h1>
+            <p class="ai-tagline">
+                AI-Native Builder • Will turn 2025 into 1995
+            </p>
+            <p class="hero-description">
+                Full-stack architect specializing in TypeScript, React, and AI-powered solutions. 
+                Creating beautiful, performant applications with a focus on glassmorphic design 
+                and exceptional user experiences.
+            </p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Expertise Section -->
+    <section class="expertise-section">
+        <h2 class="section-title">
+            <span class="gradient-text">Core Expertise</span>
+        </h2>
+        <div class="expertise-grid">
+            <div class="expertise-card">
+                <h3>React & TypeScript</h3>
+                <p>Building scalable, type-safe applications with modern React patterns and best practices</p>
+            </div>
+            <div class="expertise-card">
+                <h3>AI Integration</h3>
+                <p>Implementing cutting-edge AI solutions with OpenAI, Claude, and custom ML models</p>
+            </div>
+            <div class="expertise-card">
+                <h3>System Architecture</h3>
+                <p>Designing robust, scalable systems for enterprise applications and startups</p>
+            </div>
+            <div class="expertise-card">
+                <h3>UI/UX Design</h3>
+                <p>Creating beautiful, intuitive interfaces with glassmorphic and modern design principles</p>
+            </div>
+            <div class="expertise-card">
+                <h3>Data Visualization</h3>
+                <p>Building interactive dashboards and data experiences with D3.js and Three.js</p>
+            </div>
+            <div class="expertise-card">
+                <h3>Performance</h3>
+                <p>Optimizing applications for speed, scalability, and exceptional user experience</p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import to Plasmic</title>
+</head>
+<body>
+    <h1>Import Your Dark Portfolio to Plasmic</h1>
+    
+    <h2>Quick Import Instructions:</h2>
+    <ol>
+        <li>Open Plasmic Studio: <a href="https://studio.plasmic.app/projects/xfLZfGGmVxgqZrJoXmd1sY" target="_blank">Your Project</a></li>
+        <li>Click the "Homepage" page to edit</li>
+        <li>Delete the default content</li>
+        <li>Add a "Custom HTML" component</li>
+        <li>Copy sections from your index.html</li>
+    </ol>
+
+    <h2>Your Design System for Plasmic:</h2>
+    <pre>
+/* Add these to Plasmic's Global Styles */
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #1a1a2e;
+    --blue-primary: #3b82f6;
+    --blue-light: #60a5fa;
+    --blue-dark: #2563eb;
+    --accent-orange: #f97316;
+    --accent-purple: #a855f7;
+    --text-primary: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Glassmorphism effect */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+    </pre>
+
+    <h2>Real-time Workflow:</h2>
+    <p>1. Run in terminal: <code>./plasmic-watch.sh</code></p>
+    <p>2. Edit in Plasmic Studio</p>
+    <p>3. Changes sync automatically</p>
+    <p>4. Claude sees updates instantly!</p>
+</body>
+</html>

@@ -42,17 +42,31 @@
             --text-secondary: #a8a8b3;
             --text-muted: #6b7280;
             
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
+            /* Spacing - Scaled to 75% */
+            --space-xs: 0.375rem;
+            --space-sm: 0.75rem;
+            --space-md: 1.125rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2.25rem;
+            --space-2xl: 3rem;
             
             /* Animation */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --hover-transform: translateY(-2px);
+            
+            /* Code Syntax Colors */
+            --code-keyword: #ff79c6;
+            --code-function: #8be9fd;
+            --code-string: #f1fa8c;
+            --code-number: #bd93f9;
+            --code-comment: #6272a4;
+            --code-variable: #50fa7b;
+            --code-class: #ffb86c;
+            --code-operator: #ff5555;
+            --code-punctuation: #f8f8f2;
+            --code-property: #66d9ef;
+            --code-tag: #ff79c6;
+            --code-attribute: #50fa7b;
         }
         
         /* Reset and Base Styles */
@@ -72,6 +86,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            font-size: 14px; /* Base font size reduced from 16px */
         }
         
         /* Beautiful Gradient Background */
@@ -142,6 +157,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
+            height: 60px; /* Reduced from 80px */
         }
         
         .header-content {
@@ -153,7 +169,7 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.125rem; /* Reduced from 1.5rem */
             font-weight: 700;
             background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
             -webkit-background-clip: text;
@@ -162,6 +178,11 @@
             display: flex;
             align-items: center;
             gap: var(--space-sm);
+        }
+        
+        .logo svg {
+            width: 24px; /* Reduced from 32px */
+            height: 24px;
         }
         
         .back-button {
@@ -185,13 +206,14 @@
         
         /* Main Container */
         .container {
-            max-width: 1400px;
+            max-width: 1200px; /* Reduced from 1400px */
             margin: 0 auto;
-            padding: calc(80px + var(--space-xl)) var(--space-xl) var(--space-xl);
+            padding: calc(60px + var(--space-xl)) var(--space-xl) var(--space-xl);
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 210px 1fr; /* Reduced from 280px */
             gap: var(--space-xl);
             min-height: 100vh;
+            overflow: hidden;
         }
         
         /* Sidebar Navigation */
@@ -257,14 +279,56 @@
             overflow: hidden;
         }
         
+        /* Tooltip System - Built from scratch */
+        .tooltip {
+            position: fixed;
+            z-index: 999999;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            max-width: 300px;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tooltip.visible {
+            opacity: 1;
+        }
+        
+        .tooltip-title {
+            font-weight: 600;
+            color: var(--blue-light);
+            margin-bottom: 0.25rem;
+        }
+        
+        .tooltip-content {
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        .tooltip-content strong {
+            color: var(--text-primary);
+        }
+        
+        /* Interactive elements */
+        [data-tooltip] {
+            cursor: help;
+            border-bottom: 1px dotted var(--blue-primary);
+        }
+        
         /* Markdown Styles */
         .markdown-content {
-            font-size: 1rem;
-            line-height: 1.8;
+            font-size: 0.875rem; /* Reduced from 1rem */
+            line-height: 1.7;
         }
         
         .markdown-content h1 {
-            font-size: 2.5rem;
+            font-size: 1.875rem; /* Reduced from 2.5rem */
             margin-bottom: var(--space-lg);
             background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
             -webkit-background-clip: text;
@@ -274,7 +338,7 @@
         }
         
         .markdown-content h2 {
-            font-size: 2rem;
+            font-size: 1.5rem; /* Reduced from 2rem */
             margin-top: var(--space-2xl);
             margin-bottom: var(--space-md);
             color: var(--text-primary);
@@ -283,7 +347,7 @@
         }
         
         .markdown-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.125rem; /* Reduced from 1.5rem */
             margin-top: var(--space-xl);
             margin-bottom: var(--space-sm);
             color: var(--blue-light);
@@ -309,9 +373,10 @@
             background: var(--bg-tertiary);
             padding: 0.2em 0.4em;
             border-radius: 4px;
-            font-size: 0.875em;
+            font-size: 0.75rem; /* Reduced for 75% scale */
             color: var(--blue-light);
         }
+        
         
         .markdown-content pre {
             background: var(--bg-tertiary);
@@ -326,16 +391,30 @@
         .markdown-content pre code {
             background: none;
             padding: 0;
-            font-size: 0.875rem;
+            font-size: 0.75rem; /* Reduced for 75% scale */
             line-height: 1.6;
             color: var(--text-primary);
         }
+        
+        /* Syntax Highlighting Classes */
+        .code-keyword { color: var(--code-keyword); font-weight: 600; }
+        .code-function { color: var(--code-function); }
+        .code-string { color: var(--code-string); }
+        .code-number { color: var(--code-number); }
+        .code-comment { color: var(--code-comment); font-style: italic; }
+        .code-variable { color: var(--code-variable); }
+        .code-class { color: var(--code-class); font-weight: 600; }
+        .code-operator { color: var(--code-operator); }
+        .code-punctuation { color: var(--code-punctuation); }
+        .code-property { color: var(--code-property); }
+        .code-tag { color: var(--code-tag); }
+        .code-attribute { color: var(--code-attribute); }
+        
         
         /* Interactive Elements */
         .interactive-term {
             position: relative;
             display: inline-block;
-            cursor: help;
             border-bottom: 2px dotted var(--blue-primary);
             transition: var(--transition);
         }
@@ -345,51 +424,7 @@
             border-bottom-style: solid;
         }
         
-        /* Tooltip */
-        .tooltip {
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-tertiary);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: var(--space-sm) var(--space-md);
-            width: 300px;
-            box-shadow: var(--glass-shadow);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 100;
-        }
         
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: var(--glass-border);
-        }
-        
-        .interactive-term:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(-5px);
-        }
-        
-        .tooltip-title {
-            font-weight: 600;
-            color: var(--blue-light);
-            margin-bottom: var(--space-xs);
-        }
-        
-        .tooltip-content {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
         
         /* Tables */
         .markdown-content table {
@@ -461,9 +496,6 @@
                 font-size: 1.5rem;
             }
             
-            .tooltip {
-                width: 250px;
-            }
         }
         
         /* Loading State */
@@ -775,10 +807,304 @@
                 description: 'A phrase that activates the voice assistant, similar to "Hey Siri" or "OK Google".',
                 connects: ['Voice Activation', 'Always Listening'],
                 purpose: 'Hands-free activation of voice commands'
+            },
+            'Electron 28': {
+                title: 'Electron Version 28',
+                description: 'The latest stable version of Electron with improved performance, security updates, and better macOS support.',
+                connects: ['Chromium', 'Node.js', 'V8 Engine'],
+                purpose: 'Provides the most up-to-date features and security patches'
+            },
+            'node-pty': {
+                title: 'Node PTY',
+                description: 'Node.js bindings for pseudo terminals (PTY). Requires C++ compilation and platform-specific builds.',
+                connects: ['Terminal', 'PTY', 'xterm.js'],
+                purpose: 'Full terminal emulation (avoided in LocalBrain for simplicity)'
+            },
+            'bootstrap': {
+                title: 'Bootstrap (LLM Context)',
+                description: 'The initial setup phase of an LLM conversation where system context, capabilities, and constraints are established.',
+                connects: ['System Prompt', 'Context Injection', 'LLM'],
+                purpose: 'Primes the AI with necessary information for accurate responses'
+            },
+            'package.json': {
+                title: 'Package.json File',
+                description: 'The manifest file for Node.js projects that defines dependencies, scripts, metadata, and project configuration.',
+                connects: ['npm', 'pnpm', 'Node.js'],
+                purpose: 'Central configuration for JavaScript/TypeScript projects'
+            },
+            '.env.example': {
+                title: 'Environment Example File',
+                description: 'A template file showing required environment variables without exposing actual secrets. Safe to commit to version control.',
+                connects: ['.env', 'Security', 'Configuration'],
+                purpose: 'Documents required environment variables while keeping secrets safe'
+            }
+        };
+        
+        // Comprehensive code syntax dictionary
+        const codeSyntaxDictionary = {
+            // JavaScript/TypeScript Keywords
+            'const': {
+                type: 'keyword',
+                title: 'const Declaration',
+                description: 'Declares a constant variable that cannot be reassigned. The value itself may still be mutable (for objects/arrays).',
+                example: 'const PI = 3.14159; // Cannot do PI = 3.14',
+                details: 'Block-scoped, temporal dead zone applies, must be initialized at declaration.'
+            },
+            'let': {
+                type: 'keyword',
+                title: 'let Declaration',
+                description: 'Declares a block-scoped variable that can be reassigned.',
+                example: 'let count = 0; count = count + 1;',
+                details: 'Replaces var in modern JavaScript. No hoisting to function scope.'
+            },
+            'var': {
+                type: 'keyword',
+                title: 'var Declaration',
+                description: 'Legacy variable declaration. Function-scoped or globally-scoped.',
+                example: 'var oldStyle = "avoid in modern code";',
+                details: 'Hoisted to top of function, can cause unexpected behavior. Use let/const instead.'
+            },
+            'function': {
+                type: 'keyword',
+                title: 'Function Declaration',
+                description: 'Declares a named function that can be called elsewhere.',
+                example: 'function greet(name) { return `Hello ${name}`; }',
+                details: 'Hoisted to top of scope, can be called before declaration.'
+            },
+            'async': {
+                type: 'keyword',
+                title: 'Async Function',
+                description: 'Declares an asynchronous function that returns a Promise.',
+                example: 'async function fetchData() { const result = await api.get(); }',
+                details: 'Allows use of await keyword inside. Always returns a Promise.'
+            },
+            'await': {
+                type: 'keyword',
+                title: 'Await Expression',
+                description: 'Pauses async function execution until Promise resolves.',
+                example: 'const data = await fetch(url);',
+                details: 'Only valid inside async functions. Makes async code look synchronous.'
+            },
+            'class': {
+                type: 'keyword',
+                title: 'Class Declaration',
+                description: 'Declares a class for object-oriented programming.',
+                example: 'class Animal { constructor(name) { this.name = name; } }',
+                details: 'Syntactic sugar over prototype-based inheritance. Supports extends, super, static.'
+            },
+            'interface': {
+                type: 'keyword',
+                title: 'TypeScript Interface',
+                description: 'Defines the shape of an object in TypeScript.',
+                example: 'interface User { name: string; age: number; }',
+                details: 'Only exists at compile time. Can be extended and implemented by classes.'
+            },
+            'import': {
+                type: 'keyword',
+                title: 'ES6 Import',
+                description: 'Imports functionality from other modules.',
+                example: 'import { Component } from "react";',
+                details: 'ES6 module syntax. Can import default exports, named exports, or entire modules.'
+            },
+            'export': {
+                type: 'keyword',
+                title: 'ES6 Export',
+                description: 'Exports functionality for use in other modules.',
+                example: 'export const API_KEY = "secret";',
+                details: 'Can export named items, default export, or re-export from other modules.'
+            },
+            'return': {
+                type: 'keyword',
+                title: 'Return Statement',
+                description: 'Exits function and optionally returns a value.',
+                example: 'return result * 2;',
+                details: 'If no value specified, returns undefined. Stops function execution immediately.'
+            },
+            'if': {
+                type: 'keyword',
+                title: 'If Statement',
+                description: 'Conditional execution based on boolean expression.',
+                example: 'if (condition) { doSomething(); }',
+                details: 'Can be chained with else if and else. Condition is coerced to boolean.'
+            },
+            'for': {
+                type: 'keyword',
+                title: 'For Loop',
+                description: 'Iterates a specified number of times.',
+                example: 'for (let i = 0; i < 10; i++) { }',
+                details: 'Three parts: initialization, condition, increment. All are optional.'
+            },
+            'try': {
+                type: 'keyword',
+                title: 'Try Block',
+                description: 'Attempts to execute code that might throw an error.',
+                example: 'try { riskyOperation(); } catch (e) { }',
+                details: 'Must be followed by catch and/or finally. Catches synchronous errors only.'
+            },
+            // Operators
+            '=>': {
+                type: 'operator',
+                title: 'Arrow Function',
+                description: 'Concise syntax for function expressions.',
+                example: 'const double = x => x * 2;',
+                details: 'Lexically binds this. No arguments object. Cannot be used as constructor.'
+            },
+            '===': {
+                type: 'operator',
+                title: 'Strict Equality',
+                description: 'Compares value and type without coercion.',
+                example: '5 === "5" // false',
+                details: 'Preferred over == in most cases. NaN !== NaN is the odd case.'
+            },
+            '...': {
+                type: 'operator',
+                title: 'Spread/Rest Operator',
+                description: 'Expands iterables or collects remaining arguments.',
+                example: 'const arr2 = [...arr1, 4, 5]; function sum(...nums) { }',
+                details: 'In arrays: spreads elements. In functions: collects arguments. In objects: shallow copy.'
+            },
+            '?.': {
+                type: 'operator',
+                title: 'Optional Chaining',
+                description: 'Safely access nested properties that might not exist.',
+                example: 'const city = user?.address?.city;',
+                details: 'Returns undefined if any part is null/undefined. Short-circuits evaluation.'
+            },
+            '??': {
+                type: 'operator',
+                title: 'Nullish Coalescing',
+                description: 'Returns right side only if left is null or undefined.',
+                example: 'const port = process.env.PORT ?? 3000;',
+                details: 'Unlike ||, treats 0, "", false as valid values. Only null/undefined trigger fallback.'
+            },
+            // Common Functions/Methods
+            'useState': {
+                type: 'function',
+                title: 'React useState Hook',
+                description: 'Adds state to functional components.',
+                example: 'const [count, setCount] = useState(0);',
+                details: 'Returns array: [currentValue, setterFunction]. Triggers re-render on state change.'
+            },
+            'useEffect': {
+                type: 'function',
+                title: 'React useEffect Hook',
+                description: 'Handles side effects in functional components.',
+                example: 'useEffect(() => { fetchData(); }, [dependency]);',
+                details: 'Runs after render. Cleanup function optional. Dependencies control when it runs.'
+            },
+            'addEventListener': {
+                type: 'function',
+                title: 'DOM Event Listener',
+                description: 'Attaches event handler to DOM element.',
+                example: 'element.addEventListener("click", handleClick);',
+                details: 'Third parameter for options/useCapture. Remember to removeEventListener when done.'
+            },
+            'querySelector': {
+                type: 'function',
+                title: 'DOM Query Selector',
+                description: 'Finds first element matching CSS selector.',
+                example: 'document.querySelector(".my-class");',
+                details: 'Returns null if not found. Use querySelectorAll for multiple elements.'
+            },
+            'map': {
+                type: 'function',
+                title: 'Array Map Method',
+                description: 'Creates new array by transforming each element.',
+                example: '[1, 2, 3].map(x => x * 2); // [2, 4, 6]',
+                details: 'Does not mutate original array. Returns array of same length. Skip elements with return undefined.'
+            },
+            'filter': {
+                type: 'function',
+                title: 'Array Filter Method',
+                description: 'Creates new array with elements that pass test.',
+                example: '[1, 2, 3, 4].filter(x => x > 2); // [3, 4]',
+                details: 'Does not mutate original. Callback should return boolean. Empty array if none pass.'
+            },
+            'reduce': {
+                type: 'function',
+                title: 'Array Reduce Method',
+                description: 'Reduces array to single value using accumulator.',
+                example: '[1, 2, 3].reduce((sum, x) => sum + x, 0); // 6',
+                details: 'Most versatile array method. Can implement map/filter/etc. Initial value recommended.'
+            },
+            // Types
+            'string': {
+                type: 'type',
+                title: 'String Type',
+                description: 'Text data type for characters and words.',
+                example: 'const name: string = "Alice";',
+                details: 'Immutable in JavaScript. Template literals with backticks support interpolation.'
+            },
+            'number': {
+                type: 'type',
+                title: 'Number Type',
+                description: 'Numeric data type for integers and floats.',
+                example: 'const age: number = 25; const pi: number = 3.14;',
+                details: 'All numbers are floating point. Special values: Infinity, -Infinity, NaN.'
+            },
+            'boolean': {
+                type: 'type',
+                title: 'Boolean Type',
+                description: 'True or false logical values.',
+                example: 'const isActive: boolean = true;',
+                details: 'Falsy values: false, 0, "", null, undefined, NaN. Everything else is truthy.'
+            },
+            'void': {
+                type: 'type',
+                title: 'Void Type',
+                description: 'Function returns no value (TypeScript).',
+                example: 'function log(msg: string): void { console.log(msg); }',
+                details: 'Different from undefined. Used for functions with no return statement.'
+            },
+            'Promise': {
+                type: 'type',
+                title: 'Promise Type',
+                description: 'Represents eventual completion of async operation.',
+                example: 'function fetchUser(): Promise<User> { }',
+                details: 'Three states: pending, fulfilled, rejected. Chain with then/catch/finally.'
+            },
+            // Special values
+            'null': {
+                type: 'value',
+                title: 'Null Value',
+                description: 'Intentional absence of any object value.',
+                example: 'let data = null; // explicitly empty',
+                details: 'typeof null === "object" (historic bug). Different from undefined.'
+            },
+            'undefined': {
+                type: 'value',
+                title: 'Undefined Value',
+                description: 'Variable declared but not assigned.',
+                example: 'let x; console.log(x); // undefined',
+                details: 'Default return value. Property that doesn\'t exist. Different from null.'
+            },
+            'true': {
+                type: 'value',
+                title: 'Boolean True',
+                description: 'Boolean literal representing logical true.',
+                example: 'const isEnabled = true;',
+                details: 'Lowercase only. In conditions, many values are "truthy" but not === true.'
+            },
+            'false': {
+                type: 'value',
+                title: 'Boolean False',
+                description: 'Boolean literal representing logical false.',
+                example: 'const isDisabled = false;',
+                details: 'Lowercase only. One of the falsy values in JavaScript.'
             }
         };
         
         // Load and process markdown content from embedded string
+        // Helper function to escape HTML attributes
+        function escapeHtmlAttribute(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+        
         async function loadMarkdown() {
             try {
                 // Use the embedded markdown content
@@ -799,6 +1125,10 @@
                 // Setup navigation
                 setupNavigation();
                 
+                
+                // Apply syntax highlighting to code blocks
+                applySyntaxHighlighting();
+                
             } catch (error) {
                 document.getElementById('markdown-content').innerHTML = `
                     <div class="error">
@@ -812,6 +1142,24 @@
         
         // Add interactive elements to specific terms
         function addInteractiveElements(html) {
+            // First, temporarily replace code blocks and pre elements to protect them
+            const codeBlocks = [];
+            const preBlocks = [];
+            
+            // Store and replace <code> blocks
+            html = html.replace(/<code[^>]*>[\s\S]*?<\/code>/g, (match) => {
+                const placeholder = `___CODE_BLOCK_${codeBlocks.length}___`;
+                codeBlocks.push(match);
+                return placeholder;
+            });
+            
+            // Store and replace <pre> blocks
+            html = html.replace(/<pre[^>]*>[\s\S]*?<\/pre>/g, (match) => {
+                const placeholder = `___PRE_BLOCK_${preBlocks.length}___`;
+                preBlocks.push(match);
+                return placeholder;
+            });
+            
             let processedHtml = html;
             
             // Sort terms by length (longest first) to avoid partial matches
@@ -819,22 +1167,44 @@
             
             sortedTerms.forEach(term => {
                 const info = interactiveTerms[term];
-                // Match term in various contexts, but not if already wrapped
-                const regex = new RegExp(`(?<!<[^>]*)\\b(${escapeRegex(term)})\\b(?![^<]*>)`, 'g');
+                // Simple word boundary regex now that code is protected
+                const regex = new RegExp(`\\b(${escapeRegex(term)})\\b`, 'g');
                 
-                processedHtml = processedHtml.replace(regex, (match) => {
-                    return `<span class="interactive-term" data-term="${term}">
+                processedHtml = processedHtml.replace(regex, (match, p1, offset, string) => {
+                    // Check if we're inside an HTML tag
+                    const beforeMatch = string.substring(0, offset);
+                    const lastOpenTag = beforeMatch.lastIndexOf('<');
+                    const lastCloseTag = beforeMatch.lastIndexOf('>');
+                    
+                    if (lastOpenTag > lastCloseTag) {
+                        // We're inside a tag, don't wrap
+                        return match;
+                    }
+                    
+                    // Check if we're already inside an interactive-term
+                    const openTerms = (beforeMatch.match(/<span class="interactive-term"/g) || []).length;
+                    const closeTerms = (beforeMatch.match(/<\/span>/g) || []).length;
+                    
+                    if (openTerms > closeTerms) {
+                        // Already wrapped, don't wrap again
+                        return match;
+                    }
+                    
+                    
+                    return `<span class="interactive-term" data-tooltip="${escapeHtmlAttribute(info.description)}">
                         ${match}
-                        <div class="tooltip">
-                            <div class="tooltip-title">${info.title}</div>
-                            <div class="tooltip-content">
-                                ${info.description}
-                                ${info.connects ? `<br><br><strong>Connects to:</strong> ${info.connects.join(', ')}` : ''}
-                                ${info.purpose ? `<br><br><strong>Purpose:</strong> ${info.purpose}` : ''}
-                            </div>
-                        </div>
                     </span>`;
                 });
+            });
+            
+            // Restore pre blocks
+            preBlocks.forEach((block, index) => {
+                processedHtml = processedHtml.replace(`___PRE_BLOCK_${index}___`, block);
+            });
+            
+            // Restore code blocks
+            codeBlocks.forEach((block, index) => {
+                processedHtml = processedHtml.replace(`___CODE_BLOCK_${index}___`, block);
             });
             
             return processedHtml;
@@ -2041,6 +2411,308 @@ LocalBrain combines these technologies to create a powerful, privacy-first AI co
 9. **electron-builder** packages everything for distribution
 
 Each technology was chosen for specific reasons, creating a cohesive system that's both powerful for users and maintainable for developers.`;
+        
+        
+        // Apply syntax highlighting to code blocks
+        function applySyntaxHighlighting() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            
+            codeBlocks.forEach(block => {
+                const code = block.textContent;
+                const highlightedCode = highlightCode(code);
+                block.innerHTML = highlightedCode;
+                
+            });
+        }
+        
+        // Get tooltip text for code elements
+        function getTooltipForCode(type, text) {
+            const tooltips = {
+                keyword: {
+                    'const': 'Declares a constant variable that cannot be reassigned',
+                    'let': 'Declares a block-scoped variable that can be reassigned',
+                    'var': 'Declares a function-scoped variable (avoid in modern code)',
+                    'function': 'Declares a function',
+                    'async': 'Marks a function as asynchronous, allowing use of await',
+                    'await': 'Pauses async function execution until promise resolves',
+                    'class': 'Declares a class for object-oriented programming',
+                    'interface': 'TypeScript: Defines a type contract',
+                    'import': 'Imports modules, functions, or variables',
+                    'export': 'Exports modules, functions, or variables',
+                    'return': 'Exits function and optionally returns a value',
+                    'if': 'Conditional statement',
+                    'else': 'Alternative branch for if statement',
+                    'for': 'Loop statement',
+                    'while': 'Loop that continues while condition is true',
+                    'try': 'Begins error handling block',
+                    'catch': 'Handles errors from try block',
+                    'throw': 'Throws an error or exception',
+                    'new': 'Creates instance of a class or constructor',
+                    'this': 'References current object context',
+                    'super': 'References parent class',
+                    'extends': 'Class inheritance keyword',
+                    'implements': 'TypeScript: Class implements interface',
+                    'typeof': 'Returns type of variable as string',
+                    'instanceof': 'Checks if object is instance of class',
+                    'true': 'Boolean true value',
+                    'false': 'Boolean false value',
+                    'null': 'Intentional absence of value',
+                    'undefined': 'Variable declared but not assigned',
+                    'void': 'TypeScript: Function returns nothing'
+                },
+                operator: {
+                    '=>': 'Arrow function syntax',
+                    '===': 'Strict equality (type and value)',
+                    '!==': 'Strict inequality',
+                    '==': 'Loose equality (avoid)',
+                    '!=': 'Loose inequality (avoid)',
+                    '&&': 'Logical AND',
+                    '||': 'Logical OR',
+                    '!': 'Logical NOT',
+                    '++': 'Increment by 1',
+                    '--': 'Decrement by 1',
+                    '...': 'Spread/rest operator',
+                    '?.': 'Optional chaining',
+                    '??': 'Nullish coalescing'
+                },
+                function: {
+                    'console': 'Browser/Node debugging object',
+                    'log': 'Outputs to console',
+                    'error': 'Outputs error to console',
+                    'spawn': 'Creates new child process',
+                    'exec': 'Executes shell command',
+                    'require': 'CommonJS module import',
+                    'process': 'Node.js global object',
+                    'document': 'DOM document object',
+                    'window': 'Browser window object',
+                    'setTimeout': 'Delays function execution',
+                    'setInterval': 'Repeats function execution',
+                    'fetch': 'Makes HTTP requests',
+                    'push': 'Adds element to array end',
+                    'pop': 'Removes last array element',
+                    'map': 'Transforms array elements',
+                    'filter': 'Filters array elements',
+                    'reduce': 'Reduces array to single value',
+                    'forEach': 'Iterates over array',
+                    'find': 'Finds first matching element',
+                    'includes': 'Checks if array contains value',
+                    'join': 'Joins array into string',
+                    'split': 'Splits string into array',
+                    'slice': 'Extracts array/string portion',
+                    'substring': 'Extracts string portion',
+                    'replace': 'Replaces string content',
+                    'match': 'Matches regex pattern',
+                    'test': 'Tests regex pattern'
+                }
+            };
+            
+            if (type === 'keyword' && tooltips.keyword[text]) {
+                return tooltips.keyword[text];
+            }
+            if (type === 'operator' && tooltips.operator[text]) {
+                return tooltips.operator[text];
+            }
+            if (type === 'function' && tooltips.function[text]) {
+                return tooltips.function[text];
+            }
+            if (type === 'string') {
+                return 'String literal value';
+            }
+            if (type === 'number') {
+                return 'Numeric value';
+            }
+            if (type === 'comment') {
+                return 'Code comment (not executed)';
+            }
+            if (type === 'property') {
+                return 'Object property or method';
+            }
+            if (type === 'punctuation') {
+                const punctuationTooltips = {
+                    '{': 'Opens code block or object',
+                    '}': 'Closes code block or object',
+                    '(': 'Opens function parameters or expression',
+                    ')': 'Closes function parameters or expression',
+                    '[': 'Opens array or property accessor',
+                    ']': 'Closes array or property accessor',
+                    ';': 'Statement terminator',
+                    ',': 'Separates items in list',
+                    '.': 'Property accessor',
+                    ':': 'Object property separator or ternary operator'
+                };
+                return punctuationTooltips[text] || null;
+            }
+            
+            return null;
+        }
+        
+        // Highlight code with syntax colors
+        function highlightCode(code) {
+            // Simple tokenizer for demonstration
+            const tokens = [];
+            const patterns = [
+                // Strings
+                { regex: /(["'`])(?:(?=(\\?))\2[\s\S])*?\1/g, type: 'string' },
+                // Comments
+                { regex: /\/\/.*$/gm, type: 'comment' },
+                { regex: /\/\*[\s\S]*?\*\//g, type: 'comment' },
+                // Numbers
+                { regex: /\b\d+\.?\d*\b/g, type: 'number' },
+                // Keywords and special words
+                { regex: /\b(const|let|var|function|async|await|class|interface|import|export|return|if|else|for|while|try|catch|throw|new|this|super|extends|implements|typeof|instanceof|in|of|true|false|null|undefined|void|string|number|boolean|any)\b/g, type: 'keyword' },
+                // Functions and methods
+                { regex: /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g, type: 'function' },
+                // Properties
+                { regex: /\.([a-zA-Z_$][a-zA-Z0-9_$]*)/g, type: 'property' },
+                // Operators
+                { regex: /(=>|===|!==|==|!=|<=|>=|<|>|\+\+|--|&&|\|\||!|\+|-|\*|\/|%|=|\+=|-=|\*=|\/=|\.\.\.|\?\.|\?\?)/g, type: 'operator' },
+                // Punctuation
+                { regex: /[{}()\[\];,.:]/g, type: 'punctuation' }
+            ];
+            
+            // Create a map of all matches
+            const matches = [];
+            patterns.forEach(pattern => {
+                let match;
+                const regex = new RegExp(pattern.regex);
+                while ((match = regex.exec(code)) !== null) {
+                    matches.push({
+                        start: match.index,
+                        end: match.index + match[0].length,
+                        text: match[0],
+                        type: pattern.type,
+                        captured: match[1] || match[0]
+                    });
+                }
+            });
+            
+            // Sort by position
+            matches.sort((a, b) => a.start - b.start);
+            
+            // Remove overlapping matches (keep first)
+            const finalMatches = [];
+            let lastEnd = 0;
+            matches.forEach(match => {
+                if (match.start >= lastEnd) {
+                    finalMatches.push(match);
+                    lastEnd = match.end;
+                }
+            });
+            
+            // Build highlighted code
+            let result = '';
+            let position = 0;
+            
+            finalMatches.forEach(match => {
+                // Add unhighlighted text before match
+                if (position < match.start) {
+                    result += escapeHtml(code.substring(position, match.start));
+                }
+                
+                // Add highlighted match with tooltip
+                const tooltipText = getTooltipForCode(match.type, match.text);
+                if (tooltipText) {
+                    result += `<span class="code-${match.type}" data-tooltip="${tooltipText}">${escapeHtml(match.text)}</span>`;
+                } else {
+                    result += `<span class="code-${match.type}">${escapeHtml(match.text)}</span>`;
+                }
+                
+                position = match.end;
+            });
+            
+            // Add remaining text
+            if (position < code.length) {
+                result += escapeHtml(code.substring(position));
+            }
+            
+            return result;
+        }
+        
+        
+        // Helper function to escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+        
+        // Simple tooltip implementation
+        let tooltip = null;
+        
+        function createTooltip() {
+            tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+        }
+        
+        function showTooltip(e) {
+            if (!tooltip) createTooltip();
+            
+            const tooltipText = e.target.getAttribute('data-tooltip');
+            if (!tooltipText) return;
+            
+            tooltip.innerHTML = tooltipText;
+            tooltip.style.opacity = '1';
+            
+            // Position tooltip above cursor
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Get tooltip dimensions
+            const rect = tooltip.getBoundingClientRect();
+            
+            // Center tooltip horizontally on cursor
+            tooltip.style.left = `${x - rect.width / 2}px`;
+            
+            // Position above cursor
+            tooltip.style.top = `${y - rect.height - 10}px`;
+            
+            // Keep tooltip within viewport
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Adjust horizontal position if needed
+            if (rect.left < 0) {
+                tooltip.style.left = '10px';
+            } else if (rect.right > viewportWidth) {
+                tooltip.style.left = `${viewportWidth - rect.width - 10}px`;
+            }
+            
+            // Flip to below cursor if too close to top
+            if (y - rect.height - 10 < 0) {
+                tooltip.style.top = `${y + 10}px`;
+            }
+        }
+        
+        function hideTooltip() {
+            if (tooltip) {
+                tooltip.style.opacity = '0';
+            }
+        }
+        
+        // Use event delegation for better performance
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.hasAttribute('data-tooltip')) {
+                showTooltip(e);
+            }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (e.target.hasAttribute('data-tooltip')) {
+                showTooltip(e);
+            }
+        });
+        
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.hasAttribute('data-tooltip')) {
+                hideTooltip();
+            }
+        });
         
         // Load content on page load
         loadMarkdown();

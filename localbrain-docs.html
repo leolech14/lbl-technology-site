@@ -219,9 +219,9 @@
         /* Sidebar Navigation */
         .sidebar {
             position: sticky;
-            top: calc(80px + var(--space-xl));
+            top: calc(60px + var(--space-xl));
             height: fit-content;
-            max-height: calc(100vh - 120px);
+            max-height: calc(100vh - 100px);
             overflow-y: auto;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -229,6 +229,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             padding: var(--space-lg);
+            align-self: start;
         }
         
         .nav-section {
@@ -768,6 +769,7 @@
                     <div class="nav-title">Overview</div>
                     <a href="#executive-summary" class="nav-link">Executive Summary</a>
                     <a href="#core-architecture-decisions" class="nav-link">Architecture</a>
+                    <a href="#project-structure-final" class="nav-link">Project Structure</a>
                 </div>
                 
                 <div class="nav-section">
@@ -1571,13 +1573,16 @@ LocalBrain uses a modular monorepo structure:
                     const target = document.getElementById(targetId);
                     
                     if (target) {
-                        const headerHeight = 100;
+                        const headerHeight = 80; // Adjusted to match actual header height
                         const targetPosition = target.offsetTop - headerHeight;
                         
                         window.scrollTo({
                             top: targetPosition,
                             behavior: 'smooth'
                         });
+                        
+                        // Update URL without triggering scroll
+                        history.pushState(null, null, link.getAttribute('href'));
                     }
                 });
             });

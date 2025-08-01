@@ -436,6 +436,157 @@
         
         /* CSS Icons matching website palette */
         
+        
+        
+        /* Negative 3D Space Effects for Feature Icons */
+        .feature-icon {
+            transform-style: preserve-3d;
+            perspective: 200px;
+        }
+        
+        .icon-3d-wrapper {
+            width: 48px;
+            height: 48px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3DSubtle 20s linear infinite;
+        }
+        
+        @keyframes rotate3DSubtle {
+            0% { transform: rotateY(0deg) rotateX(5deg); }
+            100% { transform: rotateY(360deg) rotateX(5deg); }
+        }
+        
+        .feature-card:hover .icon-3d-wrapper {
+            animation-duration: 3s;
+        }
+        
+        /* Negative space base */
+        .icon-negative {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Perspective grid overlay */
+        .icon-grid {
+            position: absolute;
+            inset: -50%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+            transform: rotateX(60deg) translateZ(-20px);
+            opacity: 0.3;
+            animation: gridFlow 30s linear infinite;
+        }
+        
+        @keyframes gridFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 10px; }
+        }
+        
+        /* Inset shadow for depth */
+        .icon-rocket, .icon-ai, .icon-diamond, .icon-chart, .icon-lightning, .icon-shield {
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        
+        /* Rocket - Negative space enhancement */
+        .icon-rocket {
+            box-shadow: 
+                inset 0 2px 8px rgba(59, 130, 246, 0.3),
+                inset 0 -2px 8px rgba(59, 130, 246, 0.2);
+        }
+        
+        .icon-rocket::after {
+            content: '';
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(circle at 50% 100%, 
+                rgba(59, 130, 246, 0.2) 0%, 
+                transparent 50%);
+            z-index: -1;
+            animation: rocketGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes rocketGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        /* AI Brain - Hollow effect */
+        .icon-ai {
+            background: transparent;
+            box-shadow: 
+                inset 0 0 12px rgba(96, 165, 250, 0.4),
+                inset 0 0 24px rgba(96, 165, 250, 0.2);
+        }
+        
+        /* Diamond - Faceted depth */
+        .icon-diamond {
+            box-shadow: 
+                inset 2px 2px 8px rgba(59, 130, 246, 0.4),
+                inset -2px -2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .icon-diamond::after {
+            content: '';
+            position: absolute;
+            inset: 30%;
+            background: transparent;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transform: rotate(45deg);
+        }
+        
+        /* Chart - Hollow bars */
+        .icon-chart span {
+            box-shadow: 
+                inset 0 2px 6px rgba(96, 165, 250, 0.3),
+                inset 0 -2px 6px rgba(96, 165, 250, 0.2);
+            background: linear-gradient(to top, 
+                var(--blue-light), 
+                transparent 50%, 
+                var(--blue-light));
+        }
+        
+        /* Lightning - Electric void */
+        .icon-lightning {
+            box-shadow: 
+                inset 0 0 16px rgba(249, 115, 22, 0.4),
+                inset 0 0 32px rgba(249, 115, 22, 0.2);
+            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.5));
+        }
+        
+        /* Shield - Protective cavity */
+        .icon-shield {
+            box-shadow: 
+                inset 0 4px 12px rgba(59, 130, 246, 0.4),
+                inset 0 -4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        .icon-shield::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--blue-primary), 
+                transparent);
+            top: 30%;
+            left: 0;
+            animation: shieldScan 4s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes shieldScan {
+            0%, 100% { transform: translateY(-10px); opacity: 0; }
+            50% { transform: translateY(10px); opacity: 1; }
+        }
         /* Animated backgrounds for feature cards */
         .feature-card {
             position: relative;
@@ -1504,7 +1655,12 @@
             <div class="feature-card">
                 <div class="feature-bg full-stack-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-rocket"></div>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-rocket"></div>
+                        </div>
+                    </div>
                 </div>
                 <h3>Full-Stack Development</h3>
                 <p>Expert in React 18, TypeScript, Node.js, and PostgreSQL. Building performant applications with Vite, TailwindCSS, and modern tooling.</p>
@@ -1513,7 +1669,12 @@
             <div class="feature-card">
                 <div class="feature-bg ai-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-ai"></div>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-ai"></div>
+                        </div>
+                    </div>
                 </div>
                 <h3>AI Integration</h3>
                 <p>Leveraging AI for enhanced development workflows, content generation, and intelligent features. Expert in Agent OS and MCP servers.</p>
@@ -1522,7 +1683,12 @@
             <div class="feature-card">
                 <div class="feature-bg premium-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-diamond"></div>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-diamond"></div>
+                        </div>
+                    </div>
                 </div>
                 <h3>Premium UI/UX</h3>
                 <p>Signature glassmorphic designs with smooth animations, dark themes, and exceptional user experiences. Mobile-first responsive approach.</p>
@@ -1531,11 +1697,16 @@
             <div class="feature-card">
                 <div class="feature-bg data-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-chart">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-chart">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h3>Data Visualization</h3>
@@ -1545,7 +1716,12 @@
             <div class="feature-card">
                 <div class="feature-bg performance-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-lightning"></div>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-lightning"></div>
+                        </div>
+                    </div>
                 </div>
                 <h3>Performance Optimization</h3>
                 <p>Obsessed with speed and efficiency. Implementing lazy loading, code splitting, and advanced caching strategies for lightning-fast apps.</p>
@@ -1554,7 +1730,12 @@
             <div class="feature-card">
                 <div class="feature-bg security-bg"></div>
                 <div class="feature-icon">
-                    <div class="icon-shield"></div>
+                    <div class="icon-3d-wrapper">
+                        <div class="icon-grid"></div>
+                        <div class="icon-negative">
+                            <div class="icon-shield"></div>
+                        </div>
+                    </div>
                 </div>
                 <h3>Security & Architecture</h3>
                 <p>Building secure, scalable architectures with proper authentication, authorization, and data protection. TypeScript-first development.</p>

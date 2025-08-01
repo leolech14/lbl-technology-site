@@ -1270,7 +1270,8 @@
         // Load and process markdown content from embedded string
         // Helper function to escape HTML attributes
         function escapeHtmlAttribute(text) {
-            return text
+            if (!text) return '';
+            return String(text)
                 .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;')
@@ -1300,7 +1301,12 @@
                 
                 
                 // Apply syntax highlighting to code blocks
-                applySyntaxHighlighting();
+                try {
+                    applySyntaxHighlighting();
+                } catch (syntaxError) {
+                    console.error('Syntax highlighting error:', syntaxError);
+                    // Page still loads even if syntax highlighting fails
+                }
                 
             } catch (error) {
                 document.getElementById('markdown-content').innerHTML = `
@@ -2591,10 +2597,14 @@ Each technology was chosen for specific reasons, creating a cohesive system that
             const codeBlocks = document.querySelectorAll('pre code');
             
             codeBlocks.forEach(block => {
-                const code = block.textContent;
-                const highlightedCode = highlightCode(code);
-                block.innerHTML = highlightedCode;
-                
+                try {
+                    const code = block.textContent;
+                    const highlightedCode = highlightCode(code);
+                    block.innerHTML = highlightedCode;
+                } catch (err) {
+                    console.error('Error highlighting code block:', err);
+                    // Leave the block unchanged if highlighting fails
+                }
             });
         }
         
@@ -3450,7 +3460,8 @@ Each technology was chosen for specific reasons, creating a cohesive system that
                 const tooltipText = getTooltipForCode(match.type, match.text);
                 if (tooltipText) {
                     // Format tooltip text for better visual presentation
-                    const formattedTooltip = tooltipText
+                    const tooltipString = String(tooltipText);
+                    const formattedTooltip = tooltipString
                         .replace(/`([^`]+)`/g, '<code>$1</code>')
                         .replace(/\n\s+/g, '<br>')
                         .trim();

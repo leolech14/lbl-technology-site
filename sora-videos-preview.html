@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negative 3D Space Videos - Preview</title>
+    <style>
+        :root {
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --accent-orange: #f97316;
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: var(--bg-primary);
+            color: white;
+            font-family: system-ui;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .video-container {
+            width: 256px;
+            height: 256px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-small {
+            width: 48px;
+            height: 48px;
+            margin: 1rem auto;
+        }
+
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .description {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .integration-example {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code {
+            background: rgba(0,0,0,0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Negative 3D Space Videos</h1>
+        <p style="text-align: center; color: rgba(255,255,255,0.7);">
+            Glassmorphic negative space effects for feature cards
+        </p>
+
+        <div class="video-grid">
+            
+            <div class="video-card">
+                <h3>Full-Stack Development</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/full-stack-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/full-stack-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/full-stack-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/full-stack-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">A rocket ship carved as negative space, with glowing blue exhaust trails flowing through the hollow form. The rocket appears as an inverted 3D cavity with perspective lines converging at its tip.</p>
+            </div>
+            
+            <div class="video-card">
+                <h3>AI Integration</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/ai-integration-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/ai-integration-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/ai-integration-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/ai-integration-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">A brain made of interconnected neural pathways carved into negative space. Synapses pulse with light blue energy flowing through the hollow neural network structure.</p>
+            </div>
+            
+            <div class="video-card">
+                <h3>Premium UI/UX</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/premium-ui-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/premium-ui-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/premium-ui-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/premium-ui-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">A multifaceted diamond carved as negative space, with each facet catching and refracting light. The hollow gem rotates to reveal its inverted crystalline structure.</p>
+            </div>
+            
+            <div class="video-card">
+                <h3>Data Visualization</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/data-viz-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/data-viz-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/data-viz-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/data-viz-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">Bar charts and graphs carved into negative space, with data streams flowing through the hollow columns. The visualization morphs between different chart types.</p>
+            </div>
+            
+            <div class="video-card">
+                <h3>Performance Optimization</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/performance-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/performance-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/performance-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/performance-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">A lightning bolt carved as negative space, with electric energy crackling through the hollow form. The bolt pulses with orange energy surges.</p>
+            </div>
+            
+            <div class="video-card">
+                <h3>Security & Architecture</h3>
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/security-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/security-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-container video-small">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/generated/videos/security-video.webm" type="video/webm">
+                        <source src="assets/generated/videos/security-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="description">A shield carved into negative space, with scanning laser lines sweeping through the hollow form. The shield rotates to reveal its protective depth layers.</p>
+            </div>
+            
+        </div>
+
+        <div class="integration-example">
+            <h2>Integration Example</h2>
+            <p>To use these videos in your feature cards:</p>
+            <div class="code">
+&lt;div class="feature-icon"&gt;<br>
+&nbsp;&nbsp;&lt;video autoplay loop muted playsinline&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;source src="assets/generated/videos/full-stack-video.webm" type="video/webm"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;source src="assets/generated/videos/full-stack-video.mp4" type="video/mp4"&gt;<br>
+&nbsp;&nbsp;&lt;/video&gt;<br>
+&lt;/div&gt;
+            </div>
+        </div>
+    </div>
+</body>
+</html>

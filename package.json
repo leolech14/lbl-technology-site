@@ -10,6 +10,7 @@
     "generate-assets-local": "node generate-assets.js",
     "generate-icons": "node generate-assets.js --icons-only",
     "generate-videos": "doppler run -- node generate-assets.js --videos-only",
+    "generate-sora": "doppler run -- node generate-sora-videos.js",
     "integrate-assets": "node integrate-assets.js"
   },
   "repository": {

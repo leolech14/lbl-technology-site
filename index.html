@@ -783,6 +783,112 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--blue-light);
         }
+    
+        
+    /* Video Asset Styles */
+    .video-icon {
+        width: 48px;
+        height: 48px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: var(--space-md);
+    }
+    
+    .video-icon video,
+    .video-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .video-icon video {
+        mix-blend-mode: screen;
+    }
+    
+    /* Panorama Background */
+    .panorama-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    .panorama-video {
+        width: 100%;
+        height: 200%;
+        object-fit: cover;
+        animation: panoramaScroll 30s linear infinite;
+        opacity: 0.3;
+    }
+    
+    @keyframes panoramaScroll {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-50%); }
+    }
+    
+    /* Project cards with window effect */
+    .project-window {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        margin: -2rem -2rem 1rem -2rem;
+        border-radius: 16px 16px 0 0;
+    }
+    
+    .project-window::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse at center, transparent 50%, var(--bg-secondary) 100%);
+        z-index: 1;
+        pointer-events: none;
+    }
+    
+    /* Footer video */
+    .footer-video-container {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        margin-top: var(--space-2xl);
+        border-radius: 24px;
+        background: var(--bg-secondary);
+    }
+    
+    .footer-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.6;
+    }
+    
+    /* Performance: Pause videos when not visible */
+    .video-icon video:not(.playing) {
+        display: none;
+    }
+    
+    /* Loading states */
+    .asset-loading {
+        background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+        opacity: 0.2;
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+    }
+
+        /* End Video Asset Styles */
     </style>
 </head>
 <body>
@@ -889,37 +995,55 @@
         
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="feature-icon">🚀</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/full-stack.png" alt="Full-Stack Development">
+                </div>
                 <h3>Full-Stack Development</h3>
                 <p>Expert in React 18, TypeScript, Node.js, and PostgreSQL. Building performant applications with Vite, TailwindCSS, and modern tooling.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🤖</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/ai-integration.png" alt="AI Integration">
+                </div>
                 <h3>AI Integration</h3>
                 <p>Leveraging AI for enhanced development workflows, content generation, and intelligent features. Expert in Agent OS and MCP servers.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">💎</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/premium-ui.png" alt="Premium UI/UX">
+                </div>
                 <h3>Premium UI/UX</h3>
                 <p>Signature glassmorphic designs with smooth animations, dark themes, and exceptional user experiences. Mobile-first responsive approach.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📊</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/data-viz.png" alt="Data Visualization">
+                </div>
                 <h3>Data Visualization</h3>
                 <p>Creating beautiful, interactive data visualizations and dashboards. Expert in D3.js, Chart.js, and custom visualization solutions.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/performance.png" alt="Performance Optimization">
+                </div>
                 <h3>Performance Optimization</h3>
                 <p>Obsessed with speed and efficiency. Implementing lazy loading, code splitting, and advanced caching strategies for lightning-fast apps.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🔐</div>
+                
+                <div class="video-icon">
+                    <img src="assets/generated/icons/security.png" alt="Security & Architecture">
+                </div>
                 <h3>Security & Architecture</h3>
                 <p>Building secure, scalable architectures with proper authentication, authorization, and data protection. TypeScript-first development.</p>
             </div>
@@ -1167,6 +1291,56 @@
             }
         `;
         document.head.appendChild(style);
+    </script>
+
+    <script>
+        
+    // Video Asset Management
+    (function() {
+        // Intersection Observer for video playback
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target.querySelector('video');
+                if (video) {
+                    if (entry.isIntersecting) {
+                        video.play().catch(() => {});
+                        video.classList.add('playing');
+                    } else {
+                        video.pause();
+                        video.classList.remove('playing');
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all video containers
+        document.querySelectorAll('.video-icon, .footer-video-container').forEach(container => {
+            videoObserver.observe(container);
+        });
+        
+        // Fallback for video load errors
+        document.querySelectorAll('video').forEach(video => {
+            video.addEventListener('error', function() {
+                const fallback = this.dataset.fallback;
+                if (fallback) {
+                    const img = document.createElement('img');
+                    img.src = fallback;
+                    img.alt = this.dataset.alt || '';
+                    this.parentNode.replaceChild(img, this);
+                }
+            });
+        });
+        
+        // Reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('video').forEach(video => {
+                video.pause();
+                video.controls = true;
+            });
+        }
+    })();
+
+        // End Video Asset Management
     </script>
 </body>
 </html>

@@ -4,7 +4,13 @@
   "description": "A sophisticated portfolio website featuring a dark glassmorphic design aesthetic with advanced visual effects.",
   "main": "builder-setup.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup-doppler": "./setup-doppler.sh",
+    "generate-assets": "doppler run -- node generate-assets.js",
+    "generate-assets-local": "node generate-assets.js",
+    "generate-icons": "node generate-assets.js --icons-only",
+    "generate-videos": "doppler run -- node generate-assets.js --videos-only",
+    "integrate-assets": "node integrate-assets.js"
   },
   "repository": {
     "type": "git",
@@ -13,9 +19,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/leolech14/lbl-technology-site/issues"
   },
-  "homepage": "https://github.com/leolech14/lbl-technology-site#readme"
+  "homepage": "https://github.com/leolech14/lbl-technology-site#readme",
+  "dependencies": {
+    "@plasmicapp/react-web": "^0.2.394",
+    "express": "^5.1.0",
+    "grapesjs": "^0.22.12",
+    "grapesjs-preset-webpage": "^1.0.3",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.3.1"
+  }
 }

@@ -1,0 +1,53 @@
+{
+  "generated": "2025-08-01T01:35:58.506Z",
+  "icons": {
+    "full-stack": {
+      "name": "Full-Stack Development",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    },
+    "ai-integration": {
+      "name": "AI Integration",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    },
+    "premium-ui": {
+      "name": "Premium UI/UX",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    },
+    "data-viz": {
+      "name": "Data Visualization",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    },
+    "performance": {
+      "name": "Performance Optimization",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    },
+    "security": {
+      "name": "Security & Architecture",
+      "png": true,
+      "pngSmall": true,
+      "video": false
+    }
+  },
+  "videos": {
+    "shared-panorama": {
+      "name": "Shared Window Panorama",
+      "video": false,
+      "poster": false
+    },
+    "footer-horizon": {
+      "name": "Digital Horizon Footer",
+      "video": false,
+      "poster": false
+    }
+  }
+}

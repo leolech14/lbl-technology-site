@@ -1,0 +1,14 @@
+{
+  "name": "glassmorphic-asset-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate-assets.js",
+    "generate:icons": "node generate-assets.js --icons-only",
+    "generate:videos": "node generate-assets.js --videos-only"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.3.1"
+  }
+}

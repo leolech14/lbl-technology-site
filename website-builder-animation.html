@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Builder Animation - LBL Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #f0f0f0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Initial HTML Icon */
+        .html-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .html-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 48px rgba(59, 130, 246, 0.4);
+            border-color: #3b82f6;
+        }
+
+        .html-icon svg {
+            width: 60px;
+            height: 60px;
+            fill: #3b82f6;
+        }
+
+        .html-icon.hide {
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+        }
+
+        /* Animation Container */
+        .animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: #0a0a0f;
+            z-index: 1000;
+        }
+
+        .animation-container.show {
+            display: block;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1100;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.5s forwards;
+        }
+
+        .close-btn:hover {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: #f97316;
+            transform: rotate(90deg);
+        }
+
+        /* Browser Window */
+        .browser-window {
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            margin: 10vh auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            animation: browserAppear 1s ease 0.5s forwards;
+            position: relative;
+        }
+
+        .browser-header {
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 10px;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: dotAppear 0.3s ease forwards;
+        }
+
+        .browser-dot:nth-child(1) {
+            background: #ef4444;
+            animation-delay: 1s;
+        }
+
+        .browser-dot:nth-child(2) {
+            background: #f59e0b;
+            animation-delay: 1.1s;
+        }
+
+        .browser-dot:nth-child(3) {
+            background: #10b981;
+            animation-delay: 1.2s;
+        }
+
+        .browser-content {
+            height: calc(100% - 40px);
+            position: relative;
+            overflow: hidden;
+            background: #0f1117;
+        }
+
+        /* Code Display */
+        .code-display {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateX(-20px);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .code-display.show {
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .code-line {
+            margin: 4px 0;
+            opacity: 0;
+            animation: codeLine 0.3s ease forwards;
+        }
+
+        .code-tag { color: #3b82f6; }
+        .code-attr { color: #60a5fa; }
+        .code-value { color: #f97316; }
+        .code-text { color: #a0a0a0; }
+        .code-comment { color: #666; }
+
+        /* Website Stages */
+        .website-stage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        /* Stage 1: HTML Structure */
+        .html-structure {
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .structure-block {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed rgba(59, 130, 246, 0.3);
+            margin: 10px 0;
+            padding: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .structure-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #0f1117;
+            padding: 0 10px;
+            color: #3b82f6;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Stage 2: CSS Styling */
+        .css-flow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .style-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #60a5fa;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 10px #60a5fa;
+        }
+
+        /* Stage 3: JavaScript Interactivity */
+        .js-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .js-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #f97316;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 15px #f97316;
+        }
+
+        /* Final Website */
+        .final-website {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .final-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .final-logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .final-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .final-nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .final-nav a:hover {
+            color: #3b82f6;
+        }
+
+        .final-hero {
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .final-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .final-hero p {
+            font-size: 20px;
+            color: #a0a0a0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .final-cta {
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .final-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Animations */
+        @keyframes browserAppear {
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes dotAppear {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes codeLine {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes structureAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes particleFlow {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        @keyframes finalReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes elementReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 1.5s forwards;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px #3b82f6;
+        }
+
+        .progress-label {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Initial HTML Icon -->
+    <div class="html-icon" id="htmlIcon">
+        <svg viewBox="0 0 24 24">
+            <path d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
+            <text x="8" y="17" style="font-size: 8px; fill: #f97316; font-weight: bold;">{ }</text>
+        </svg>
+    </div>
+
+    <!-- Animation Container -->
+    <div class="animation-container" id="animationContainer">
+        <button class="close-btn" onclick="closeAnimation()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="browser-window">
+            <div class="browser-header">
+                <div class="browser-dot"></div>
+                <div class="browser-dot"></div>
+                <div class="browser-dot"></div>
+            </div>
+            <div class="browser-content" id="browserContent">
+                <!-- Code Display -->
+                <div class="code-display" id="codeDisplay"></div>
+
+                <!-- Stage 1: HTML Structure -->
+                <div class="website-stage html-structure" id="htmlStage">
+                    <div class="structure-block" style="animation-delay: 2s;">
+                        <span class="structure-label">&lt;header&gt;</span>
+                    </div>
+                    <div class="structure-block" style="animation-delay: 2.2s; height: 200px;">
+                        <span class="structure-label">&lt;main&gt;</span>
+                        <div class="structure-block" style="animation-delay: 2.4s; margin: 20px;">
+                            <span class="structure-label">&lt;section&gt;</span>
+                        </div>
+                    </div>
+                    <div class="structure-block" style="animation-delay: 2.6s;">
+                        <span class="structure-label">&lt;footer&gt;</span>
+                    </div>
+                </div>
+
+                <!-- Stage 2: CSS Flow -->
+                <div class="website-stage css-flow" id="cssStage"></div>
+
+                <!-- Stage 3: JS Particles -->
+                <div class="website-stage js-particles" id="jsStage"></div>
+
+                <!-- Final Website -->
+                <div class="website-stage final-website" id="finalWebsite">
+                    <header class="final-header">
+                        <div class="final-logo">LBL Technology</div>
+                        <nav class="final-nav">
+                            <a href="#">Solutions</a>
+                            <a href="#">Services</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                        </nav>
+                    </header>
+                    <section class="final-hero">
+                        <h1>Building Tomorrow's Technology Today</h1>
+                        <p>Innovative solutions for the digital age</p>
+                        <button class="final-cta">Get Started</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-label" id="progressLabel">Initializing...</div>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const htmlIcon = document.getElementById('htmlIcon');
+        const animationContainer = document.getElementById('animationContainer');
+        const codeDisplay = document.getElementById('codeDisplay');
+        const htmlStage = document.getElementById('htmlStage');
+        const cssStage = document.getElementById('cssStage');
+        const jsStage = document.getElementById('jsStage');
+        const finalWebsite = document.getElementById('finalWebsite');
+        const progressFill = document.getElementById('progressFill');
+        const progressLabel = document.getElementById('progressLabel');
+
+        // Animation phases
+        const phases = [
+            { label: 'Building HTML Structure', progress: 25 },
+            { label: 'Applying CSS Styles', progress: 50 },
+            { label: 'Adding JavaScript Magic', progress: 75 },
+            { label: 'Launching Website', progress: 100 }
+        ];
+
+        // Start animation on icon click
+        htmlIcon.addEventListener('click', startAnimation);
+
+        function startAnimation() {
+            htmlIcon.classList.add('hide');
+            animationContainer.classList.add('show');
+            
+            // Start the building sequence
+            setTimeout(() => showHTMLCode(), 1500);
+            setTimeout(() => animateHTMLStructure(), 2000);
+            setTimeout(() => showCSSCode(), 4000);
+            setTimeout(() => animateCSSFlow(), 4500);
+            setTimeout(() => showJSCode(), 6500);
+            setTimeout(() => animateJSParticles(), 7000);
+            setTimeout(() => revealFinalWebsite(), 9000);
+        }
+
+        function showHTMLCode() {
+            codeDisplay.classList.add('show');
+            codeDisplay.innerHTML = `
+                <div class="code-comment">// Building HTML structure...</div>
+                <div class="code-line" style="animation-delay: 0.1s;">
+                    <span class="code-tag">&lt;!DOCTYPE html&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.2s;">
+                    <span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-value">"en"</span><span class="code-tag">&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.3s;">
+                    <span class="code-tag">&lt;head&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.4s;">
+                    &nbsp;&nbsp;<span class="code-tag">&lt;title&gt;</span><span class="code-text">LBL Technology</span><span class="code-tag">&lt;/title&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.5s;">
+                    <span class="code-tag">&lt;/head&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.6s;">
+                    <span class="code-tag">&lt;body&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.7s;">
+                    &nbsp;&nbsp;<span class="code-tag">&lt;header&gt;</span>...<span class="code-tag">&lt;/header&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.8s;">
+                    &nbsp;&nbsp;<span class="code-tag">&lt;main&gt;</span>...<span class="code-tag">&lt;/main&gt;</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.9s;">
+                    &nbsp;&nbsp;<span class="code-tag">&lt;footer&gt;</span>...<span class="code-tag">&lt;/footer&gt;</span>
+                </div>
+            `;
+            updateProgress(0);
+        }
+
+        function animateHTMLStructure() {
+            htmlStage.style.opacity = '1';
+            const blocks = htmlStage.querySelectorAll('.structure-block');
+            blocks.forEach(block => {
+                block.style.animation = 'structureAppear 0.5s ease forwards';
+            });
+            updateProgress(1);
+        }
+
+        function showCSSCode() {
+            codeDisplay.innerHTML = `
+                <div class="code-comment">// Applying CSS styles...</div>
+                <div class="code-line" style="animation-delay: 0.1s;">
+                    <span class="code-tag">body</span> {
+                </div>
+                <div class="code-line" style="animation-delay: 0.2s;">
+                    &nbsp;&nbsp;<span class="code-attr">background</span>: <span class="code-value">#0a0a0f</span>;
+                </div>
+                <div class="code-line" style="animation-delay: 0.3s;">
+                    &nbsp;&nbsp;<span class="code-attr">color</span>: <span class="code-value">#f0f0f0</span>;
+                </div>
+                <div class="code-line" style="animation-delay: 0.4s;">
+                    }
+                </div>
+                <div class="code-line" style="animation-delay: 0.5s;">
+                    <span class="code-tag">.header</span> {
+                </div>
+                <div class="code-line" style="animation-delay: 0.6s;">
+                    &nbsp;&nbsp;<span class="code-attr">backdrop-filter</span>: <span class="code-value">blur(10px)</span>;
+                </div>
+                <div class="code-line" style="animation-delay: 0.7s;">
+                    &nbsp;&nbsp;<span class="code-attr">border</span>: <span class="code-value">1px solid rgba(255,255,255,0.1)</span>;
+                </div>
+                <div class="code-line" style="animation-delay: 0.8s;">
+                    }
+                </div>
+            `;
+        }
+
+        function animateCSSFlow() {
+            cssStage.style.opacity = '1';
+            htmlStage.style.opacity = '0.3';
+            
+            // Create flowing CSS particles
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'style-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animation = 'particleFlow 2s ease forwards';
+                    cssStage.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 2000);
+                }, i * 50);
+            }
+            updateProgress(2);
+        }
+
+        function showJSCode() {
+            codeDisplay.innerHTML = `
+                <div class="code-comment">// Adding JavaScript interactivity...</div>
+                <div class="code-line" style="animation-delay: 0.1s;">
+                    <span class="code-tag">const</span> <span class="code-attr">button</span> = <span class="code-tag">document</span>.<span class="code-attr">querySelector</span>(<span class="code-value">'.cta'</span>);
+                </div>
+                <div class="code-line" style="animation-delay: 0.2s;">
+                    <span class="code-tag">button</span>.<span class="code-attr">addEventListener</span>(<span class="code-value">'click'</span>, () => {
+                </div>
+                <div class="code-line" style="animation-delay: 0.3s;">
+                    &nbsp;&nbsp;<span class="code-tag">console</span>.<span class="code-attr">log</span>(<span class="code-value">'Welcome to LBL!'</span>);
+                </div>
+                <div class="code-line" style="animation-delay: 0.4s;">
+                    });
+                </div>
+                <div class="code-line" style="animation-delay: 0.5s;">
+                    <span class="code-comment">// Add smooth animations</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.6s;">
+                    <span class="code-tag">gsap</span>.<span class="code-attr">to</span>(<span class="code-value">'.hero'</span>, {
+                </div>
+                <div class="code-line" style="animation-delay: 0.7s;">
+                    &nbsp;&nbsp;<span class="code-attr">opacity</span>: <span class="code-value">1</span>,
+                </div>
+                <div class="code-line" style="animation-delay: 0.8s;">
+                    &nbsp;&nbsp;<span class="code-attr">y</span>: <span class="code-value">0</span>
+                </div>
+                <div class="code-line" style="animation-delay: 0.9s;">
+                    });
+                </div>
+            `;
+        }
+
+        function animateJSParticles() {
+            jsStage.style.opacity = '1';
+            cssStage.style.opacity = '0';
+            htmlStage.style.opacity = '0';
+            
+            // Create JavaScript particles
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'js-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animation = 'particleFlow 1.5s ease forwards';
+                    jsStage.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 1500);
+                }, i * 100);
+            }
+            updateProgress(3);
+        }
+
+        function revealFinalWebsite() {
+            // Hide all stages
+            htmlStage.style.display = 'none';
+            cssStage.style.display = 'none';
+            jsStage.style.display = 'none';
+            codeDisplay.style.display = 'none';
+            
+            // Reveal final website
+            finalWebsite.style.animation = 'finalReveal 1s ease forwards';
+            
+            // Animate elements
+            setTimeout(() => {
+                const h1 = finalWebsite.querySelector('h1');
+                const p = finalWebsite.querySelector('p');
+                const cta = finalWebsite.querySelector('.final-cta');
+                
+                h1.style.animation = 'elementReveal 0.5s ease forwards';
+                setTimeout(() => {
+                    p.style.animation = 'elementReveal 0.5s ease forwards';
+                }, 200);
+                setTimeout(() => {
+                    cta.style.animation = 'elementReveal 0.5s ease forwards';
+                }, 400);
+            }, 500);
+            
+            updateProgress(4);
+        }
+
+        function updateProgress(phase) {
+            if (phase < phases.length) {
+                progressFill.style.width = phases[phase].progress + '%';
+                progressLabel.textContent = phases[phase].label;
+            }
+        }
+
+        function closeAnimation() {
+            animationContainer.classList.remove('show');
+            htmlIcon.classList.remove('hide');
+            
+            // Reset everything
+            setTimeout(() => {
+                htmlStage.style.opacity = '0';
+                cssStage.style.opacity = '0';
+                jsStage.style.opacity = '0';
+                finalWebsite.style.opacity = '0';
+                finalWebsite.style.animation = '';
+                codeDisplay.classList.remove('show');
+                progressFill.style.width = '0%';
+                progressLabel.textContent = 'Initializing...';
+                
+                // Clear any remaining particles
+                cssStage.innerHTML = '';
+                jsStage.innerHTML = '';
+            }, 500);
+        }
+
+        // Add some ambient particles in the background
+        function createAmbientParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = '#3b82f6';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.opacity = '0.3';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            document.body.appendChild(particle);
+            
+            const duration = 5000 + Math.random() * 5000;
+            particle.animate([
+                { transform: 'translateY(0)', opacity: 0.3 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            }).onfinish = () => particle.remove();
+        }
+
+        // Create ambient particles periodically
+        setInterval(createAmbientParticle, 300);
+    </script>
+</body>
+</html>

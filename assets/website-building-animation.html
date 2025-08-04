@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Building Animation - LBL Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --orange-accent: #f97316;
+            --text-primary: #f0f0f0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .animation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .animation-overlay.active {
+            display: flex;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .close-button:hover {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: var(--orange-accent);
+            transform: rotate(90deg);
+        }
+
+        .close-button::before,
+        .close-button::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: background 0.3s ease;
+        }
+
+        .close-button::before {
+            transform: rotate(45deg);
+        }
+
+        .close-button::after {
+            transform: rotate(-45deg);
+        }
+
+        .animation-container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 60px 40px 40px;
+        }
+
+        .code-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: var(--glass-bg);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--glass-border);
+        }
+
+        .window-dot:nth-child(1) { background: #ff5f57; }
+        .window-dot:nth-child(2) { background: #ffbd2e; }
+        .window-dot:nth-child(3) { background: #28ca42; }
+
+        .code-title {
+            margin-left: 12px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .preview-panel {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-header {
+            background: #f3f4f6;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .browser-bar {
+            flex: 1;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .preview-content {
+            height: calc(100% - 48px);
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+
+        #preview-frame {
+            width: 100%;
+            height: 100%;
+            transform-origin: top left;
+            transition: all 0.3s ease;
+        }
+
+        /* Code syntax highlighting */
+        .tag { color: var(--blue-light); }
+        .attribute { color: var(--orange-accent); }
+        .string { color: #86efac; }
+        .property { color: var(--blue-primary); }
+        .value { color: #fbbf24; }
+        .selector { color: #c084fc; }
+        .function { color: #f472b6; }
+        .keyword { color: var(--orange-accent); }
+        .comment { color: #6b7280; opacity: 0.7; }
+
+        /* Typewriter cursor */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 18px;
+            background: var(--blue-light);
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Glow effect */
+        .glow {
+            animation: glow 0.5s ease;
+        }
+
+        @keyframes glow {
+            0% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 20px var(--blue-light)); }
+            100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--blue-light);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle-float 3s ease-out forwards;
+        }
+
+        @keyframes particle-float {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        /* Stage indicators */
+        .stage-indicator {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .stage-indicator.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Loading animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--blue-light);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .animation-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+                padding: 80px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-overlay" id="animationOverlay">
+        <button class="close-button" id="closeButton"></button>
+        <div class="stage-indicator" id="stageIndicator">
+            <span id="stageText">Initializing</span>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="animation-container">
+            <div class="code-panel">
+                <div class="code-header">
+                    <div class="window-dot"></div>
+                    <div class="window-dot"></div>
+                    <div class="window-dot"></div>
+                    <span class="code-title">index.html</span>
+                </div>
+                <div class="code-content" id="codeContent"></div>
+            </div>
+            
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <div class="window-dot"></div>
+                    <div class="window-dot"></div>
+                    <div class="window-dot"></div>
+                    <div class="browser-bar">https://lbl.technology</div>
+                </div>
+                <div class="preview-content">
+                    <div id="preview-frame"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class WebsiteBuilder {
+            constructor() {
+                this.overlay = document.getElementById('animationOverlay');
+                this.codeContent = document.getElementById('codeContent');
+                this.previewFrame = document.getElementById('preview-frame');
+                this.stageIndicator = document.getElementById('stageIndicator');
+                this.stageText = document.getElementById('stageText');
+                this.closeButton = document.getElementById('closeButton');
+                
+                this.currentCode = '';
+                this.typingSpeed = 30;
+                this.stages = [
+                    { name: 'Building HTML Structure', icon: '🏗️' },
+                    { name: 'Styling with CSS', icon: '🎨' },
+                    { name: 'Adding JavaScript Magic', icon: '✨' },
+                    { name: 'Website Complete!', icon: '🚀' }
+                ];
+                
+                this.htmlCode = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBL Technology - Building Amazing Websites</title>
+</head>
+<body>
+    <header class="hero">
+        <nav class="navbar">
+            <div class="logo">LBL.Technology</div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hero-content">
+            <h1 class="hero-title">Building the Future</h1>
+            <p class="hero-subtitle">One line of code at a time</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </header>
+    
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Fast Development</h3>
+            <p>Lightning-fast delivery</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💎</div>
+            <h3>Quality Code</h3>
+            <p>Clean and maintainable</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Secure & Reliable</h3>
+            <p>Built to last</p>
+        </div>
+    </section>
+</body>
+</html>`;
+
+                this.cssCode = `
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0f 0%, #0f1117 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+        
+        .hero-content {
+            text-align: center;
+            padding: 10rem 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3b82f6, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 4rem;
+            background: #0f1117;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>`;
+
+                this.jsCode = `
+    <script>
+        // Add interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect on mouse move
+            const hero = document.querySelector('.hero');
+            let mouseX = 0, mouseY = 0;
+            
+            hero.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX / window.innerWidth - 0.5;
+                mouseY = e.clientY / window.innerHeight - 0.5;
+                
+                const parallaxElements = document.querySelectorAll('.hero-title, .hero-subtitle');
+                parallaxElements.forEach((el, index) => {
+                    const speed = (index + 1) * 20;
+                    el.style.transform = \`translate(\${mouseX * speed}px, \${mouseY * speed}px)\`;
+                });
+            });
+            
+            // Animated counter for features
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        
+                        // Add stagger animation
+                        const cards = document.querySelectorAll('.feature-card');
+                        cards.forEach((card, index) => {
+                            card.style.animationDelay = \`\${index * 0.1}s\`;
+                            card.style.animation = 'fadeInUp 0.6s ease forwards';
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.features').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // CTA button ripple effect
+            const ctaButton = document.querySelector('.cta-button');
+            ctaButton.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+                
+                ripple.style.left = \`\${x}px\`;
+                ripple.style.top = \`\${y}px\`;
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+            
+            console.log('✨ Website successfully built with LBL Technology!');
+        });
+    <\/script>`;
+
+                this.closeButton.addEventListener('click', () => this.close());
+            }
+            
+            async function start() {
+                this.overlay.classList.add('active');
+                this.codeContent.innerHTML = '';
+                this.previewFrame.innerHTML = '';
+                
+                await this.showStage(0);
+                await this.typeCode(this.htmlCode, 'html');
+                
+                await this.showStage(1);
+                await this.typeCode(this.cssCode, 'css');
+                
+                await this.showStage(2);
+                await this.typeCode(this.jsCode, 'js');
+                
+                await this.showStage(3);
+                this.createParticles();
+            }
+            
+            async showStage(index) {
+                const stage = this.stages[index];
+                this.stageText.textContent = `${stage.icon} ${stage.name}`;
+                this.stageIndicator.classList.add('active');
+                
+                await this.wait(1500);
+                
+                if (index < this.stages.length - 1) {
+                    this.stageIndicator.classList.remove('active');
+                    await this.wait(500);
+                }
+            }
+            
+            async typeCode(code, type) {
+                const lines = code.split('\n');
+                
+                for (let line of lines) {
+                    if (line.trim()) {
+                        await this.typeLine(line, type);
+                        this.updatePreview();
+                        this.createParticle();
+                    } else {
+                        this.currentCode += '\n';
+                        this.codeContent.innerHTML = this.highlightCode(this.currentCode) + '<span class="cursor"></span>';
+                    }
+                    
+                    // Auto-scroll code panel
+                    this.codeContent.scrollTop = this.codeContent.scrollHeight;
+                    
+                    await this.wait(50);
+                }
+            }
+            
+            async typeLine(line, type) {
+                for (let i = 0; i < line.length; i++) {
+                    this.currentCode += line[i];
+                    this.codeContent.innerHTML = this.highlightCode(this.currentCode) + '<span class="cursor"></span>';
+                    await this.wait(this.typingSpeed);
+                }
+                this.currentCode += '\n';
+                
+                // Add glow effect to the last typed element
+                const lastElement = this.codeContent.lastElementChild;
+                if (lastElement && lastElement.previousElementSibling) {
+                    lastElement.previousElementSibling.classList.add('glow');
+                    setTimeout(() => {
+                        if (lastElement.previousElementSibling) {
+                            lastElement.previousElementSibling.classList.remove('glow');
+                        }
+                    }, 500);
+                }
+            }
+            
+            highlightCode(code) {
+                return code
+                    // HTML tags
+                    .replace(/<(\/?[^>]+)>/g, '<span class="tag">&lt;$1&gt;</span>')
+                    // HTML attributes
+                    .replace(/(\w+)="/g, '<span class="attribute">$1</span>="')
+                    // Strings
+                    .replace(/"([^"]*)"/g, '"<span class="string">$1</span>"')
+                    .replace(/'([^']*)'/g, '\'<span class="string">$1</span>\'')
+                    // CSS selectors
+                    .replace(/^(\s*)(\.[\w-]+|#[\w-]+|\w+)\s*{/gm, '$1<span class="selector">$2</span> {')
+                    // CSS properties
+                    .replace(/(\s+)([\w-]+):/g, '$1<span class="property">$2</span>:')
+                    // CSS values
+                    .replace(/:\s*([^;]+);/g, ': <span class="value">$1</span>;')
+                    // JS keywords
+                    .replace(/\b(const|let|var|function|if|else|for|return|document|window)\b/g, '<span class="keyword">$1</span>')
+                    // JS functions
+                    .replace(/(\w+)\(/g, '<span class="function">$1</span>(')
+                    // Comments
+                    .replace(/(\/\/[^\n]*)/g, '<span class="comment">$1</span>')
+                    .replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="comment">$1</span>');
+            }
+            
+            updatePreview() {
+                // Create a safe preview by extracting only the visible HTML content
+                const htmlMatch = this.currentCode.match(/<body[^>]*>([\s\S]*?)<\/body>/);
+                if (htmlMatch) {
+                    let previewHTML = htmlMatch[1];
+                    
+                    // Extract and apply styles
+                    const styleMatch = this.currentCode.match(/<style[^>]*>([\s\S]*?)<\/style>/);
+                    if (styleMatch) {
+                        previewHTML = `<style>${styleMatch[1]}</style>` + previewHTML;
+                    }
+                    
+                    // Extract and apply scripts (safely)
+                    const scriptMatch = this.currentCode.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+                    if (scriptMatch) {
+                        // Create a safe script that won't interfere with the main page
+                        const safeScript = scriptMatch[1].replace(/document\./g, 'previewDoc.');
+                        previewHTML += `<script>
+                            const previewDoc = {
+                                querySelector: (s) => document.querySelector('#preview-frame ' + s),
+                                querySelectorAll: (s) => document.querySelectorAll('#preview-frame ' + s),
+                                addEventListener: () => {}
+                            };
+                            try { ${safeScript} } catch(e) {}
+                        <\/script>`;
+                    }
+                    
+                    this.previewFrame.innerHTML = previewHTML;
+                    
+                    // Apply scale to fit preview
+                    this.previewFrame.style.transform = 'scale(0.7)';
+                }
+            }
+            
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position around the code panel
+                const rect = this.codeContent.getBoundingClientRect();
+                particle.style.left = `${rect.left + Math.random() * rect.width}px`;
+                particle.style.top = `${rect.top + Math.random() * rect.height}px`;
+                
+                // Random direction
+                particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 3000);
+            }
+            
+            createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => this.createParticle(), i * 50);
+                }
+            }
+            
+            wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            close() {
+                this.overlay.classList.remove('active');
+                this.currentCode = '';
+                this.codeContent.innerHTML = '';
+                this.previewFrame.innerHTML = '';
+            }
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const builder = new WebsiteBuilder();
+            
+            // Start animation when clicking HTML icon (you'll need to add this trigger)
+            // For testing, start immediately
+            window.startWebsiteBuilder = () => builder.start();
+            
+            // Auto-start for demo
+            setTimeout(() => builder.start(), 500);
+        });
+    </script>
+</body>
+</html>

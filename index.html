@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lech - Digital Architect & Innovation Engineer</title>
-    <meta name="description" content="Building premium digital experiences with AI, advanced data systems, and beautiful interfaces">
+    <title>LBL Technology - AI-Powered Professional Solutions</title>
+    <meta name="description" content="LBL Technology is a Brazilian AI company founded by Leonardo Lech. We specialize in premium digital experiences with AI, advanced data systems, and beautiful interfaces for professional services.">
     
     <!-- Preload fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,34 +12,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Custom Properties - Your Signature Dark Theme */
+        /* CSS Custom Properties - LBL Technology Signature Dark Theme */
         :root {
-            /* Deep Blue/Navy Palette */
+            /* Deep Blue/Navy Palette - ORIGINAL COLORS */
             --bg-primary: #0a0a0f;
             --bg-secondary: #0f1117;
             --bg-tertiary: #1a1a2e;
             
-            /* Your Signature Blues */
+            /* LBL Signature Blues - ORIGINAL */
             --blue-primary: #3b82f6;
             --blue-light: #60a5fa;
             --blue-dark: #1e40af;
             --blue-glow: rgba(59, 130, 246, 0.5);
             
-            /* Orange Accent */
+            /* Orange Accent - ORIGINAL */
             --accent-orange: #f97316;
             --accent-orange-glow: rgba(249, 115, 22, 0.5);
             
-            /* Glassmorphism */
+            /* Glassmorphism - ORIGINAL */
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
             
-            /* Text Colors */
+            /* Text Colors - ORIGINAL */
             --text-primary: #f0f0f0;
             --text-secondary: #a8a8b3;
             --text-muted: #6b7280;
             
-            /* Spacing */
+            /* Spacing - ORIGINAL */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 1.5rem;
@@ -47,9 +47,8 @@
             --space-xl: 3rem;
             --space-2xl: 4rem;
             
-            /* Animation */
+            /* Animation - ORIGINAL */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --hover-transform: translateY(-2px);
         }
         
         /* Reset and Base Styles */
@@ -59,138 +58,97 @@
             box-sizing: border-box;
         }
         
-        html {
-            scroll-behavior: smooth;
-        }
-        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
             overflow-x: hidden;
         }
         
-        /* Global scaling adjustments for 80% effect */
-        :root {
-            font-size: 12.8px; /* 80% of 16px */
-        }
-        
-        /* Beautiful Gradient Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, var(--blue-glow) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, var(--accent-orange-glow) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, var(--blue-dark) 0%, transparent 50%);
-            z-index: -2;
-            opacity: 0.3;
-        }
-        
-        /* Animated Background Orbs */
-        .bg-orb {
+        /* Floating Background Orbs - ORIGINAL ANIMATION */
+        .floating-orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(60px);
+            pointer-events: none;
             z-index: -1;
+            opacity: 0.6;
         }
         
         .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: var(--blue-primary);
-            top: -300px;
-            left: -300px;
-            animation-delay: 0s;
+            width: 300px;
+            height: 300px;
+            background: var(--blue-glow);
+            top: -150px;
+            left: -150px;
+            animation: float1 20s infinite ease-in-out;
         }
         
         .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent-orange);
-            bottom: -200px;
-            right: -200px;
-            animation-delay: 5s;
+            width: 200px;
+            height: 200px;
+            background: var(--accent-orange-glow);
+            top: 50%;
+            right: -100px;
+            animation: float2 25s infinite ease-in-out reverse;
         }
         
         .orb-3 {
-            width: 500px;
-            height: 500px;
-            background: var(--blue-dark);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 10s;
+            width: 250px;
+            height: 250px;
+            background: var(--blue-glow);
+            bottom: -125px;
+            left: 30%;
+            animation: float3 30s infinite ease-in-out;
         }
         
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-50px, -200px) scale(0.9); }
+            75% { transform: translate(-100px, -50px) scale(1.05); }
         }
         
-        /* Glassmorphic Navigation */
-        nav {
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-150px, 100px) rotate(120deg); }
+            66% { transform: translate(50px, -150px) rotate(240deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(200px, -100px) scale(1.2); }
+        }
+        
+        /* Navigation - ORIGINAL GLASS STYLE */
+        .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: var(--space-sm) var(--space-xl);
+            top: var(--space-md);
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            transition: var(--transition);
-        }
-        
-        nav.scrolled {
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: var(--space-sm) var(--space-lg);
+            z-index: 1000;
+            box-shadow: var(--glass-shadow);
         }
         
         .nav-links {
             display: flex;
-            gap: var(--space-lg);
             list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
         }
         
         .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
+            font-weight: 500;
             transition: var(--transition);
             position: relative;
-            font-weight: 500;
         }
         
         .nav-link::after {
@@ -212,7 +170,7 @@
             width: 100%;
         }
         
-        /* Hero Section with Glassmorphism */
+        /* Hero Section with ORIGINAL LAYOUT but MIXED CONTENT */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -233,7 +191,7 @@
         
         .hero-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem); /* Increased size */
+            font-size: clamp(2rem, 5vw, 3.6rem);
             line-height: 1.1;
             margin-bottom: var(--space-md);
         }
@@ -246,8 +204,15 @@
             display: inline-block;
         }
         
+        .ai-tagline {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--blue-light);
+        }
+        
         .hero-text p {
-            font-size: 1rem; /* 80% of 1.25rem */
+            font-size: 1rem;
             color: var(--text-secondary);
             margin-bottom: var(--space-lg);
             line-height: 1.8;
@@ -275,7 +240,7 @@
             color: var(--text-muted);
         }
         
-        /* Glass Buttons */
+        /* Glass Buttons - ORIGINAL */
         .button-group {
             display: flex;
             gap: var(--space-md);
@@ -297,91 +262,65 @@
         .button-primary {
             background: var(--blue-primary);
             color: white;
-            box-shadow: 0 4px 14px 0 var(--blue-glow);
+            box-shadow: 0 4px 15px var(--blue-glow);
         }
         
         .button-primary:hover {
-            transform: var(--hover-transform);
-            box-shadow: 0 6px 20px 0 var(--blue-glow);
             background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--blue-glow);
         }
         
         .button-glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-color: var(--glass-border);
             color: var(--text-primary);
         }
         
         .button-glass:hover {
-            transform: var(--hover-transform);
             background: rgba(255, 255, 255, 0.1);
-            border-color: var(--blue-primary);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transform: translateY(-2px);
         }
         
-        /* Hero Visual - Glass Card */
-        .hero-visual {
-            position: relative;
-        }
-        
+        /* Glass Cards - ORIGINAL */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
             border: 1px solid var(--glass-border);
-            padding: var(--space-xl);
+            border-radius: 20px;
+            padding: var(--space-lg);
             box-shadow: var(--glass-shadow);
-            position: relative;
-            overflow: hidden;
+            transition: var(--transition);
         }
         
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
-            animation: shimmer 3s infinite;
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(31, 38, 135, 0.3);
         }
         
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
+        /* Code Preview - ORIGINAL */
         .code-preview {
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 0.875rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9rem;
             line-height: 1.6;
-            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: var(--space-lg);
         }
         
         .code-line {
-            margin: 0.25rem 0;
+            margin: 4px 0;
             position: relative;
-            padding-left: 2rem;
         }
         
-        .code-line::before {
-            content: attr(data-line);
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-        }
+        .code-keyword { color: #c678dd; }
+        .code-function { color: #61dafb; }
+        .code-string { color: #98c379; }
+        .code-comment { color: var(--text-muted); }
         
-        .code-keyword { color: var(--blue-light); }
-        .code-string { color: var(--accent-orange); }
-        .code-function { color: #a78bfa; }
-        .code-comment { color: var(--text-muted); font-style: italic; }
-        
-        /* Features Section */
-        .features {
+        /* Sections */
+        .section {
             padding: var(--space-2xl) var(--space-xl);
             max-width: 1200px;
             margin: 0 auto;
@@ -394,884 +333,202 @@
         
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem; /* 80% of 3rem */
+            font-size: clamp(2rem, 4vw, 3rem);
             margin-bottom: var(--space-md);
         }
         
         .section-header p {
+            font-size: 1.125rem;
             color: var(--text-secondary);
-            font-size: 0.9rem; /* 80% of 1.125rem */
             max-width: 600px;
             margin: 0 auto;
         }
         
+        /* Feature Grid - ORIGINAL 6-CARD LAYOUT */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: var(--space-lg);
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
         }
         
         .feature-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: var(--space-lg);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            text-align: center;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
         
         .feature-card:hover {
-            transform: var(--hover-transform);
+            transform: translateY(-10px);
             border-color: var(--blue-primary);
-            box-shadow: 0 10px 40px 0 rgba(59, 130, 246, 0.15);
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--space-md);
-            position: relative;
-        }
-        
-        /* CSS Icons matching website palette */
-        
-        
-        
-        /* Negative 3D Space Effects for Feature Icons */
-        .feature-icon {
-            transform-style: preserve-3d;
-            perspective: 200px;
-        }
-        
-        .icon-3d-wrapper {
-            width: 48px;
-            height: 48px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotate3DSubtle 20s linear infinite;
-        }
-        
-        @keyframes rotate3DSubtle {
-            0% { transform: rotateY(0deg) rotateX(5deg); }
-            100% { transform: rotateY(360deg) rotateX(5deg); }
-        }
-        
-        .feature-card:hover .icon-3d-wrapper {
-            animation-duration: 3s;
-        }
-        
-        /* Negative space base */
-        .icon-negative {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Perspective grid overlay */
-        .icon-grid {
-            position: absolute;
-            inset: -50%;
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 10px 10px;
-            transform: rotateX(60deg) translateZ(-20px);
-            opacity: 0.3;
-            animation: gridFlow 30s linear infinite;
-        }
-        
-        @keyframes gridFlow {
-            0% { background-position: 0 0; }
-            100% { background-position: 10px 10px; }
-        }
-        
-        /* Inset shadow for depth */
-        .icon-rocket, .icon-ai, .icon-diamond, .icon-chart, .icon-lightning, .icon-shield {
-            position: relative;
-            z-index: 2;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-        }
-        
-        /* Rocket - Negative space enhancement */
-        .icon-rocket {
-            box-shadow: 
-                inset 0 2px 8px rgba(59, 130, 246, 0.3),
-                inset 0 -2px 8px rgba(59, 130, 246, 0.2);
-        }
-        
-        .icon-rocket::after {
-            content: '';
-            position: absolute;
-            inset: -20%;
-            background: radial-gradient(circle at 50% 100%, 
-                rgba(59, 130, 246, 0.2) 0%, 
-                transparent 50%);
-            z-index: -1;
-            animation: rocketGlow 3s ease-in-out infinite;
-        }
-        
-        @keyframes rocketGlow {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-        
-        /* AI Brain - Hollow effect */
-        .icon-ai {
-            background: transparent;
-            box-shadow: 
-                inset 0 0 12px rgba(96, 165, 250, 0.4),
-                inset 0 0 24px rgba(96, 165, 250, 0.2);
-        }
-        
-        /* Diamond - Faceted depth */
-        .icon-diamond {
-            box-shadow: 
-                inset 2px 2px 8px rgba(59, 130, 246, 0.4),
-                inset -2px -2px 8px rgba(59, 130, 246, 0.3);
-        }
-        
-        .icon-diamond::after {
-            content: '';
-            position: absolute;
-            inset: 30%;
-            background: transparent;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            transform: rotate(45deg);
-        }
-        
-        /* Chart - Hollow bars */
-        .icon-chart span {
-            box-shadow: 
-                inset 0 2px 6px rgba(96, 165, 250, 0.3),
-                inset 0 -2px 6px rgba(96, 165, 250, 0.2);
-            background: linear-gradient(to top, 
-                var(--blue-light), 
-                transparent 50%, 
-                var(--blue-light));
-        }
-        
-        /* Lightning - Electric void */
-        .icon-lightning {
-            box-shadow: 
-                inset 0 0 16px rgba(249, 115, 22, 0.4),
-                inset 0 0 32px rgba(249, 115, 22, 0.2);
-            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.5));
-        }
-        
-        /* Shield - Protective cavity */
-        .icon-shield {
-            box-shadow: 
-                inset 0 4px 12px rgba(59, 130, 246, 0.4),
-                inset 0 -4px 12px rgba(59, 130, 246, 0.2);
-        }
-        
-        .icon-shield::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--blue-primary), 
-                transparent);
-            top: 30%;
-            left: 0;
-            animation: shieldScan 4s linear infinite;
-            opacity: 0.5;
-        }
-        
-        @keyframes shieldScan {
-            0%, 100% { transform: translateY(-10px); opacity: 0; }
-            50% { transform: translateY(10px); opacity: 1; }
-        }
-        /* Animated backgrounds for feature cards */
-        .feature-card {
-            position: relative;
-        }
-        
-        .feature-bg {
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            overflow: hidden;
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .feature-card:hover .feature-bg {
-            opacity: 0.5;
-        }
-        
-        /* Full-Stack - Rocket Launch Effect */
-        .full-stack-bg::before,
-        .full-stack-bg::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 40px;
-            background: linear-gradient(to top, var(--blue-light), transparent);
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: rocketTrail 3s ease-in-out infinite;
-        }
-        
-        .full-stack-bg::after {
-            animation-delay: 1.5s;
-            opacity: 0.5;
-        }
-        
-        @keyframes rocketTrail {
-            0% {
-                height: 0;
-                opacity: 0;
-                bottom: 20%;
-            }
-            50% {
-                height: 60px;
-                opacity: 1;
-            }
-            100% {
-                height: 0;
-                opacity: 0;
-                bottom: 80%;
-            }
-        }
-        
-        /* AI Integration - Neural Pulse */
-        .ai-bg::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, var(--blue-light) 0%, transparent 70%);
-            animation: neuralPulse 4s ease-in-out infinite;
-        }
-        
-        @keyframes neuralPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
-        }
-        
-        /* Premium UI - Diamond Sparkle */
-        .premium-bg::before {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: var(--blue-primary);
-            animation: sparkleRotate 6s linear infinite;
-        }
-        
-        @keyframes sparkleRotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
-            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-        }
-        
-        /* Data Viz - Flowing Data */
-        .data-bg::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                var(--blue-light) 20%, 
-                transparent 40%, 
-                var(--blue-light) 60%, 
-                transparent 80%, 
-                var(--blue-light) 100%);
-            animation: dataFlow 5s linear infinite;
-        }
-        
-        @keyframes dataFlow {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* Performance - Energy Wave */
-        .performance-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, var(--accent-orange) 0%, transparent 50%);
-            animation: energyWave 3s ease-in-out infinite;
-        }
-        
-        @keyframes energyWave {
-            0%, 100% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1); opacity: 0.5; }
-        }
-        
-        /* Security - Shield Scan */
-        .security-bg::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
-            animation: securityScan 4s linear infinite;
-            box-shadow: 0 0 10px var(--blue-primary);
-        }
-        
-        @keyframes securityScan {
-            0% { top: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-        
-        /* Rocket Icon */
-        .icon-rocket {
-            width: 24px;
-            height: 36px;
-            background: var(--blue-primary);
-            clip-path: polygon(50% 0%, 80% 40%, 65% 100%, 35% 100%, 20% 40%);
-            position: relative;
-        }
-        
-        .icon-rocket::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 8px;
-            background: var(--blue-light);
-            clip-path: polygon(20% 0%, 50% 100%, 80% 0%);
-        }
-        
-        /* Brain Circuit Icon */
-        .icon-ai {
-            width: 36px;
-            height: 36px;
-            border: 3px solid var(--blue-light);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: relative;
-        }
-        
-        .icon-ai::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--blue-light);
-            border-radius: 50%;
-            top: 8px;
-            left: 8px;
-            box-shadow: 12px 0 0 var(--blue-light), 6px 10px 0 var(--blue-light);
-        }
-        
-        /* Diamond Icon */
-        .icon-diamond {
-            width: 36px;
-            height: 36px;
-            background: var(--blue-primary);
-            transform: rotate(45deg);
-            position: relative;
-        }
-        
-        .icon-diamond::before {
-            content: '';
-            position: absolute;
-            top: -18px;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 18px solid transparent;
-            border-right: 18px solid transparent;
-            border-bottom: 18px solid var(--blue-primary);
-        }
-        
-        /* Bar Chart Icon */
-        .icon-chart {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: flex-end;
-            gap: 4px;
-        }
-        
-        .icon-chart span {
-            flex: 1;
-            background: var(--blue-light);
-        }
-        
-        .icon-chart span:nth-child(1) { height: 40%; }
-        .icon-chart span:nth-child(2) { height: 70%; }
-        .icon-chart span:nth-child(3) { height: 55%; }
-        .icon-chart span:nth-child(4) { height: 85%; }
-        
-        /* Lightning Icon */
-        .icon-lightning {
-            width: 24px;
-            height: 36px;
-            background: var(--accent-orange);
-            clip-path: polygon(70% 0%, 30% 45%, 50% 45%, 20% 100%, 60% 55%, 40% 55%);
-        }
-        
-        /* Shield Icon */
-        .icon-shield {
-            width: 32px;
-            height: 36px;
-            background: var(--blue-primary);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 70%, 50% 100%, 0% 70%, 0% 25%);
-            position: relative;
-        }
-        
-        .icon-shield::before {
-            content: '';
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            background: var(--bg-primary);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
         }
         
         .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: var(--space-sm);
-            position: relative;
-            z-index: 1;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
         }
         
         .feature-card p {
             color: var(--text-secondary);
             line-height: 1.6;
-            position: relative;
-            z-index: 1;
         }
         
-        /* Projects Showcase */
-        .projects {
-            padding: var(--space-2xl) var(--space-xl);
-            background: var(--bg-secondary);
-            position: relative;
-            overflow: hidden;
+        /* Company Info Grid - PROFESSIONAL ADDITION */
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
         }
         
-        /* Animated Panorama Background */
-        .projects::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                transparent 0%, 
-                rgba(59, 130, 246, 0.05) 25%, 
-                transparent 50%, 
-                rgba(249, 115, 22, 0.05) 75%, 
-                transparent 100%);
-            animation: panoramaShift 20s linear infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes panoramaShift {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(50%); }
-        }
-        
-        .projects-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .project-tabs {
-            display: flex;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-xl);
-            overflow-x: auto;
-            padding-bottom: var(--space-sm);
-        }
-        
-        .tab {
-            padding: var(--space-sm) var(--space-lg);
+        .company-card {
             background: var(--glass-bg);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
+            border-radius: 20px;
+            padding: var(--space-xl);
+            text-align: center;
             transition: var(--transition);
-            white-space: nowrap;
         }
         
-        .tab.active {
-            background: var(--blue-primary);
-            color: white;
+        .company-card:hover {
+            transform: translateY(-10px);
             border-color: var(--blue-primary);
         }
         
-        .tab:hover:not(.active) {
-            border-color: var(--blue-primary);
-            color: var(--blue-light);
+        .company-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--blue-primary);
         }
         
+        .company-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        
+        .company-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Projects Section - ORIGINAL STYLE */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
         }
         
         .project-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             transition: var(--transition);
-            cursor: pointer;
         }
         
         .project-card:hover {
-            transform: var(--hover-transform) scale(1.02);
+            transform: translateY(-10px);
             border-color: var(--blue-primary);
-            box-shadow: 0 20px 40px 0 rgba(59, 130, 246, 0.2);
-        }
-        
-        .project-card:hover .project-image {
-            background-size: 110%;
-            filter: brightness(1.2) contrast(1.1);
-            animation-duration: 3s;
-        }
-        
-        @keyframes subtlePulse {
-            0%, 100% {
-                filter: brightness(0.9) contrast(1);
-            }
-            50% {
-                filter: brightness(1.1) contrast(1.2);
-            }
-        }
-        
-        /* Speed up animations on hover */
-        .project-card:hover .project-graphic {
-            animation-duration: 1s;
-        }
-        
-        .project-card:hover .particle {
-            animation-duration: 3s;
-        }
-        
-        .project-card:hover .project-image::before {
-            animation-duration: 5s;
-        }
-        
-        .project-image {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: all 0.6s ease;
-            animation: subtlePulse 8s ease-in-out infinite;
-        }
-        
-        /* Project background images with overlay effects */
-        .project-card:nth-child(1) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0341_AI Media Generation_remix_01k1j5p0avevg9jkpt8m2h47fr.png');
-        }
-        
-        .project-card:nth-child(2) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0343_Crystal E-Commerce Display_remix_01k1j5sp3benyrb6rd4jsas4k1.png');
-        }
-        
-        .project-card:nth-child(3) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0337_Interactive Data Visualization_remix_01k1j5fzs0e02vq6jq80y171aa.png');
-        }
-        
-        .project-card:nth-child(4) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0314_Developer Productivity Tools_remix_01k1j454q9fy28404de3jtetca.png');
-        }
-        
-        .project-card:nth-child(5) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0332_Family Management Platform_remix_01k1j55pvxf0vbrqsxwydrcen2.png');
-        }
-        
-        .project-card:nth-child(6) .project-image {
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('assets/sora/20250801_0335_3D Product Showcase_remix_01k1j5axjkfydsbk04nazzdghy.png');
-        }
-        
-        /* Project icons/graphics */
-        .project-graphic {
-            font-size: 3rem;
-            color: var(--blue-light);
-            opacity: 0.3;
-            position: relative;
-            z-index: 1;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px currentColor);
-            transition: all 0.3s ease;
-        }
-        
-        
-        /* Individual project animations */
-        
-        
-        /* Add floating particles to project cards */
-        .project-particles {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--blue-light);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 10s linear infinite;
-        }
-        
-        /* Custom particle colors per project */
-        .project-card:nth-child(1) .particle { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
-        .project-card:nth-child(2) .particle { background: var(--accent-orange); box-shadow: 0 0 6px var(--accent-orange); }
-        .project-card:nth-child(3) .particle { background: var(--blue-light); box-shadow: 0 0 6px var(--blue-light); }
-        .project-card:nth-child(4) .particle { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
-        .project-card:nth-child(5) .particle { background: #fb7185; box-shadow: 0 0 6px #fb7185; }
-        .project-card:nth-child(6) .particle { background: #9333ea; box-shadow: 0 0 6px #9333ea; }
-        
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 30%; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 50%; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 70%; animation-delay: 6s; }
-        .particle:nth-child(5) { left: 90%; animation-delay: 8s; }
-        
-        @keyframes particleFloat {
-            0% {
-                bottom: 0;
-                opacity: 0;
-                transform: translateX(0);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                bottom: 100%;
-                opacity: 0;
-                transform: translateX(20px);
-            }
-        }
-        
-        /* Animated patterns */
-        .project-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.02) 10px,
-                rgba(255,255,255,0.02) 20px
-            );
-            animation: slide 20s linear infinite;
-        }
-        
-        @keyframes slide {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-        
-        /* Vignette effect for all project images */
-        .project-card:not(:nth-child(1)) .project-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
         }
         
         .project-content {
-            padding: var(--space-lg);
+            padding: var(--space-xl);
         }
         
         .project-tech {
             display: flex;
             gap: var(--space-xs);
+            margin-bottom: var(--space-md);
             flex-wrap: wrap;
-            margin-bottom: var(--space-sm);
         }
         
         .tech-tag {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--blue-light);
-            border-radius: 999px;
+            background: var(--blue-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
         
-        .project-content h3 {
-            font-size: 1.25rem;
-            margin-bottom: var(--space-sm);
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
         }
         
-        .project-content p {
+        .project-card p {
             color: var(--text-secondary);
-            font-size: 0.875rem;
             line-height: 1.6;
         }
         
-        /* Contact Section */
-        .contact {
-            padding: var(--space-2xl) var(--space-xl);
-            text-align: center;
+        /* Contact Section - PROFESSIONAL SUPPORT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
         }
         
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
+        .contact-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: var(--space-2xl);
-            position: relative;
-        }
-        
-        .contact-content::before,
-        .contact-content::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            filter: blur(50px);
-            opacity: 0.5;
-        }
-        
-        .contact-content::before {
-            background: var(--blue-primary);
-            top: -50px;
-            left: -50px;
-        }
-        
-        .contact-content::after {
-            background: var(--accent-orange);
-            bottom: -50px;
-            right: -50px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: var(--space-md);
-            justify-content: center;
-            margin-top: var(--space-lg);
-        }
-        
-        .social-link {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            text-decoration: none;
-        }
-        
-        .social-link:hover {
-            transform: var(--hover-transform);
-            border-color: var(--blue-primary);
-            color: var(--blue-primary);
-            box-shadow: 0 8px 24px 0 var(--blue-glow);
-        }
-        
-        /* Footer */
-        footer {
-            padding: var(--space-lg) var(--space-xl);
+            border-radius: 20px;
+            padding: var(--space-xl);
             text-align: center;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
+            transition: var(--transition);
         }
         
-        /* Footer Animation */
-        footer::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -100%;
-            width: 200%;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--blue-primary), 
-                var(--blue-light), 
-                var(--accent-orange), 
-                transparent);
-            animation: footerGlow 10s linear infinite;
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--blue-primary);
         }
         
-        @keyframes footerGlow {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(50%); }
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            color: var(--blue-primary);
+        }
+        
+        .contact-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-link {
+            color: var(--blue-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-link:hover {
+            color: var(--blue-primary);
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
             .hero-content {
                 grid-template-columns: 1fr;
+                gap: var(--space-xl);
                 text-align: center;
             }
             
@@ -1279,179 +536,37 @@
                 justify-content: center;
             }
             
-            .button-group {
-                justify-content: center;
-            }
-            
             .feature-grid,
-            .project-grid {
+            .project-grid,
+            .company-grid {
                 grid-template-columns: 1fr;
             }
             
-            .hero-visual {
-                display: none;
+            .nav-links {
+                gap: var(--space-md);
             }
         }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Selection Style */
-        ::selection {
-            background: var(--blue-primary);
-            color: white;
-        }
-        
-        /* AI Builder Tagline Animation */
-        @keyframes pulse-glow {
-            0%, 100% {
-                text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
-            }
-            50% {
-                text-shadow: 0 0 30px rgba(96, 165, 250, 0.8), 0 0 40px rgba(59, 130, 246, 0.5);
-            }
-        }
-        
-        .ai-tagline {
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--blue-primary);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--blue-light);
-        }
-    
-        
-    /* Video Asset Styles */
-    .video-icon {
-        width: 48px;
-        height: 48px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: var(--space-md);
-    }
-    
-    .video-icon video,
-    .video-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    
-    .video-icon video {
-        mix-blend-mode: screen;
-    }
-    
-    /* Panorama Background */
-    .panorama-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        pointer-events: none;
-    }
-    
-    .panorama-video {
-        width: 100%;
-        height: 200%;
-        object-fit: cover;
-        animation: panoramaScroll 30s linear infinite;
-        opacity: 0.3;
-    }
-    
-    @keyframes panoramaScroll {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-50%); }
-    }
-    
-    /* Project cards with window effect */
-    .project-window {
-        position: relative;
-        height: 200px;
-        overflow: hidden;
-        margin: -2rem -2rem 1rem -2rem;
-        border-radius: 16px 16px 0 0;
-    }
-    
-    .project-window::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(ellipse at center, transparent 50%, var(--bg-secondary) 100%);
-        z-index: 1;
-        pointer-events: none;
-    }
-    
-    /* Footer video */
-    .footer-video-container {
-        position: relative;
-        height: 400px;
-        overflow: hidden;
-        margin-top: var(--space-2xl);
-        border-radius: 24px;
-        background: var(--bg-secondary);
-    }
-    
-    .footer-video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0.6;
-    }
-    
-    /* Performance: Pause videos when not visible */
-    .video-icon video:not(.playing) {
-        display: none;
-    }
-    
-    /* Loading states */
-    .asset-loading {
-        background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 100%);
-        opacity: 0.2;
-        animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-        0%, 100% { opacity: 0.2; }
-        50% { opacity: 0.4; }
-    }
-
-        /* End Video Asset Styles */
     </style>
 </head>
 <body>
-    <!-- Animated Background Orbs -->
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
+    <!-- Floating Background Orbs - ORIGINAL -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
     
-    <!-- Navigation removed for cleaner design -->
+    <!-- Navigation - ORIGINAL GLASS STYLE -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#features" class="nav-link">Expertise</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#company" class="nav-link">Company</a></li>
+            <li><a href="#support" class="nav-link">Support</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
     
-    <!-- Hero Section -->
+    <!-- Hero Section - MIXED CONTENT -->
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
@@ -1459,13 +574,13 @@
                     Building <span class="gradient-text">Premium Digital Experiences</span> 
                     with AI & Modern Tech
                 </h1>
-                <p class="ai-tagline" style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-md); color: var(--blue-light);">
-                    AI-Native Builder • Turning 2025 back to 1995
+                <p class="ai-tagline">
+                    LBL Technology • AI-Native Builder • Turning 2025 back to 1995
                 </p>
                 <p>
-                    Full-stack architect specializing in TypeScript, React, and AI-powered solutions. 
-                    Creating beautiful, performant applications with a focus on glassmorphic design 
-                    and exceptional user experiences.
+                    LBL Technology is a Brazilian AI company founded by Leonardo Lech. We specialize in full-stack 
+                    architecture with TypeScript, React, and AI-powered solutions, creating beautiful, performant 
+                    applications with a focus on glassmorphic design and exceptional user experiences.
                 </p>
                 
                 <div class="hero-stats">
@@ -1490,11 +605,8 @@
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
-                    <a href="localbrain-docs.html" class="button button-glass">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4"/>
-                        </svg>
-                        LocalBrain Docs
+                    <a href="#support" class="button button-glass">
+                        Customer Support
                     </a>
                     <a href="#contact" class="button button-glass">
                         Get in Touch
@@ -1505,32 +617,32 @@
             <div class="hero-visual">
                 <div class="glass-card">
                     <div class="code-preview">
-                        <div class="code-line" data-line="1">
-                            <span class="code-keyword">import</span> { <span class="code-function">createApp</span> } <span class="code-keyword">from</span> <span class="code-string">'@lech/magic'</span>
+                        <div class="code-line">
+                            <span class="code-keyword">import</span> { <span class="code-function">createApp</span> } <span class="code-keyword">from</span> <span class="code-string">'@lbl/technology'</span>
                         </div>
-                        <div class="code-line" data-line="2">
-                            <span class="code-keyword">import</span> { <span class="code-function">glassmorphism</span> } <span class="code-keyword">from</span> <span class="code-string">'./styles'</span>
+                        <div class="code-line">
+                            <span class="code-keyword">import</span> { <span class="code-function">glassmorphism</span> } <span class="code-keyword">from</span> <span class="code-string">'./premium-styles'</span>
                         </div>
-                        <div class="code-line" data-line="3">&nbsp;</div>
-                        <div class="code-line" data-line="4">
-                            <span class="code-keyword">const</span> app = <span class="code-function">createApp</span>({
+                        <div class="code-line">&nbsp;</div>
+                        <div class="code-line">
+                            <span class="code-keyword">const</span> company = <span class="code-function">LBLTechnology</span>({
                         </div>
-                        <div class="code-line" data-line="5">
+                        <div class="code-line">
                             &nbsp;&nbsp;theme: <span class="code-string">'dark-premium'</span>,
                         </div>
-                        <div class="code-line" data-line="6">
+                        <div class="code-line">
                             &nbsp;&nbsp;style: <span class="code-function">glassmorphism</span>,
                         </div>
-                        <div class="code-line" data-line="7">
+                        <div class="code-line">
                             &nbsp;&nbsp;ai: <span class="code-keyword">true</span>,
                         </div>
-                        <div class="code-line" data-line="8">
-                            &nbsp;&nbsp;performance: <span class="code-string">'optimized'</span>
+                        <div class="code-line">
+                            &nbsp;&nbsp;support: <span class="code-string">'24/7'</span>
                         </div>
-                        <div class="code-line" data-line="9">})</div>
-                        <div class="code-line" data-line="10">&nbsp;</div>
-                        <div class="code-line" data-line="11">
-                            <span class="code-comment">// Building the future, one component at a time</span>
+                        <div class="code-line">})</div>
+                        <div class="code-line">&nbsp;</div>
+                        <div class="code-line">
+                            <span class="code-comment">// Building the future, one solution at a time</span>
                         </div>
                     </div>
                 </div>
@@ -1538,8 +650,8 @@
         </div>
     </section>
     
-    <!-- Features/Expertise Section -->
-    <section class="features" id="features">
+    <!-- Features/Expertise Section - ORIGINAL 6 CARDS -->
+    <section class="section" id="features">
         <div class="section-header">
             <h2>Core <span class="gradient-text">Expertise</span></h2>
             <p>Specialized in building scalable, beautiful applications with modern technologies</p>
@@ -1547,309 +659,230 @@
         
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="feature-bg full-stack-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-rocket"></div>
-                        </div>
-                    </div>
-                </div>
                 <h3>Full-Stack Development</h3>
                 <p>Expert in React 18, TypeScript, Node.js, and PostgreSQL. Building performant applications with Vite, TailwindCSS, and modern tooling.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-bg ai-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-ai"></div>
-                        </div>
-                    </div>
-                </div>
                 <h3>AI Integration</h3>
                 <p>Leveraging AI for enhanced development workflows, content generation, and intelligent features. Expert in Agent OS and MCP servers.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-bg premium-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-diamond"></div>
-                        </div>
-                    </div>
-                </div>
                 <h3>Premium UI/UX</h3>
                 <p>Signature glassmorphic designs with smooth animations, dark themes, and exceptional user experiences. Mobile-first responsive approach.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-bg data-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-chart">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <h3>Data Visualization</h3>
                 <p>Creating beautiful, interactive data visualizations and dashboards. Expert in D3.js, Chart.js, and custom visualization solutions.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-bg performance-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-lightning"></div>
-                        </div>
-                    </div>
-                </div>
                 <h3>Performance Optimization</h3>
                 <p>Obsessed with speed and efficiency. Implementing lazy loading, code splitting, and advanced caching strategies for lightning-fast apps.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-bg security-bg"></div>
-                <div class="feature-icon">
-                    <div class="icon-3d-wrapper">
-                        <div class="icon-grid"></div>
-                        <div class="icon-negative">
-                            <div class="icon-shield"></div>
-                        </div>
-                    </div>
-                </div>
                 <h3>Security & Architecture</h3>
                 <p>Building secure, scalable architectures with proper authentication, authorization, and data protection. TypeScript-first development.</p>
             </div>
         </div>
     </section>
     
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="projects-container">
-            <div class="section-header">
-                <h2>Featured <span class="gradient-text">Projects</span></h2>
-                <p>A selection of recent work showcasing various technologies and industries</p>
-            </div>
-            
-            <div class="project-tabs">
-                <div class="tab active">All</div>
-                <div class="tab">AI & Automation</div>
-                <div class="tab">E-Commerce</div>
-                <div class="tab">Data Visualization</div>
-                <div class="tab">Developer Tools</div>
-            </div>
-            
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Supabase</span>
-                        </div>
-                        <h3>AI Content Creation Platform</h3>
-                        <p>Advanced media generation platform with AI-powered video and content creation capabilities. Features real-time collaboration and cloud rendering.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">TailwindCSS</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                        <h3>Premium E-Commerce Platform</h3>
-                        <p>Luxury minerals marketplace with glassmorphic design, advanced filtering, and seamless checkout experience. Mobile-optimized with PWA features.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">D3.js</span>
-                            <span class="tech-tag">WebGL</span>
-                        </div>
-                        <h3>Interactive Data Visualization</h3>
-                        <p>Complex system visualization tool with real-time updates, 3D rendering, and advanced analytics. Built for enterprise-scale data processing.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Agent OS</span>
-                        </div>
-                        <h3>Developer Productivity Suite</h3>
-                        <p>AI-enhanced development tools including code generation, automated testing, and intelligent project management. Integrated with VS Code.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Maps API</span>
-                        </div>
-                        <h3>Family Management App</h3>
-                        <p>Comprehensive family organization platform with loyalty program integration, location tracking, and real-time notifications. Cross-platform mobile app.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tech">
-                            <span class="tech-tag">Vite</span>
-                            <span class="tech-tag">Three.js</span>
-                            <span class="tech-tag">GSAP</span>
-                        </div>
-                        <h3>3D Product Showcase</h3>
-                        <p>Interactive 3D product visualization with WebGL, featuring smooth animations, dynamic lighting, and mobile-optimized performance.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Projects Section - ORIGINAL CONTENT -->
+    <section class="section" id="projects">
+        <div class="section-header">
+            <h2>Featured <span class="gradient-text">Projects</span></h2>
+            <p>A selection of recent work showcasing various technologies and industries</p>
         </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-content">
-            <h2>Let's Build Something <span class="gradient-text">Amazing</span></h2>
-            <p>Whether you need a full-stack application, AI integration, or just want to discuss ideas, I'm here to help bring your vision to life.</p>
-            
-            <div class="button-group" style="justify-content: center; margin-top: 2rem;">
-                <a href="mailto:contact@lech.dev" class="button button-primary">
-                    Start a Project
-                </a>
-            </div>
-            
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="GitHub">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-link" aria-label="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-link" aria-label="Twitter">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Lech.dev - Building the future with code and creativity</p>
         
-        <!-- Developer Tools Section -->
-        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
-            <p style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-secondary);">Developer Tools & Resources</p>
-            <div class="button-group" style="justify-content: center;">
-                <a href="localhost-manager-guide.html" class="button button-glass" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                        <path d="M2 17l10 5 10-5"/>
-                        <path d="M2 12l10 5 10-5"/>
-                    </svg>
-                    Universal Localhost Manager
-                    <span style="background: var(--gradient-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; margin-left: 0.5rem;">NEW</span>
-                </a>
-                <a href="localbrain-docs.html" class="button button-glass">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4"/>
-                    </svg>
-                    LocalBrain Docs
-                </a>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">AI</span>
+                        <span class="tech-tag">Supabase</span>
+                    </div>
+                    <h3>ProfilePro - AI Photo Generation</h3>
+                    <p>Advanced AI-powered professional photo generation platform with 99.8% identity preservation. Features real-time processing and LGPD/GDPR compliance.</p>
+                </div>
             </div>
-            <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted);">
-                🚀 Never struggle with localhost setup again - one command to rule them all
-            </p>
+            
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-tech">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">TailwindCSS</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                    <h3>Premium E-Commerce Platform</h3>
+                    <p>Luxury minerals marketplace with glassmorphic design, advanced filtering, and seamless checkout experience. Mobile-optimized with PWA features.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">D3.js</span>
+                        <span class="tech-tag">WebGL</span>
+                    </div>
+                    <h3>Interactive Data Visualization</h3>
+                    <p>Complex system visualization tool with real-time updates, 3D rendering, and advanced analytics. Built for enterprise-scale data processing.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-tech">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Agent OS</span>
+                    </div>
+                    <h3>Developer Productivity Suite</h3>
+                    <p>AI-enhanced development tools including code generation, automated testing, and intelligent project management. Integrated with VS Code.</p>
+                </div>
+            </div>
         </div>
+    </section>
+    
+    <!-- Company Information - APPLE COMPLIANCE -->
+    <section class="section" id="company">
+        <div class="section-header">
+            <h2>Company <span class="gradient-text">Information</span></h2>
+            <p>LBL Technology - Professional AI solutions for modern business</p>
+        </div>
+        
+        <div class="company-grid">
+            <div class="company-card">
+                <div class="company-icon">🏢</div>
+                <h3>LBL Technology Ltda.</h3>
+                <p><strong>Founded:</strong> 2024<br>
+                <strong>Location:</strong> São Paulo, SP, Brazil<br>
+                <strong>Focus:</strong> AI-Powered Professional Solutions</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🎯</div>
+                <h3>Mission</h3>
+                <p>To democratize professional AI technology, making high-quality artificial intelligence solutions accessible to individuals and businesses worldwide.</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">👨‍💻</div>
+                <h3>Founder & CEO</h3>
+                <p><strong>Leonardo Lech</strong><br>
+                Full-stack architect and AI integration specialist with expertise in TypeScript, React, and modern development workflows.</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🛡️</div>
+                <h3>Privacy & Compliance</h3>
+                <p>Full LGPD, GDPR, and CCPA compliance. Your data privacy and security are our top priorities in all our AI solutions.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Support Section - APPLE COMPLIANCE -->
+    <section class="section" id="support">
+        <div class="section-header">
+            <h2>Customer <span class="gradient-text">Support</span></h2>
+            <p>Professional support infrastructure ready to assist with any questions or technical issues</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">🛠️</div>
+                <h4>Technical Support</h4>
+                <p>Get help with technical issues, troubleshooting, and integration support.</p>
+                <a href="mailto:support@lbl.technology" class="contact-link">support@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 24 hours</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">💼</div>
+                <h4>Sales & Enterprise</h4>
+                <p>Enterprise solutions, partnerships, and custom AI development inquiries.</p>
+                <a href="mailto:sales@lbl.technology" class="contact-link">sales@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 12 hours</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h4>Phone Support</h4>
+                <p>Direct phone support for urgent business-critical issues and enterprise customers.</p>
+                <a href="tel:+5554999628402" class="contact-link">+55 54 99962-8402</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Mon-Fri, 9:00 AM - 6:00 PM (BRT)</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h4>General Inquiries</h4>
+                <p>General questions, feedback, and information about our services.</p>
+                <a href="mailto:contact@lbl.technology" class="contact-link">contact@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 48 hours</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section - ORIGINAL STYLE -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <h2>Let's Build Something <span class="gradient-text">Amazing</span></h2>
+            <p>Ready to create premium digital experiences with cutting-edge AI technology?</p>
+        </div>
+        
+        <div class="company-grid">
+            <div class="company-card">
+                <div class="company-icon">📧</div>
+                <h3>Email Contact</h3>
+                <p><strong>General:</strong> contact@lbl.technology<br>
+                <strong>Support:</strong> support@lbl.technology<br>
+                <strong>Sales:</strong> sales@lbl.technology<br>
+                <strong>Privacy:</strong> privacy@lbl.technology</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">📍</div>
+                <h3>Location</h3>
+                <p><strong>LBL Technology Ltda.</strong><br>
+                São Paulo, SP<br>
+                Brazil<br>
+                <em>Serving customers worldwide</em></p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">⏰</div>
+                <h3>Business Hours</h3>
+                <p><strong>Support:</strong> Mon-Fri, 9:00 AM - 6:00 PM (BRT)<br>
+                <strong>Sales:</strong> Mon-Sat, 8:00 AM - 7:00 PM (BRT)<br>
+                <strong>Emergency:</strong> 24/7 for enterprise clients</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🔗</div>
+                <h3>Legal & Privacy</h3>
+                <p><strong>Privacy Policy:</strong> <a href="privacy.html" class="contact-link">View Policy</a><br>
+                <strong>Terms of Service:</strong> <a href="terms.html" class="contact-link">View Terms</a><br>
+                <strong>Support Center:</strong> <a href="support.html" class="contact-link">Get Help</a></p>
+            </div>
+        </div>
+    </section>
+    
+    <footer style="background: var(--bg-secondary); padding: var(--space-2xl); text-align: center; margin-top: var(--space-2xl);">
+        <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
+            © 2024 LBL Technology Ltda. All rights reserved.
+        </p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            🚀 Building premium digital experiences with AI • Made in São Paulo, Brazil 🇧🇷
+        </p>
     </footer>
     
     <script>
-        // Navbar removed - no scroll effect needed
-        
-        // Smooth scroll for navigation links
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1863,17 +896,19 @@
             });
         });
         
-        // Project tab filtering
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                // Add filtering logic here
-            });
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.9)';
+                navbar.style.backdropFilter = 'blur(30px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.05)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
         });
         
-        // Add intersection observer for fade-in animations
+        // Add animation on scroll for cards
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1888,134 +923,13 @@
             });
         }, observerOptions);
         
-        // Observe all feature and project cards
-        document.querySelectorAll('.feature-card, .project-card').forEach(card => {
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .project-card, .company-card, .contact-card').forEach(card => {
             card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.6s ease-out';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
         });
-
-        // Parallax effect for project images on scroll
-        function handleParallax() {
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            projectCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                // Calculate parallax offset based on card position
-                if (rect.top < windowHeight && rect.bottom > 0) {
-                    const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                    const parallaxOffset = (scrollProgress - 0.5) * 30; // Adjust multiplier for intensity
-                    
-                    const projectImage = card.querySelector('.project-image');
-                    if (projectImage) {
-                        projectImage.style.backgroundPosition = `center ${50 + parallaxOffset}%`;
-                    }
-                }
-            });
-        }
-
-        // Add scroll event listener for parallax
-        window.addEventListener('scroll', handleParallax);
-        
-        // Initialize parallax on load
-        handleParallax();
-        
-        // Add ripple effect to buttons
-        document.querySelectorAll('.button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-        
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            .button {
-                position: relative;
-                overflow: hidden;
-            }
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.5);
-                transform: scale(0);
-                animation: ripple-animation 0.6s ease-out;
-                pointer-events: none;
-            }
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-
-    <script>
-        
-    // Video Asset Management
-    (function() {
-        // Intersection Observer for video playback
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target.querySelector('video');
-                if (video) {
-                    if (entry.isIntersecting) {
-                        video.play().catch(() => {});
-                        video.classList.add('playing');
-                    } else {
-                        video.pause();
-                        video.classList.remove('playing');
-                    }
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        // Observe all video containers
-        document.querySelectorAll('.video-icon, .footer-video-container').forEach(container => {
-            videoObserver.observe(container);
-        });
-        
-        // Fallback for video load errors
-        document.querySelectorAll('video').forEach(video => {
-            video.addEventListener('error', function() {
-                const fallback = this.dataset.fallback;
-                if (fallback) {
-                    const img = document.createElement('img');
-                    img.src = fallback;
-                    img.alt = this.dataset.alt || '';
-                    this.parentNode.replaceChild(img, this);
-                }
-            });
-        });
-        
-        // Reduced motion preference
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelectorAll('video').forEach(video => {
-                video.pause();
-                video.controls = true;
-            });
-        }
-    })();
-
-        // End Video Asset Management
     </script>
 </body>
 </html>

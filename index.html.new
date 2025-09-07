@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBL Technology - AI-Powered Professional Solutions</title>
+    <meta name="description" content="LBL Technology is a Brazilian AI company specializing in professional solutions. Founded by Leonardo Lech, we provide cutting-edge AI technology for businesses worldwide.">
+    
+    <!-- Preload fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Custom Properties - LBL Technology Signature Dark Theme */
+        :root {
+            /* Deep Blue/Navy Palette */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f1117;
+            --bg-tertiary: #1a1a2e;
+            
+            /* LBL Signature Blues */
+            --blue-primary: #3b82f6;
+            --blue-light: #60a5fa;
+            --blue-dark: #1e40af;
+            --blue-glow: rgba(59, 130, 246, 0.5);
+            
+            /* Orange Accent */
+            --accent-orange: #f97316;
+            --accent-orange-glow: rgba(249, 115, 22, 0.5);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            
+            /* Text Colors */
+            --text-primary: #f0f0f0;
+            --text-secondary: #a8a8b3;
+            --text-muted: #6b7280;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
+            /* Animation */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+        }
+        
+        /* Floating Background Orbs */
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--blue-glow);
+            top: -150px;
+            left: -150px;
+            animation: float1 20s infinite ease-in-out;
+        }
+        
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-orange-glow);
+            top: 50%;
+            right: -100px;
+            animation: float2 25s infinite ease-in-out reverse;
+        }
+        
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--blue-glow);
+            bottom: -125px;
+            left: 30%;
+            animation: float3 30s infinite ease-in-out;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-50px, -200px) scale(0.9); }
+            75% { transform: translate(-100px, -50px) scale(1.05); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-150px, 100px) rotate(120deg); }
+            66% { transform: translate(50px, -150px) rotate(240deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(200px, -100px) scale(1.2); }
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: var(--space-md);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: var(--space-sm) var(--space-lg);
+            z-index: 1000;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--blue-light);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-light) 50%, var(--accent-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .company-tagline {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--blue-light);
+        }
+        
+        .hero-text p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.8;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        /* Glass Buttons */
+        .button-group {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+        
+        .button {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            border: 1px solid transparent;
+        }
+        
+        .button-primary {
+            background: var(--blue-primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--blue-glow);
+        }
+        
+        .button-primary:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--blue-glow);
+        }
+        
+        .button-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-color: var(--glass-border);
+            color: var(--text-primary);
+        }
+        
+        .button-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--glass-shadow);
+            transition: var(--transition);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(31, 38, 135, 0.3);
+        }
+        
+        /* Code Preview */
+        .code-preview {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: var(--space-lg);
+        }
+        
+        .code-line {
+            margin: 4px 0;
+            position: relative;
+        }
+        
+        .code-keyword { color: #c678dd; }
+        .code-function { color: #61dafb; }
+        .code-string { color: #98c379; }
+        .code-comment { color: var(--text-muted); }
+        
+        /* Sections */
+        .section {
+            padding: var(--space-2xl) var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Company Info Grid */
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        .company-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .company-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--blue-primary);
+        }
+        
+        .company-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto var(--space-lg);
+            background: var(--blue-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .company-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        
+        .company-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue-primary), var(--accent-orange));
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--blue-primary);
+        }
+        
+        .product-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .product-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--blue-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--space-md);
+            font-size: 1.25rem;
+        }
+        
+        .product-card h3 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+        }
+        
+        .product-features {
+            list-style: none;
+            margin: var(--space-lg) 0;
+        }
+        
+        .product-features li {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+            padding-left: var(--space-md);
+            position: relative;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--blue-primary);
+            font-weight: bold;
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--blue-primary);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto var(--space-md);
+            background: var(--blue-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .contact-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-link {
+            color: var(--blue-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-link:hover {
+            color: var(--blue-primary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: var(--space-2xl) var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--blue-light);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+                text-align: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .company-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Orbs -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">Company</a></li>
+            <li><a href="#products" class="nav-link">Products</a></li>
+            <li><a href="#support" class="nav-link">Support</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Building <span class="gradient-text">Professional AI Solutions</span> 
+                    for Modern Business
+                </h1>
+                <p class="company-tagline">
+                    LBL Technology • Transforming Business with AI
+                </p>
+                <p>
+                    LBL Technology is a Brazilian AI company founded by Leonardo Lech, specializing in 
+                    cutting-edge artificial intelligence solutions for businesses worldwide. We create 
+                    professional AI-powered applications with exceptional user experiences and enterprise-grade reliability.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.8%</span>
+                        <span class="stat-label">AI Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2024</span>
+                        <span class="stat-label">Founded</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <a href="#products" class="button button-primary">
+                        Our Products
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#support" class="button button-glass">
+                        Customer Support
+                    </a>
+                    <a href="#contact" class="button button-glass">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="glass-card">
+                    <div class="code-preview">
+                        <div class="code-line">
+                            <span class="code-keyword">import</span> { <span class="code-function">ProfilePro</span> } <span class="code-keyword">from</span> <span class="code-string">'@lbl/ai-solutions'</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="code-keyword">import</span> { <span class="code-function">Enterprise</span> } <span class="code-keyword">from</span> <span class="code-string">'./business'</span>
+                        </div>
+                        <div class="code-line">&nbsp;</div>
+                        <div class="code-line">
+                            <span class="code-keyword">const</span> solution = <span class="code-function">LBLTechnology</span>({
+                        </div>
+                        <div class="code-line">
+                            &nbsp;&nbsp;accuracy: <span class="code-string">'99.8%'</span>,
+                        </div>
+                        <div class="code-line">
+                            &nbsp;&nbsp;privacy: <span class="code-string">'LGPD/GDPR'</span>,
+                        </div>
+                        <div class="code-line">
+                            &nbsp;&nbsp;support: <span class="code-keyword">true</span>,
+                        </div>
+                        <div class="code-line">
+                            &nbsp;&nbsp;enterprise: <span class="code-string">'ready'</span>
+                        </div>
+                        <div class="code-line">})</div>
+                        <div class="code-line">&nbsp;</div>
+                        <div class="code-line">
+                            <span class="code-comment">// Transforming business with AI technology</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Company Information Section -->
+    <section class="section" id="about">
+        <div class="section-header">
+            <h2>About <span class="gradient-text">LBL Technology</span></h2>
+            <p>Founded with a vision to democratize professional AI technology for businesses worldwide</p>
+        </div>
+        
+        <div class="company-grid">
+            <div class="company-card">
+                <div class="company-icon">🏢</div>
+                <h3>Company</h3>
+                <p><strong>LBL Technology Ltda.</strong><br>
+                Founded in 2024<br>
+                São Paulo, SP, Brazil<br>
+                AI Technology Solutions</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🎯</div>
+                <h3>Mission</h3>
+                <p>To democratize professional AI technology, making high-quality artificial intelligence solutions accessible to individuals and businesses worldwide.</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">⚡</div>
+                <h3>Innovation</h3>
+                <p>Leveraging state-of-the-art AI models to create professional solutions with 99.8% accuracy and complete privacy compliance.</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🛡️</div>
+                <h3>Privacy First</h3>
+                <p>Full compliance with LGPD, GDPR, and CCPA regulations. Your data privacy and security are our top priorities.</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">👥</div>
+                <h3>Team</h3>
+                <p><strong>Leonardo Lech</strong> - Founder & CEO<br>
+                AI Engineers, Software Developers<br>
+                UX Designers, Support Specialists</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">🌍</div>
+                <h3>Global Reach</h3>
+                <p>Serving customers worldwide with professional AI solutions, multilingual support, and international compliance.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <div class="section-header">
+            <h2>Our <span class="gradient-text">AI Solutions</span></h2>
+            <p>Professional artificial intelligence technology for modern businesses</p>
+        </div>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon">👨‍💼</div>
+                    <h3>ProfilePro</h3>
+                </div>
+                <p>AI-powered professional photo generation platform. Transform casual selfies into professional headshots with 99.8% identity preservation using advanced artificial intelligence.</p>
+                <ul class="product-features">
+                    <li>99.8% identity preservation accuracy</li>
+                    <li>LGPD/GDPR compliant privacy protection</li>
+                    <li>Professional results in seconds</li>
+                    <li>Multiple professional styles available</li>
+                    <li>Enterprise-grade security</li>
+                </ul>
+                <a href="mailto:sales@lbl.technology?subject=ProfilePro Inquiry" class="button button-primary">
+                    Learn More
+                </a>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon">🏢</div>
+                    <h3>Enterprise AI</h3>
+                </div>
+                <p>Custom artificial intelligence solutions for enterprise clients. We develop tailored AI applications to meet specific business needs and professional requirements.</p>
+                <ul class="product-features">
+                    <li>Custom AI model development</li>
+                    <li>Enterprise-grade security and compliance</li>
+                    <li>24/7 dedicated support</li>
+                    <li>Scalable cloud infrastructure</li>
+                    <li>Complete API integration</li>
+                </ul>
+                <a href="mailto:sales@lbl.technology?subject=Enterprise AI Inquiry" class="button button-primary">
+                    Contact Sales
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Support Section -->
+    <section class="section" id="support">
+        <div class="section-header">
+            <h2>Customer <span class="gradient-text">Support</span></h2>
+            <p>Professional support infrastructure ready to assist you with any questions or technical issues</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">🛠️</div>
+                <h4>Technical Support</h4>
+                <p>Get help with technical issues, troubleshooting, and integration support.</p>
+                <a href="mailto:support@lbl.technology" class="contact-link">support@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 24 hours</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">💼</div>
+                <h4>Sales & Enterprise</h4>
+                <p>Enterprise solutions, partnerships, and custom AI development inquiries.</p>
+                <a href="mailto:sales@lbl.technology" class="contact-link">sales@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 12 hours</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h4>Phone Support</h4>
+                <p>Direct phone support for urgent business-critical issues and enterprise customers.</p>
+                <a href="tel:+5554999628402" class="contact-link">+55 54 99962-8402</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Mon-Fri, 9:00 AM - 6:00 PM (BRT)</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h4>General Inquiries</h4>
+                <p>General questions, feedback, and information about our services.</p>
+                <a href="mailto:contact@lbl.technology" class="contact-link">contact@lbl.technology</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Response: Within 48 hours</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: var(--space-2xl);">
+            <a href="support.html" class="button button-primary">
+                Visit Support Center
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <h2>Get in <span class="gradient-text">Touch</span></h2>
+            <p>Ready to transform your business with AI? Let's discuss your needs and create something amazing together.</p>
+        </div>
+        
+        <div class="company-grid">
+            <div class="company-card">
+                <div class="company-icon">📧</div>
+                <h3>Email Contact</h3>
+                <p><strong>General:</strong> contact@lbl.technology<br>
+                <strong>Support:</strong> support@lbl.technology<br>
+                <strong>Sales:</strong> sales@lbl.technology<br>
+                <strong>Privacy:</strong> privacy@lbl.technology</p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">📍</div>
+                <h3>Location</h3>
+                <p><strong>LBL Technology Ltda.</strong><br>
+                São Paulo, SP<br>
+                Brazil<br>
+                <em>Serving customers worldwide</em></p>
+            </div>
+            
+            <div class="company-card">
+                <div class="company-icon">⏰</div>
+                <h3>Business Hours</h3>
+                <p><strong>Support:</strong> Mon-Fri, 9:00 AM - 6:00 PM (BRT)<br>
+                <strong>Sales:</strong> Mon-Sat, 8:00 AM - 7:00 PM (BRT)<br>
+                <strong>Emergency:</strong> 24/7 for enterprise clients</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#products">Products</a>
+                <a href="#support">Support</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
+                © 2024 LBL Technology Ltda. All rights reserved.
+            </p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                🚀 Built with passion for AI innovation • Made in São Paulo, Brazil 🇧🇷
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.9)';
+                navbar.style.backdropFilter = 'blur(30px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.05)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
+        });
+        
+        // Add animation on scroll for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all cards
+        document.querySelectorAll('.company-card, .product-card, .contact-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

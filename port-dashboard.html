@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Scanner Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-cyan: #06b6d4;
+            --border: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        .bg-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+            }
+            to {
+                transform: translateY(-10vh) translateX(100px);
+            }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            opacity: 0.05;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* View toggle */
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .toggle-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .toggle-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Search and filter */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-select {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Port grid */
+        .port-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .port-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .port-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-3);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        .port-card:hover {
+            transform: translateX(4px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .port-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .port-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .port-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .port-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .service-type {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .process-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .resource-usage {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Project view */
+        .project-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0.05;
+            transform: rotate(45deg);
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-purple);
+        }
+
+        .project-ports {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .port-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .port-badge-number {
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        /* Charts */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            height: 400px;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-particles" id="particles"></div>
+
+    <header>
+        <h1>Port Scanner Dashboard</h1>
+        <p class="subtitle">Real-time overview of all active ports and services</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPorts">0</div>
+                <div class="stat-label">Active Ports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalProjects">0</div>
+                <div class="stat-label">Managed Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalServices">0</div>
+                <div class="stat-label">Services</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="scanTime">--:--</div>
+                <div class="stat-label">Last Scan</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="view-toggle">
+            <button class="toggle-btn active" onclick="showView('ports')">
+                📊 Port View
+            </button>
+            <button class="toggle-btn" onclick="showView('projects')">
+                📁 Project View
+            </button>
+            <button class="toggle-btn" onclick="showView('services')">
+                🔧 Service View
+            </button>
+            <button class="toggle-btn" onclick="showView('chart')">
+                📈 Analytics
+            </button>
+        </div>
+
+        <div class="controls">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search ports, services, or projects...">
+            <select class="filter-select" id="serviceFilter">
+                <option value="">All Services</option>
+            </select>
+            <select class="filter-select" id="sortBy">
+                <option value="port">Sort by Port</option>
+                <option value="service">Sort by Service</option>
+                <option value="cpu">Sort by CPU</option>
+                <option value="memory">Sort by Memory</option>
+            </select>
+        </div>
+
+        <div id="portView" class="port-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div id="projectView" class="project-grid" style="display: none;">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div id="serviceView" class="port-grid" style="display: none;">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div id="chartView" style="display: none;">
+            <div class="chart-container">
+                <canvas id="portChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let portData = null;
+        let currentView = 'ports';
+        let chart = null;
+
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Load port data
+        async function loadPortData() {
+            // Use embedded data directly
+            portData = PORT_DATA_PLACEHOLDER;
+            updateStats();
+            updateFilters();
+            renderCurrentView();
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalPorts').textContent = portData.ports.length;
+            document.getElementById('totalProjects').textContent = portData.managedProjects.length;
+            
+            const services = [...new Set(portData.ports.map(p => p.service))];
+            document.getElementById('totalServices').textContent = services.length;
+            
+            const scanTime = new Date(portData.scanTime);
+            document.getElementById('scanTime').textContent = scanTime.toLocaleTimeString();
+        }
+
+        // Update filters
+        function updateFilters() {
+            const services = [...new Set(portData.ports.map(p => p.service))];
+            const serviceFilter = document.getElementById('serviceFilter');
+            
+            services.forEach(service => {
+                const option = document.createElement('option');
+                option.value = service;
+                option.textContent = service;
+                serviceFilter.appendChild(option);
+            });
+        }
+
+        // Show view
+        function showView(view) {
+            currentView = view;
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('portView').style.display = view === 'ports' ? 'grid' : 'none';
+            document.getElementById('projectView').style.display = view === 'projects' ? 'grid' : 'none';
+            document.getElementById('serviceView').style.display = view === 'services' ? 'grid' : 'none';
+            document.getElementById('chartView').style.display = view === 'chart' ? 'block' : 'none';
+            
+            renderCurrentView();
+        }
+
+        // Render current view
+        function renderCurrentView() {
+            switch (currentView) {
+                case 'ports':
+                    renderPortView();
+                    break;
+                case 'projects':
+                    renderProjectView();
+                    break;
+                case 'services':
+                    renderServiceView();
+                    break;
+                case 'chart':
+                    renderChartView();
+                    break;
+            }
+        }
+
+        // Render port view
+        function renderPortView() {
+            const container = document.getElementById('portView');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const serviceFilter = document.getElementById('serviceFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            let filteredPorts = portData.ports.filter(port => {
+                const matchesSearch = !searchTerm || 
+                    port.port.toString().includes(searchTerm) ||
+                    port.service.toLowerCase().includes(searchTerm) ||
+                    (port.project && port.project.toLowerCase().includes(searchTerm));
+                
+                const matchesService = !serviceFilter || port.service === serviceFilter;
+                
+                return matchesSearch && matchesService;
+            });
+            
+            // Sort ports
+            filteredPorts.sort((a, b) => {
+                switch (sortBy) {
+                    case 'port':
+                        return a.port - b.port;
+                    case 'service':
+                        return a.service.localeCompare(b.service);
+                    case 'cpu':
+                        return parseFloat(b.process?.cpu || 0) - parseFloat(a.process?.cpu || 0);
+                    case 'memory':
+                        return parseFloat(b.process?.mem || 0) - parseFloat(a.process?.mem || 0);
+                    default:
+                        return a.port - b.port;
+                }
+            });
+            
+            container.innerHTML = filteredPorts.map(port => `
+                <div class="port-card">
+                    <div class="port-header">
+                        <div class="port-number">${port.port}</div>
+                        <div class="port-status">
+                            <div class="status-dot"></div>
+                            <span>Active</span>
+                        </div>
+                    </div>
+                    <div class="service-type">${port.service}</div>
+                    ${port.process ? `
+                        <div class="process-info">
+                            <strong>${port.process.name}</strong> (PID: ${port.process.pid})
+                        </div>
+                        <div class="process-info" style="font-size: 0.8rem; word-break: break-all;">
+                            ${port.process.command}
+                        </div>
+                        <div class="resource-usage">
+                            <div class="resource-item">
+                                <span>💻</span>
+                                <span>CPU: ${port.process.cpu}%</span>
+                            </div>
+                            <div class="resource-item">
+                                <span>🧠</span>
+                                <span>MEM: ${port.process.mem}%</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${port.project ? `
+                        <div class="project-info">
+                            📁 Project: <strong>${port.project}</strong>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+            
+            if (filteredPorts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <p>No ports found matching your criteria</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render project view
+        function renderProjectView() {
+            const container = document.getElementById('projectView');
+            const projects = {};
+            
+            // Group ports by project
+            portData.ports.forEach(port => {
+                if (port.project) {
+                    if (!projects[port.project]) {
+                        projects[port.project] = {
+                            name: port.project,
+                            path: port.projectPath,
+                            ports: []
+                        };
+                    }
+                    projects[port.project].ports.push(port);
+                }
+            });
+            
+            // Add managed projects
+            portData.managedProjects.forEach(project => {
+                const name = project.projectName;
+                if (!projects[name]) {
+                    projects[name] = {
+                        name: name,
+                        path: project.projectPath,
+                        type: project.projectType,
+                        ports: []
+                    };
+                }
+                projects[name].type = project.projectType;
+                projects[name].lastUsed = project.lastUsed;
+            });
+            
+            const projectArray = Object.values(projects);
+            
+            container.innerHTML = projectArray.map(project => `
+                <div class="project-card">
+                    <div class="project-name">${project.name}</div>
+                    ${project.type ? `<div class="process-info">Type: ${project.type}</div>` : ''}
+                    ${project.path ? `<div class="process-info" style="font-size: 0.8rem;">Path: ${project.path}</div>` : ''}
+                    ${project.lastUsed ? `<div class="process-info">Last used: ${new Date(project.lastUsed).toLocaleString()}</div>` : ''}
+                    <div class="project-ports">
+                        ${project.ports.map(port => `
+                            <div class="port-badge">
+                                <span class="port-badge-number">${port.port}</span>
+                                <span>${port.service}</span>
+                                ${port.process ? `<span>(${port.process.cpu}% CPU)</span>` : ''}
+                            </div>
+                        `).join('')}
+                        ${project.ports.length === 0 ? '<div class="process-info">No active ports</div>' : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            if (projectArray.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📁</div>
+                        <p>No managed projects found</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render service view
+        function renderServiceView() {
+            const container = document.getElementById('serviceView');
+            const services = {};
+            
+            // Group ports by service
+            portData.ports.forEach(port => {
+                if (!services[port.service]) {
+                    services[port.service] = [];
+                }
+                services[port.service].push(port);
+            });
+            
+            container.innerHTML = Object.entries(services).map(([service, ports]) => `
+                <div class="project-card">
+                    <div class="project-name">${service}</div>
+                    <div class="process-info">${ports.length} port${ports.length > 1 ? 's' : ''} active</div>
+                    <div class="project-ports">
+                        ${ports.map(port => `
+                            <div class="port-badge">
+                                <span class="port-badge-number">${port.port}</span>
+                                ${port.project ? `<span>${port.project}</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render chart view
+        function renderChartView() {
+            const ctx = document.getElementById('portChart').getContext('2d');
+            
+            // Prepare data
+            const services = {};
+            portData.ports.forEach(port => {
+                services[port.service] = (services[port.service] || 0) + 1;
+            });
+            
+            if (chart) {
+                chart.destroy();
+            }
+            
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(services),
+                    datasets: [{
+                        label: 'Ports by Service',
+                        data: Object.values(services),
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#8b5cf6',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#06b6d4',
+                            '#ec4899',
+                            '#84cc16',
+                            '#f97316',
+                            '#6366f1'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#ffffff',
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', renderCurrentView);
+        document.getElementById('serviceFilter').addEventListener('change', renderCurrentView);
+        document.getElementById('sortBy').addEventListener('change', renderCurrentView);
+
+        // Initialize
+        createParticles();
+    </script>
+    <script>
+        // Port data
+        const PORT_DATA_PLACEHOLDER = 
+        
+{
+  "scanTime": "2025-08-01T22:51:12.000Z",
+  "hostname": "Leonardos-MacBook-Pro.local",
+  "ports": [
+    {"port": 1420, "service": "Unknown", "process": {"pid": 77887, "name": "node", "command": "node /Users/lech/LocalBrain_v0.1/apps/desktop/node_modules/.bin/../vite/bin/vite.js", "user": "lech", "cpu": "  0.0", "mem": " 0.5"}, "project": "", "projectPath": ""},
+    {"port": 2968, "service": "Unknown", "process": {"pid": 758, "name": "/Applications/Epson Software/Event Manager.app/Contents/Resources/Assistants/Event Manager/EEventManager.app/Contents/MacOS/EEventManager", "command": "/Applications/Epson Software/Event Manager.app/Contents/Resources/Assistants/Event Manager/EEventMan", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 4444, "service": "Backend Server", "process": {"pid": 77509, "name": "/opt/homebrew/Cellar/node/24.3.0/bin/node", "command": "/opt/homebrew/Cellar/node/24.3.0/bin/node --require /Users/lech/PROJECT_lechworld/node_modules/tsx/d", "user": "lech", "cpu": "  0.0", "mem": " 0.3"}, "project": "PROJECT_lechworld", "projectPath": "/Users/lech/PROJECT_lechworld"},
+    {"port": 4445, "service": "Frontend Server", "process": {"pid": 66466, "name": "node", "command": "node /Users/lech/PROJECT_lechworld/client/node_modules/.bin/vite", "user": "lech", "cpu": "  0.0", "mem": " 0.5"}, "project": "PROJECT_lechworld", "projectPath": "/Users/lech/PROJECT_lechworld"},
+    {"port": 5000, "service": "Flask/macOS", "process": {"pid": 631, "name": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter", "command": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter", "user": "lech", "cpu": "  0.0", "mem": " 0.3"}, "project": "", "projectPath": ""},
+    {"port": 5432, "service": "PostgreSQL", "process": {"pid": 13977, "name": "/opt/homebrew/opt/postgresql@16/bin/postgres", "command": "/opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 5556, "service": "Unknown", "process": {"pid": 4795, "name": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python", "command": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.a", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 7000, "service": "Unknown", "process": {"pid": 631, "name": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter", "command": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter", "user": "lech", "cpu": "  0.0", "mem": " 0.3"}, "project": "", "projectPath": ""},
+    {"port": 8000, "service": "Django/Python", "process": {"pid": 5722, "name": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python", "command": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.a", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 8080, "service": "HTTP Alt/Tomcat", "process": {"pid": 45362, "name": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python", "command": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.a", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 11434, "service": "Unknown", "process": {"pid": 823, "name": "/opt/homebrew/opt/ollama/bin/ollama", "command": "/opt/homebrew/opt/ollama/bin/ollama serve", "user": "lech", "cpu": "  0.0", "mem": " 0.0"}, "project": "", "projectPath": ""},
+    {"port": 35320, "service": "Unknown", "process": {"pid": 876, "name": "/Applications/Tailscale.app/Contents/PlugIns/IPNExtension.appex/Contents/MacOS/IPNExtension", "command": "/Applications/Tailscale.app/Contents/PlugIns/IPNExtension.appex/Contents/MacOS/IPNExtension -AppleLa", "user": "lech", "cpu": "  0.0", "mem": " 0.2"}, "project": "", "projectPath": ""},
+    {"port": 49160, "service": "Unknown", "process": {"pid": 851, "name": "/Applications/Tailscale.app/Contents/MacOS/Tailscale", "command": "/Applications/Tailscale.app/Contents/MacOS/Tailscale", "user": "lech", "cpu": "  0.0", "mem": " 0.1"}, "project": "", "projectPath": ""},
+    {"port": 50956, "service": "Unknown", "process": {"pid": 876, "name": "/Applications/Tailscale.app/Contents/PlugIns/IPNExtension.appex/Contents/MacOS/IPNExtension", "command": "/Applications/Tailscale.app/Contents/PlugIns/IPNExtension.appex/Contents/MacOS/IPNExtension -AppleLa", "user": "lech", "cpu": "  0.0", "mem": " 0.2"}, "project": "", "projectPath": ""},
+    {"port": 54905, "service": "Unknown", "process": {"pid": 690, "name": "/usr/libexec/rapportd", "command": "/usr/libexec/rapportd", "user": "lech", "cpu": "  0.0", "mem": " 0.1"}, "project": "", "projectPath": ""}
+  ],
+  "managedProjects": [
+{
+  "port": 4444,
+  "frontendPort": 4445,
+  "managedBy": "Universal Localhost Manager",
+  "projectType": "vite",
+  "createdAt": "2025-08-01T23:45:00.000Z",
+  "locked": true,
+  "ports": {
+    "backend": 4444,
+    "frontend": 4445
+  },
+  "projectName": "PROJECT_lechworld",
+  "projectPath": "/Users/lech/PROJECT_lechworld"
+}
+
+  ]
+}
+;
+        loadPortData();
+    </script>
+</body>
+</html>
